@@ -5,6 +5,7 @@ body {
 .top-bar-wrapper {
   position:relative;
   z-index:1;
+  min-width:960px;
 }
 
 #top-banner {
@@ -43,6 +44,14 @@ body {
   top:35px;
 }
 
+.navbar-nav > li {
+  display:inline-block;
+}
+
+.nav .navbar-nav {
+  white-space:nowrap;
+}
+
 .navbar-nav > li > a {
   padding-top:10px;
   padding-bottom:10px;
@@ -50,10 +59,12 @@ body {
 
 .navbar {
   min-height:10px;
+  min-width:960px;
   float: top;
 	background-color: grey;
 	text-align: center;
   margin-bottom:0px;
+
 }
 
 .navbar .navbar-nav {
@@ -103,5 +114,5 @@ body {
   background-color:white;
   height:1000px;
   width:925px;
-  margin:10px auto 10px auto;
+  margin:10px auto;
 }
