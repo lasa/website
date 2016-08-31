@@ -1,12 +1,59 @@
-#top-bar-wrapper {
+body {
+  background-color:#D1D1D1;
+}
+
+.top-bar-wrapper {
+  position:relative;
+  z-index:1;
+}
+
+#top-banner {
 	width: 100%;
 	background-color: #7C00CC;
-	height: 200px;
+	height: 135px;
+  position:relative;
+  z-index:0;
+}
+
+#logo {
+  width:150px;
+  position:absolute;
+  top:10px;
+  z-index:2
+}
+
+#logo-wrapper {
+  width:880px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#title-text-wrapper {
+  margin:auto;
+  width:557px;
+  height:100%;
+}
+
+.title-text {
+  color:white;
+  font-size:35px;
+  font-family: Trebuchet MS;
+  font-style: bold;
+  position:absolute;
+  top:35px;
+}
+
+.navbar-nav > li > a {
+  padding-top:10px;
+  padding-bottom:10px;
 }
 
 .navbar {
+  min-height:10px;
+  float: top;
 	background-color: grey;
 	text-align: center;
+  margin-bottom:0px;
 }
 
 .navbar .navbar-nav {
@@ -50,4 +97,11 @@
 
 .navbar a {
 	color:white;
+}
+
+.body-column {
+  background-color:white;
+  height:1000px;
+  width:925px;
+  margin:10px auto 10px auto;
 }
