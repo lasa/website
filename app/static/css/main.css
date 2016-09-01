@@ -29,28 +29,40 @@ body {
   margin-right:auto;
 }
 
-#title-text-wrapper {
+#header-wrapper {
   margin:auto;
   width:557px;
   height:100%;
   position:relative;
+  z-index:0;
 }
+
 
 #jaguar {
   position:absolute;
   bottom:-15px;
   right:-130px;
-  z-index:0;
+  z-index:-1;
+}
+
+#title-text-wrapper {
+  float:left;
+  display:inline-block !important;
+  text-align:center;
+  padding-top:28px;
+  width:91%;
 }
 
 .title-text {
   color:white;
   font-size:35px;
   font-family: Trebuchet MS;
-  font-style: bold;
-  position:absolute;
-  top:35px;
-  z-index:1;
+}
+
+.subtitle-text {
+  font-family: Cursive;
+  font-size:20px;
+  color:white;
 }
 
 .navbar-nav > li {
