@@ -46,11 +46,9 @@ body {
 }
 
 #title-text-wrapper {
-  float:left;
-  display:inline-block !important;
   text-align:center;
   padding-top:28px;
-  width:91%;
+  width:100%;
 }
 
 .title-text {
