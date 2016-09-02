@@ -54,7 +54,7 @@ body {
 .title-text {
   color:white;
   font-size:35px;
-  font-family: Trebuchet MS;
+  font-family: Trebuchet MS, Liberation Sans, sans-serif;
 }
 
 .subtitle-text {
