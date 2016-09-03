@@ -54,7 +54,8 @@ otherwise), and passwords are not intended to be publicly available
 and thus may not be used for any purpose.
 - Files relating to mascots/logos of LASA High School or Austin ISD
 may be covered under a seperate license. Please obtain advanced
-written permission from the appropriate entity before using.
+written permission from the appropriate entity before using them for
+any purpose.
 
 ## Authors
 Harrison Tran, Kevin Black, Ojas Ahuja
