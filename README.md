@@ -8,13 +8,13 @@ list of dependencies is available in requirements.txt.
 
 ## Installation
 ### Virtual environment setup
-It is recommended to run everything inside a python virtual
-##environment (venv). This can be done by running the command `python
-##-m venv flask`.
+
+Run everything inside a python virtual environment (venv):  `python -m
+venv flask`. 
 
 ### Package installation
-`flask/bin/pip3 install -r requirements.txt` should install all
-necessary packages.
+Install all necessary packages: `flask/bin/pip3 install -r
+requirements.txt`
 
 ### Database setup
 In order to get database file with the correct columns and records, it
