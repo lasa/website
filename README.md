@@ -52,6 +52,9 @@ license](https://creativecommons.org/publicdomain/zero/1.0/).
 - All database-related files, secret keys (for cryptographic purposes or
 otherwise), and passwords are not intended to be publicly available
 and thus may not be used for any purpose.
+- Files relating to mascots/logos of LASA High School or Austin ISD
+may be covered under a seperate license. Please obtain advanced
+written permission from the appropriate entity before using.
 
 ## Authors
 Harrison Tran, Kevin Black, Ojas Ahuja
