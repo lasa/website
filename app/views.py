@@ -13,11 +13,6 @@ def history():
     return render_template("history.html")
 
 
-@app.route('/signup/', methods=['GET', 'POST'])
-def signup():
-    return login_signup.signup()
-
-
 @app.route("/login/", methods=["GET", "POST"])
 def login():
     return login_signup.login()
