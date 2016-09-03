@@ -18,7 +18,6 @@ class User(db.Model):
     name = db.Column('name', db.String(user_limits['name']), index=True, unique=True)
     email = db.Column('email', db.String(user_limits['email']), index=True, unique=True)
     password = db.Column('password', db.String(255))
-    posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __init__(self, name, password, email):
         self.name = name
@@ -46,7 +45,6 @@ class Post(db.Model):
     title = db.Column(db.String(post_limits['title']))
     body = db.Column(db.String(post_limits['body']))
     timestamp = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<Post %r>' % (self.body)
