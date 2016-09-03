@@ -2,18 +2,23 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<h1>Login</h1>
+<div class="form-label">Log in</div>
+<br/>
+<div>
+	<form method="post">
 
-<form method="post">
+		{{form.username.label}} <br/>
+		{{form.username()|safe}} <br/>
+		<div class="error">{{form.username.errors[0]}}</div> 
+		
+		{{form.password.label}} <br/>
+		{{form.password()|safe}} <br/>
+		<div class="error">{{form.password.errors[0]}}</div> 
+		
 
-	<dl>
-    {{ render_field(form.username) }}
-    {{ render_field(form.password) }}
-  	</dl>
+		<input type="submit" value="Log in" class="submit-btn">
 
-
-	<p><input type="submit"></p>
-
-</form>
+	</form>
+</div>
 
 {% endblock %}

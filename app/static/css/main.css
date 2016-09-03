@@ -247,3 +247,32 @@ iframe {
   overflow-x:hidden;
   overflow-y:hidden;
 }
+
+/* Login/Form submission */
+
+.form-label {
+  font-size:32px;
+  clear:both;
+  width:30%;
+  border-bottom:1px solid #A8A6A6;
+
+}
+
+.error {
+  color:red;
+}
+
+.submit-btn {
+  border : solid 2px #787878;
+  border-radius : 3px;
+  moz-border-radius : 3px;
+  font-size : 14px;
+  color : #f5f5f5;
+  padding : 1px 10px 2px;
+  background-color : #9D46DB;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #A269CE;
+}
