@@ -22,6 +22,7 @@ necessary packages.
 ### Database setup
 In order to get database file with the correct columns and records, it
 is necessary to run the following scripts:
+
 1. Create a new SQLite database: `./db_create.py`
 
 2. Migrate the existing database models: `./db_migrate.py`
@@ -29,6 +30,7 @@ is necessary to run the following scripts:
 In the future there will likely be a script that will create and
 populate the database with some default data. In the meantime, it is
 possible to manually setup the database:
+
 1. Start python: `flask/bin/python`
 
 2. Import a SQLite interface and (among other things) the User class:
