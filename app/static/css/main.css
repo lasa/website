@@ -84,6 +84,7 @@ body {
 	text-align: center;
   margin-bottom:0px;
   border-radius:0px;
+  transition: all 0.5s ease;
 
 }
 
@@ -119,7 +120,12 @@ body {
 }
 
 .dropdown:hover .dropdown-toggle{
-	background-color: #777777;
+	background-color: #777;
+  transition: all 0.5s ease;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+  background-color:inherit;
 }
 
 .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
@@ -128,6 +134,10 @@ body {
 
 .navbar a {
 	color:white;
+}
+
+#home-button {
+  background-color:#777;
 }
 
 .body-column {
