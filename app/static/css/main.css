@@ -149,6 +149,24 @@ hr {
 }
 
 /* Body */
+.notification-bar {
+  width:925px;
+  margin:10px auto;
+}
+.notification-bar > .alert {
+  border-radius:0;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.alert-success {
+  color:#402b54;
+  background-color:#d7d7ef;
+  border-color: #c8c8ea;
+}
+
+.alert-success .alert-link {
+  color:#402b54;
+}
 
 .body-column {
   background-color:white;
