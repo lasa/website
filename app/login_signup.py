@@ -11,8 +11,8 @@ import bcrypt, hmac
 
     
 class LoginForm(Form):
-    username = StringField('Username:', validators=[validators.Length(min=4,max=16)])
-    password = PasswordField('Password', [
+    username = StringField('Username:', validators=[validators.DataRequired(), validators.Length(min=4,max=16)])
+    password = PasswordField('Password:', [
         validators.DataRequired(),
         validators.Length(min=8,max=25)
     ])
@@ -36,13 +36,15 @@ def login():
         candidate_password = form.password.data
         real_user = User.query.filter_by(name=candidate_username).first().id
         if real_user is None:
-            return render_template("login.html", form=form, login_error="Incorrect user")
+            form.username.errors.append("Username does not exist.")
+            return render_template("login.html", form=form)
         else:
             if check_password(candidate_password, User.query.get(real_user).password):
                 login_user(User.query.get(real_user))
                 return redirect("/")
             else:
-                return render_template("login.html", form=form, login_error="Incorrect password")
+                form.username.errors.append("Username and password do not match.")
+                return render_template("login.html", form=form)
     return render_template("login.html", form=form)
 
 def logout():
