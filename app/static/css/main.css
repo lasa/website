@@ -1,7 +1,14 @@
+/* Overall Website Look n' Feel */
+
 body {
   background-color:#F7F7F7;
 }
 
+hr {
+  border-color:#ccc;
+}
+
+/* Top Bar and Navbar Content */
 .top-bar-wrapper {
   position:relative;
   z-index:1;
@@ -53,8 +60,9 @@ body {
 
 .title-text {
   color:white;
-  font-size:35px;
-  font-family: Trebuchet MS, Liberation Sans, sans-serif;
+  font-size:2.5em;
+  font-family: "Trebuchet MS", "Liberation Sans", sans-serif;
+  font-variant:small-caps;
 }
 
 .subtitle-text {
@@ -84,6 +92,7 @@ body {
 	text-align: center;
   margin-bottom:0px;
   border-radius:0px;
+  transition: all 0.5s ease;
 
 }
 
@@ -119,7 +128,12 @@ body {
 }
 
 .dropdown:hover .dropdown-toggle{
-	background-color: #777777;
+	background-color: #777;
+  transition: all 0.5s ease;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+  background-color:inherit;
 }
 
 .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
@@ -130,11 +144,56 @@ body {
 	color:white;
 }
 
+#home-button {
+  background-color:#777;
+}
+
+/* Body */
+.notification-bar {
+  width:925px;
+  margin:10px auto;
+}
+.notification-bar > .alert {
+  border-radius:0;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.alert-success {
+  color:#402b54;
+  background-color:#d7d7ef;
+  border-color: #c8c8ea;
+}
+
+.alert-success .alert-link {
+  color:#402b54;
+}
+
 .body-column {
   background-color:white;
   height:1000px;
   width:925px;
   margin:10px auto;
+  padding:1em;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.external-links {
+  width:925px;
+  margin:10px auto;
+}
+
+.panel-group .panel {
+  border-radius:0;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.panel-body {
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+.panel-group .panel-heading+.panel-collapse>.list-group, .panel-group .panel-heading+.panel-collapse>.panel-body {
+  border-top-color:#e6e6e6;
 }
 
 .footer {
@@ -142,9 +201,44 @@ body {
   width:925px;
   margin:10px auto;
   padding:2em;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 
+#footer-contact-title {
+  font-size:1em;
+  font-weight:lighter;
+  color:#aaa;
+  font-variant:small-caps;
+}
 
+.footer-contact-head {
+  font-size:1.1em;
+  color:#888;
+  text-transform: uppercase;
+}
+
+.footer-contact-subhead {
+  font-size:0.9em;
+  color:#888;
+  text-transform: uppercase;
+}
+
+.footer-contact-main {
+  font-size:1.5em;
+  color:#444;
+}
+
+.footer-contact-secondary {
+  font-size:1.2em;
+}
+
+.dotted-rule {
+  border-top:dotted 1px #ccc;
+}
+
+#copyright {
+  color:#bbb;
+}
 iframe {
   overflow:hidden;
   overflow-x:hidden;
