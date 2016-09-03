@@ -5,6 +5,7 @@ from wtforms import validators, StringField, PasswordField
 from wtforms.validators import DataRequired
 import bcrypt, hmac
 
+
 class SignupForm(Form):
     username = StringField('Username:', validators=[validators.Length(min=4,max=25)])
     password = PasswordField('Password', [
@@ -14,6 +15,7 @@ class SignupForm(Form):
     ])
     confirm = PasswordField("Confirm Password")
 
+    
 class LoginForm(Form):
     username = StringField('Username:', validators=[validators.Length(min=4,max=25)])
     password = PasswordField('Password', [
@@ -32,7 +34,6 @@ def check_password(candidate_password, pwhash):
     else:
         return False
 
-@app.route("/signup/", methods=["GET", "POST"])
 def signup():
     form = SignupForm()
     if form.validate_on_submit():
@@ -40,7 +41,7 @@ def signup():
         return redirect("/login/")
     return render_template("signup.html", form=form)
 
-@app.route("/login/", methods=["GET", "POST"])
+
 def login():
     form = LoginForm()
     if form.validate_on_submit():
