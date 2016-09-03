@@ -1,3 +1,7 @@
+# database
+*.db
+db_repository/
+
 # ini files
 *.ini
 
