@@ -14,7 +14,7 @@
     <link href="{{ url_for('static', filename='css/main.css') }}" rel=stylesheet></link>
     <link rel='shortcut icon' href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon"/ >
   </head>
-  <body>
+  <body style="background-image:url({{ url_for('static', filename='images/lowpolybg.jpg') }})">
     
     <div class="top-bar-wrapper">
       <div id="top-banner">
@@ -90,7 +90,7 @@
       {% block body %} {% endblock %}
     </div>
     <div class="footer">
-      Test
+      Copyright © 2016 Liberal Arts and Science Academy
     </div>
   </body>
 </html>

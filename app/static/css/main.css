@@ -1,7 +1,14 @@
+/* Overall Website Look n' Feel */
+
 body {
   background-color:#F7F7F7;
 }
 
+hr {
+  border-color:#ccc;
+}
+
+/* Top Bar and Navbar Content */
 .top-bar-wrapper {
   position:relative;
   z-index:1;
@@ -53,8 +60,9 @@ body {
 
 .title-text {
   color:white;
-  font-size:35px;
-  font-family: Trebuchet MS, Liberation Sans, sans-serif;
+  font-size:2.5em;
+  font-family: "Trebuchet MS", "Liberation Sans", sans-serif;
+  font-variant:small-caps;
 }
 
 .subtitle-text {
@@ -140,11 +148,15 @@ body {
   background-color:#777;
 }
 
+/* Body */
+
 .body-column {
   background-color:white;
   height:1000px;
   width:925px;
   margin:10px auto;
+  padding:1em;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 
 .footer {
@@ -152,6 +164,7 @@ body {
   width:925px;
   margin:10px auto;
   padding:2em;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 
 
