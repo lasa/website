@@ -71,6 +71,9 @@ hr {
   color:white;
 }
 
+.container-fluid {
+  box-shadow:0px 2px 4px rgba(0,0,0,0.4);
+}
 .navbar-nav > li {
   display:inline-block;
 }
@@ -170,7 +173,7 @@ hr {
 
 .body-column {
   background-color:white;
-  height:1000px;
+  min-height:1000px;
   width:925px;
   margin:10px auto;
   padding:1em;
