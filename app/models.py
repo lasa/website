@@ -15,15 +15,15 @@ page_limits = {'title': 1000,
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(user_limits['name']), index=True, unique=True)
-    email = db.Column(db.String(user_limits['email']), index=True, unique=True)
-    password = db.Column(db.String(255))
+    name = db.Column('name', db.String(user_limits['name']), index=True, unique=True)
+    email = db.Column('email', db.String(user_limits['email']), index=True, unique=True)
+    password = db.Column('password', db.String(255))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __init__(self, name, password, email):
         self.name = name
-        self.password = password
         self.email = email
+        self.password = password
 
     def is_authenticated(self):
         return True
