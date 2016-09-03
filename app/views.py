@@ -16,11 +16,11 @@ def history():
 
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
-    login_signup.signup()
+    return login_signup.signup()
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
-    login_signup.login()
+    return login_signup.login()
 
 @login_manager.user_loader
 def load_user(id):
