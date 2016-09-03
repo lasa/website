@@ -3,3 +3,4 @@ Flask-SQLAlchemy==2.1
 sqlalchemy-migrate==0.10
 flask-wtf==0.12
 flask-login==0.3.2
+bcrypt==2.0.0

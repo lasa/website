@@ -3,6 +3,7 @@ from flask import render_template, redirect
 from flask_wtf import Form
 from wtforms import validators, StringField, PasswordField
 from wtforms.validators import DataRequired
+import bcrypt, hmac
 
 class SignupForm(Form):
     username = StringField('Username:', validators=[validators.Length(min=4,max=25)])
@@ -21,6 +22,16 @@ class LoginForm(Form):
     ])
 
 
+def generate_hash(password):
+    hashed = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+    return hashed
+
+def check_password(candidate_password, pwhash):
+    if (hmac.compare_digest(bcrypt.hashpw(candidate_password.encode("utf-8"), pwhash), pwhash)):
+        return True
+    else:
+        return False
+
 @app.route("/signup/", methods=["GET", "POST"])
 def signup():
     form = SignupForm()
@@ -33,6 +44,8 @@ def signup():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        print(form.username.data + " " + form.password.data)
+        password = generate_hash("hello123") #replace this with getting hashed PW from database
+        candidate = form.password.data
+        print(check_password(candidate, password)) #replace this with using flask-login to login user if check_password is True
         return redirect("/")
     return render_template("login.html", form=form)
