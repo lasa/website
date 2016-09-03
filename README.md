@@ -3,17 +3,14 @@ A replacement for the current [LASA High School
 website](http://www.lasahighschool.com).
 
 ## Dependencies
-The project uses the [flask framework](http://flask.pocoo.org) for
-python. The comprehensive list of dependencies is available in
-requirements.txt.
+The project uses the flask framework for python. The comprehensive
+list of dependencies is available in requirements.txt.
 
 ## Installation
 ### Virtual environment setup
-It is recommended to run everything inside a [python virtual
-environment
-("venv")](https://docs.python.org/3/library/venv.html). This can be
-done by running the command `python -m venv flask`. A new folder named
-"flask" should appear in the directory in which you ran the command.
+It is recommended to run everything inside a python virtual
+##environment (venv). This can be done by running the command `python
+##-m venv flask`.
 
 ### Package installation
 `flask/bin/pip3 install -r requirements.txt` should install all
