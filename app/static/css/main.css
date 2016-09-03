@@ -159,6 +159,16 @@ hr {
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 
+.external-links {
+  width:925px;
+  margin:10px auto;
+}
+
+.panel-group .panel {
+  border-radius:0;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
 .footer {
   background-color:white;
   width:925px;
