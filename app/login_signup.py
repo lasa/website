@@ -1,23 +1,17 @@
 from app import app
-from flask import render_template, redirect
+from app.models import User
+from flask import Flask, session, request, flash, url_for, redirect, \
+    render_template, abort, g
+from flask.ext.login import login_user, logout_user, current_user, \
+    login_required
 from flask_wtf import Form
 from wtforms import validators, StringField, PasswordField
 from wtforms.validators import DataRequired
 import bcrypt, hmac
 
-
-class SignupForm(Form):
-    username = StringField('Username:', validators=[validators.Length(min=4,max=25)])
-    password = PasswordField('Password', [
-        validators.DataRequired(),
-        validators.Length(min=8,max=25),
-        validators.EqualTo('confirm', message='Passwords must match')
-    ])
-    confirm = PasswordField("Confirm Password")
-
     
 class LoginForm(Form):
-    username = StringField('Username:', validators=[validators.Length(min=4,max=25)])
+    username = StringField('Username:', validators=[validators.Length(min=4,max=16)])
     password = PasswordField('Password', [
         validators.DataRequired(),
         validators.Length(min=8,max=25)
@@ -34,19 +28,23 @@ def check_password(candidate_password, pwhash):
     else:
         return False
 
-def signup():
-    form = SignupForm()
-    if form.validate_on_submit():
-        print(form.username.data + " " + form.password.data)
-        return redirect("/login/")
-    return render_template("signup.html", form=form)
-
 
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        password = generate_hash("hello123") #replace this with getting hashed PW from database
-        candidate = form.password.data
-        print(check_password(candidate, password)) #replace this with using flask-login to login user if check_password is True
-        return redirect("/")
+        candidate_username = form.username.data
+        candidate_password = form.password.data
+        real_user = User.query.filter_by(name=candidate_username).first().id
+        if real_user is None:
+            return render_template("login.html", form=form, login_error="Incorrect user")
+        else:
+            if check_password(candidate_password, User.query.get(real_user).password):
+                login_user(User.query.get(real_user))
+                return redirect("/")
+            else:
+                return render_template("login.html", form=form, login_error="Incorrect password")
     return render_template("login.html", form=form)
+
+def logout():
+    logout_user()
+    return redirect("/")
