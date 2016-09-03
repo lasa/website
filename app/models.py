@@ -13,11 +13,29 @@ page_limits = {'title': 1000,
 
 
 class User(db.Model):
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(user_limits['name']), index=True, unique=True)
     email = db.Column(db.String(user_limits['email']), index=True, unique=True)
     password = db.Column(db.String(255))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+
+    def __init__(self, name, password, email):
+        self.name = name
+        self.password = password
+        self.email = email
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
 
     def __repr__(self):
         return '<User %r>' % (self.name)
