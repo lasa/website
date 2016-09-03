@@ -12,6 +12,10 @@ def index():
 def history():
     return render_template("history.html")
 
+@app.route('/profile/')
+def profile():
+    return render_template("profile.html")
+
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
