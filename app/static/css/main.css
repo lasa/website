@@ -8,6 +8,10 @@ hr {
   border-color:#ccc;
 }
 
+h5 {
+  font-weight:bolder;
+}
+
 /* Top Bar and Navbar Content */
 .top-bar-wrapper {
   position:relative;
@@ -271,4 +275,16 @@ iframe {
 
 .submit-btn:hover {
   background-color: #A269CE;
+}
+
+#fast-facts td {
+  padding:1em;
+}
+#fast-facts tr:hover {
+  background-color:#eee;
+}
+.rowhead {
+  font-weight:bolder;
+  color:#7d6aba;
+  border-right:1px dotted #b09dee;
 }
