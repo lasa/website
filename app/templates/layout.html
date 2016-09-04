@@ -17,163 +17,166 @@
   </head>
   <body style="background-image:url({{ url_for('static', filename='images/lowpolybg.jpg') }})">
     
-    <div class="top-bar-wrapper">
-      <div id="top-banner">
-        <div id="header-wrapper">
-          <div id="title-text-wrapper">
-            <span class="title-text">Liberal Arts and Science Academy</span> <br/>
-            <span class="subtitle-text">Nurturing Innovation and Curiosity</span>
-          </div>
-          <img id="jaguar" src="{{ url_for('static', filename='images/jaguar.png') }}"/>
-        </div>
-      </div>
-      
-      <div id="logo-wrapper">
-        <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
-      </div>
-      <nav class="navbar">
-        <div class="container-fluid">
-          <ul class="nav navbar-nav">
-            <li class="dropdown"><a class="dropdown-toggle" href="/"><span class="glyphicon glyphicon-home"></span></a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">About Us</a>
-              <ul class="dropdown-menu">
-                <li><a href="/profile">School Profile</a></li>
-                <li><a href="/history">School History</a></li>
-                <li><a href="/accolades">Accolades</a></li>
-                <li><a href="/mission">Mission and Vision</a></li>
-                <li class="divider"></li>
-                <li><a href="/contact">Contact</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">Academics</a>
-              <ul class="dropdown-menu">
-                <li><a href="/#">Academic Probation</a>
-                <li><a href="#">Bell Schedule</a></li>
-                <li><a href="#">College Counseling</a>
-                <li><a href="#">Course Guide</a>
-                <li><a href="#">Course FAQs</a>
-                <li><a href="#">Magnet Endorsement</a>
-                <li><a href="#">Student Honor Code</a>
-                <li class="divider"></li>
-                <li class="dropdown-header">Departments</li>
-                <li><a href="#">Computer Science</a></li>
-                <li><a href="#">Fine Arts</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">Students</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Clubs and Organizations</a></li>
-                <li><a href="#">Homeroom Schedule</a></li>
-                <li><a href="#">Parking Application</a></li>
-                <li><a href="#">Service Learning</a></li>
-                <li><a href="#">Student Handbook</a></li>
-                <li><a href="#">Student Ranking</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">Parents</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">FAQs</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">PFLASA</li>
-                <li><a href="#">PFLASA</a></li>
-                <li><a href="#">PFLASA Forms</a></li>
-                <li><a href="#">PFLASA Meetings</a></li>
-                <li><a href="#">Support PFLASA</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Stay in Touch</li>
-                <li><a href="#">Campus Advisory Council</a></li>
-                <li><a href="#">Lots of LASA</a></li>
-                <li><a href="#">PFLASA Stay Connected</a></li>
-                <li class="divider"></li>
-                <li><a href="#">PTSA</a></li>
-                <li><a href="#">Transporation</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">Faculty</a>
-              <ul class="dropdown-menu">
-                <li><a href="/administration">Administration</a></li>
-                <li><a href="/teachers">Teachers</a></li>
-                <li><a href="/staff">Staff</a></li>
-                <li><a href="/guidance">Guidance and Counseling</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Principal's Message</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">Admissions</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">How to Apply</a></li>
-                <li><a href="#">Recruitment Calendar</a></li>
-                <li><a href="#">Shadowing</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Course FAQs</a></li>
-                <li><a href="#">Signature Courses</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle"><span class="glyphicon glyphicon-calendar"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">A-B Rotation</a></li>
-                <li><a href="#">Bell Schedule</a></li>
-                <li class="divider"></li>
-                <li><a href="#">LASA Master Calendar</a></li>
-                <li><a href="#">Athletic Events</a></li>
-                <li><a href="#">LASA College Counselor Events</a></li>
-              </ul>
-            </li>
+    <!--Header here!-->
+    <header style="background-image:url({{ url_for('static', filename='images/logo.png') }})">
+      <h1 id="title-text">Liberal Arts and Science Academy</h1>
+      <h4 class="subtitle">Nuturing Innovation and Creativity</h4>
+    </header>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li><a href="/"><span class="glyphicon glyphicon-home"></span></a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">About Us</a>
+            <ul class="dropdown-menu">
+              <li><a href="/profile">School Profile</a></li>
+              <li><a href="/history">School History</a></li>
+              <li><a href="/accolades">Accolades</a></li>
+              <li><a href="/mission">Mission and Vision</a></li>
+              <li class="divider"></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Academics</a>
+            <ul class="dropdown-menu">
+              <li><a href="/#">Academic Probation</a>
+              <li><a href="#">Bell Schedule</a></li>
+              <li><a href="#">College Counseling</a>
+              <li><a href="#">Course Guide</a>
+              <li><a href="#">Course FAQs</a>
+              <li><a href="#">Magnet Endorsement</a>
+              <li><a href="#">Student Honor Code</a>
+              <li class="divider"></li>
+              <li class="dropdown-header">Departments</li>
+              <li><a href="#">Computer Science</a></li>
+              <li><a href="#">Fine Arts</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Students</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Clubs and Organizations</a></li>
+              <li><a href="#">Homeroom Schedule</a></li>
+              <li><a href="#">Parking Application</a></li>
+              <li><a href="#">Service Learning</a></li>
+              <li><a href="#">Student Handbook</a></li>
+              <li><a href="#">Student Ranking</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Parents</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">FAQs</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">PFLASA</li>
+              <li><a href="#">PFLASA</a></li>
+              <li><a href="#">PFLASA Forms</a></li>
+              <li><a href="#">PFLASA Meetings</a></li>
+              <li><a href="#">Support PFLASA</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Stay in Touch</li>
+              <li><a href="#">Campus Advisory Council</a></li>
+              <li><a href="#">Lots of LASA</a></li>
+              <li><a href="#">PFLASA Stay Connected</a></li>
+              <li class="divider"></li>
+              <li><a href="#">PTSA</a></li>
+              <li><a href="#">Transporation</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Faculty</a>
+            <ul class="dropdown-menu">
+              <li><a href="/administration">Administration</a></li>
+              <li><a href="/teachers">Teachers</a></li>
+              <li><a href="/staff">Staff</a></li>
+              <li><a href="/guidance">Guidance and Counseling</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Principal's Message</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admissions</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">How to Apply</a></li>
+              <li><a href="#">Recruitment Calendar</a></li>
+              <li><a href="#">Shadowing</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Course FAQs</a></li>
+              <li><a href="#">Signature Courses</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-calendar"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">A-B Rotation</a></li>
+              <li><a href="#">Bell Schedule</a></li>
+              <li class="divider"></li>
+              <li><a href="#">LASA Master Calendar</a></li>
+              <li><a href="#">Athletic Events</a></li>
+              <li><a href="#">LASA College Counselor Events</a></li>
+            </ul>
           </ul>
-        </div>
-      </nav>
-    </div>
-    <div class="notification-bar">
-      <div class="alert alert-success" role="alert">
-        <a href="#" class="alert-link">Notification placeholder</a>
-      </div>
-    </div>
-    <div class="body-column">
-      {% block body %} {% endblock %}
-    </div>
-    <div class="external-links">
-      <div class="panel-group">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h6 class="panel-title">
-            <a data-toggle="collapse" href="#collapse1">External Links</a>
-            </h6>
+          <ul class="nav navbar-nav navbar-right">
+            <form class="navbar-form" role="search">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default">
+                  <span class="glyphicon glyphicon-search">
+                    <span class="sr-only">Search...</span>
+                  </span>
+                  </button>
+                </span>
+              </div>
+            </form>
+          </nav>
+          <div class="content">
+            <div class="notification-bar">
+              <div class="alert alert-success" role="alert">
+                <a href="#" class="alert-link">Notification placeholder</a>
+              </div>
+            </div>
+            <div class="body-column">
+              {% block body %} {% endblock %}
+            </div>
+            <div class="external-links">
+              <div class="panel-group">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h6 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1">External Links</a>
+                    </h6>
+                  </div>
+                  <div id="collapse1" class="panel-collapse in">
+                    <div class="panel-body"><a href="https://my.austinisd.org/" target="_blank"><span class="glyphicon glyphicon-cloud"></span> AISD Cloud</a></div>
+                    <div class="panel-body"><a href="https://www.austinisd.org/technology/parents-guardians/student-registration" target="_blank"><span class="glyphicon glyphicon-pencil"></span> AISD Online Student Registration</div>
+                    <div class="panel-body"><a href="https://connection.naviance.com/family-connection/auth/login/?hsid=lasa" target="_blank"><span class="glyphicon glyphicon-signal"></span> LASA Naviance</a></div>
+                    <div class="panel-body"><a href="http://www.pflasa.org/" target="_blank"><a href="https://connection.naviance.com/family-connection/auth/login/?hsid=lasa" target="_blank"><span class="glyphicon glyphicon-user"></span> Parents and Friends of LASA (PFLASA)</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="footer">
+              <div class="row">
+                <div class="col-sm-6">
+                  <span id="footer-contact-title">The Liberal Arts and Science Academy</span><br><br>
+                  <span class="footer-contact-head">Main Office</span><br>
+                  <span class="footer-contact-main">(512) 414-5272</span><br>
+                  <span class="footer-contact-secondary">(512) 414-LASA</span><br>
+                  <span class="footer-contact-subhead">Fax</span><br>
+                  <span class="footer-contact-secondary">(512) 414-6050</span><br>
+                </div>
+                <div class="col-sm-6" style="text-align:right">
+                  <span class="footer-contact-head">Where to Find Us</span><br>
+                  <span class="footer-contact-secondary"><a href="https://www.google.com/maps/place/Liberal+Arts+and+Science+Academy/@30.3130486,-97.6588788,17z" target="_blank">7309 Lazy Creek Drive Suite 225, Austin, TX 78724</a></span><br>
+                  <hr class="dotted-rule">
+                  <span id="copyright">Copyright © 2016 Liberal Arts and Science Academy</span><br />
+                  <span id="copyright"><small><a href="mailto:fred.cutler@austinisd.org" target="_blank">Contact the Webmaster</a></small></span><br />
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lasa.us" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+              </div>
+            </div>
           </div>
-          <div id="collapse1" class="panel-collapse in">
-            <div class="panel-body"><a href="https://my.austinisd.org/" target="_blank"><span class="glyphicon glyphicon-cloud"></span> AISD Cloud</a></div>
-            <div class="panel-body"><a href="https://www.austinisd.org/technology/parents-guardians/student-registration" target="_blank"><span class="glyphicon glyphicon-pencil"></span> AISD Online Student Registration</div>
-            <div class="panel-body"><a href="https://connection.naviance.com/family-connection/auth/login/?hsid=lasa" target="_blank"><span class="glyphicon glyphicon-signal"></span> LASA Naviance</a></div>
-            <div class="panel-body"><a href="http://www.pflasa.org/" target="_blank"><a href="https://connection.naviance.com/family-connection/auth/login/?hsid=lasa" target="_blank"><span class="glyphicon glyphicon-user"></span> Parents and Friends of LASA (PFLASA)</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer">
-      <div class="row">
-        <div class="col-sm-6">
-          <span id="footer-contact-title">The Liberal Arts and Science Academy</span><br><br>
-          <span class="footer-contact-head">Main Office</span><br>
-          <span class="footer-contact-main">(512) 414-5272</span><br>
-          <span class="footer-contact-secondary">(512) 414-LASA</span><br>
-          <span class="footer-contact-subhead">Fax</span><br>
-          <span class="footer-contact-secondary">(512) 414-6050</span><br>
-        </div>
-        <div class="col-sm-6" style="text-align:right">
-          <span class="footer-contact-head">Where to Find Us</span><br>
-          <span class="footer-contact-secondary"><a href="https://www.google.com/maps/place/Liberal+Arts+and+Science+Academy/@30.3130486,-97.6588788,17z" target="_blank">7309 Lazy Creek Drive Suite 225, Austin, TX 78724</a></span><br>
-          <hr class="dotted-rule">
-          <span id="copyright">Copyright © 2016 Liberal Arts and Science Academy</span><br />
-          <span id="copyright"><small><a href="mailto:fred.cutler@austinisd.org" target="_blank">Contact the Webmaster</a></small></span><br />
-          <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lasa.us" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+        </body>
+      </html>
