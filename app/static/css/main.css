@@ -298,7 +298,7 @@ iframe {
 #fast-facts td {
   padding:1em;
 }
-#fast-facts tr:hover {
+tr:hover {
   background-color:#eee;
 }
 .rowhead {
@@ -315,4 +315,10 @@ iframe {
 }
 .leftinfo {
   border-right:1px dotted #aaa;
+}
+#gradetable th, #gradetable td {
+  padding:1em;
+}
+th {
+  color:#7d6aba;
 }
