@@ -30,20 +30,22 @@ def check_password(candidate_password, pwhash):
 
 
 def login():
+    if current_user.is_authenticated:
+        return redirect("/")
     form = LoginForm()
     if form.validate_on_submit():
         candidate_username = form.username.data
         candidate_password = form.password.data
-        real_user = User.query.filter_by(name=candidate_username).first().id
+        real_user = User.query.filter_by(name=candidate_username).first()
         if real_user is None:
             form.username.errors.append("Username does not exist.")
             return render_template("login.html", form=form)
         else:
-            if check_password(candidate_password, User.query.get(real_user).password):
-                login_user(User.query.get(real_user))
+            if check_password(candidate_password, real_user.password):
+                login_user(User.query.get(real_user.id))
                 return redirect("/")
             else:
-                form.username.errors.append("Username and password do not match.")
+                form.password.errors.append("Username and password do not match.")
                 return render_template("login.html", form=form)
     return render_template("login.html", form=form)
 
