@@ -30,29 +30,17 @@ h5 {
 #logo {
   width:150px;
   position:absolute;
+  left:50%;
+  margin-left:-440px;
   top:10px;
   z-index:2
 }
 
-#logo-wrapper {
-  width:880px;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-#header-wrapper {
-  margin:auto;
-  width:100%;
-  height:100%;
-  position:relative;
-  z-index:0;
-}
-
-
 #jaguar {
   position:absolute;
-  bottom:-15px;
-  right:130px;
+  bottom:-10px;
+  left:50%;
+  margin-left:240px;
   z-index:-1;
 }
 
@@ -60,6 +48,7 @@ h5 {
   text-align:center;
   padding-top:28px;
   width:100%;
+  z-index:2;
 }
 
 .title-text {
