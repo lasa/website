@@ -36,7 +36,11 @@ h5 {
   left:50%;
   margin-left:-440px;
   top:10px;
-  z-index:2
+  z-index:1;
+}
+
+#home-link {
+  z-index:2;
 }
 
 #jaguar {
@@ -77,6 +81,7 @@ h5 {
 
 .nav .navbar-nav {
   white-space:nowrap;
+  z-index:3;
 }
 
 .navbar-nav > li > a {
@@ -140,7 +145,7 @@ h5 {
   transition: background-color 0.25s ease-in-out;
 }
 
-.dropdown:hover .dropdown-toggle{
+.dropdown:hover{
 	background-color: #777;
   -webkit-transition: background-color 0.25s ease-in-out;
   -moz-transition: background-color 0.25s ease-in-out;
