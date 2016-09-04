@@ -112,6 +112,11 @@ h5 {
 .dropdown {
 	cursor:pointer;
 	cursor:hand;
+  -webkit-transition: background-color 0.25s ease-in-out;
+  -moz-transition: background-color 0.25s ease-in-out;
+  -ms-transition: background-color 0.25s ease-in-out;
+  -o-transition: background-color 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out;
 }
 
 .dropdown-menu .sub-menu {
@@ -134,9 +139,21 @@ h5 {
     display: block;
 }
 
+.dropdown .dropdown-toggle{
+  -webkit-transition: background-color 0.25s ease-in-out;
+  -moz-transition: background-color 0.25s ease-in-out;
+  -ms-transition: background-color 0.25s ease-in-out;
+  -o-transition: background-color 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out;
+}
+
 .dropdown:hover .dropdown-toggle{
 	background-color: #777;
-  transition: all 0.5s ease;
+  -webkit-transition: background-color 0.25s ease-in-out;
+  -moz-transition: background-color 0.25s ease-in-out;
+  -ms-transition: background-color 0.25s ease-in-out;
+  -o-transition: background-color 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out;
 }
 
 .nav>li>a:focus, .nav>li>a:hover {
