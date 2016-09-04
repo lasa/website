@@ -5,6 +5,7 @@
 <br/>
 <div>
 	<form method="post">
+		{{form.csrf_token}}
 
 		{{form.username.label}} <br/>
 		{{form.username()|safe}} <br/>
