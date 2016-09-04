@@ -200,6 +200,7 @@ h5 {
 .external-links {
   width:925px;
   margin:10px auto;
+  margin-top:20px;
 }
 
 .panel-group .panel {
@@ -304,4 +305,14 @@ iframe {
   font-weight:bolder;
   color:#7d6aba;
   border-right:1px dotted #b09dee;
+}
+.infographic {
+  text-align:center;
+}
+.infographic > h2 {
+  margin-bottom:0;
+  padding-bottom:0;
+}
+.leftinfo {
+  border-right:1px dotted #aaa;
 }
