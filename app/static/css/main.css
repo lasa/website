@@ -2,6 +2,9 @@
 
 body {
   background-color:#F7F7F7;
+  font-family:"Roboto",sans-serif;
+  letter-spacing:0.5px;
+  color:#777;
 }
 
 hr {
@@ -54,12 +57,13 @@ h5 {
 .title-text {
   color:white;
   font-size:2.5em;
-  font-family: "Trebuchet MS", "Liberation Sans", sans-serif;
+  font-family: "Titillium", "Trebuchet MS", "Liberation Sans", sans-serif;
   font-variant:small-caps;
 }
 
 .subtitle-text {
-  font-family: Cursive;
+  font-family: 'Playfair Display';
+  font-weight:lighter;
   font-size:20px;
   color:white;
 }
@@ -287,7 +291,7 @@ iframe {
 #fast-facts td {
   padding:1em;
 }
-#fast-facts tr:hover {
+tr:hover {
   background-color:#eee;
 }
 .rowhead {
@@ -304,4 +308,10 @@ iframe {
 }
 .leftinfo {
   border-right:1px dotted #aaa;
+}
+#gradetable th, #gradetable td {
+  padding:1em;
+}
+th {
+  color:#7d6aba;
 }
