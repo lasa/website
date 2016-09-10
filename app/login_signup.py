@@ -31,16 +31,6 @@ def check_password(candidate_password, pwhash):
     else:
         return False
 
-
-def overwrite_password(string):
-    location = id(string) + 20
-    size = sys.getsizeof(string) - 20
-    # change the "6" to whatever is on the actual system
-    memset = ctypes.CDLL("libc.so.6").memset
-    print("Clearing 0x%08x size %i bytes" % (location, size))
-    memset(location, 0, size)
-
-
 def login():
     if current_user.is_authenticated:
         return redirect("/")
@@ -51,18 +41,15 @@ def login():
         real_user = User.query.filter_by(name=candidate_username).first()
         if real_user is None:
             form.username.errors.append("Username does not exist.")
-            overwrite_password(candidate_password)
             del candidate_password
             return render_template("login.html", form=form)
         else:
             if check_password(candidate_password, real_user.password):
                 login_user(User.query.get(real_user.id))
-                overwrite_password(candidate_password)
                 del candidate_password
                 return redirect("/")
             else:
                 form.password.errors.append("Username and password do not match.")
-                overwrite_password(candidate_password)
                 del candidate_password
                 return render_template("login.html", form=form)
     return render_template("login.html", form=form)
