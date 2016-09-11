@@ -5,6 +5,7 @@ from flask_login import current_user
 from flask_wtf import Form
 from wtforms import validators, StringField, TextAreaField
 from wtforms.validators import DataRequired
+import datetime
 
 
 class NewPostForm(Form):
@@ -18,7 +19,7 @@ def new_post():
         title = form.title.data
         body = form.body.data
 
-        newpost = Post(title=title, body=body, author=current_user.id)
+        newpost = Post(title=title, body=body, author=current_user.id, timestamp=datetime.datetime.now())
         db.session.add(newpost)
         db.session.commit()
         return redirect("/")

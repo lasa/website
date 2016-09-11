@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<h1>{{post.title}}</h1>
-<br/>
-
+<div class="post-title">{{post.title}}</div>
+{{post.timestamp.strftime("%A, %B %d, %Y")}}
+<br>
+<p class="post-body">
 {{post.body}}
+</p>
 
 {% endblock %}
