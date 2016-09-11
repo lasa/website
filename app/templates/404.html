@@ -2,6 +2,9 @@
 {% block body %}
 
 <h2>404 Error</h2>
-<p>The page you were looking for doesn't exist.</a>.</p>
+<p>The page you were looking for doesn't exist.</p>
+<a href="http://xkcd.com/1024/">
+<img src="{{ url_for('static', filename='images/error_code.png') }}" class="img-responsive" />
+</a>
 
 {% endblock %}

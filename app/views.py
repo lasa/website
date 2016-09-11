@@ -7,7 +7,6 @@ from flask import render_template
 def index():
     return render_template("index.html")
 
-
 @app.route('/history/')
 def history():
     return render_template("history.html")
@@ -16,16 +15,26 @@ def history():
 def profile():
     return render_template("profile.html")
 
+@app.route('/accolades/')
+def accolades():
+    return render_template("accolades.html")
+
+@app.route('/contact/')
+def contact():
+    return render_template("contact.html")
+
+@app.route('/mission/')
+@app.route('/vision/')
+def mission():
+    return render_template("mission.html")
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
     return login_signup.login()
 
-
 @app.route("/logout/", methods=["GET", "POST"])
 def logout():
     return login_signup.logout()
-
 
 @login_manager.user_loader
 def load_user(id):
