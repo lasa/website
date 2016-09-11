@@ -6,7 +6,7 @@ from flask import render_template, request
 @app.route('/')
 @app.route('/index/')
 def index():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.timestamp.desc())
     return render_template("index.html", posts=posts)
 
 @app.route('/news')
@@ -15,7 +15,7 @@ def news():
         post = Post.query.filter_by(id=request.args.get("postid")).first()
         if post:
             return render_template("newsitem.html", post=post)
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.timestamp.desc())
     return render_template("news.html", posts=posts)
 
 
