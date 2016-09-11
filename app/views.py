@@ -53,6 +53,16 @@ def logout():
 def new_post():
     return post.new_post()
 
+@app.route("/editpost/", methods=["GET", "POST"])
+@login_required
+def edit_post():
+    return post.edit_post()
+
+@app.route("/delpost/")
+@login_required
+def delete_post():
+    return post.delete_post()
+
 
 @login_manager.user_loader
 def load_user(id):
