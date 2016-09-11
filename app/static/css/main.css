@@ -262,6 +262,11 @@ iframe {
   overflow:hidden;
   overflow-x:hidden;
   overflow-y:hidden;
+  float:left;
+}
+
+.latest-news-index {
+  float:right;
 }
 
 /* Login/Form submission */
@@ -292,6 +297,19 @@ iframe {
 .submit-btn:hover {
   background-color: #A269CE;
 }
+
+#body {
+  width: 100%;
+  height:500px;
+}
+
+/*News page*/
+
+.latest-news {
+  float:left
+  text-align:left;
+}
+
 
 #fast-facts td {
   padding:1em;

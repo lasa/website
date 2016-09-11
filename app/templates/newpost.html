@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="form-label">Post News Item</div>
+<br/>
+<div>
+	<form method="post">
+		{{form.csrf_token}}
+
+		{{form.title.label}} <br/>
+		{{form.title()|safe}} <br/>
+		<div class="error">{{form.title.errors[0]}}</div> 
+		
+		{{form.body.label}} <br/>
+		{{form.body()|safe}} <br/>
+		<div class="error">{{form.body.errors[0]}}</div> 
+		
+
+		<input type="submit" value="Submit" class="submit-btn">
+
+	</form>
+</div>
+
+{% endblock %}

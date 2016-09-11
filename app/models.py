@@ -43,7 +43,8 @@ class User(db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(post_limits['title']))
-    body = db.Column(db.String(post_limits['body']))
+    body = db.Column(db.Text())
+    author = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
 
     def __repr__(self):
@@ -53,7 +54,7 @@ class Post(db.Model):
 class Page(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(post_limits['title']))
-    body = db.Column(db.String(post_limits['body']))
+    body = db.Column(db.Text())
     timestamp = db.Column(db.DateTime)
 
     def __repr__(self):

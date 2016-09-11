@@ -8,8 +8,6 @@ from flask_wtf import Form
 from wtforms import validators, StringField, PasswordField
 from wtforms.validators import DataRequired
 import bcrypt, hmac
-import sys
-import ctypes
 
 
 class LoginForm(Form):
@@ -47,13 +45,13 @@ def login():
             if check_password(candidate_password, real_user.password):
                 login_user(User.query.get(real_user.id))
                 del candidate_password
-                return redirect("/")
+                #if request.args.get('next') is None, redirect to /
+                return redirect(request.args.get("next") if request.args.get("next") else "/")
             else:
                 form.password.errors.append("Username and password do not match.")
                 del candidate_password
                 return render_template("login.html", form=form)
     return render_template("login.html", form=form)
-
 
 def logout():
     logout_user()
