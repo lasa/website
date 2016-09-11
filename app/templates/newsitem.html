@@ -2,7 +2,17 @@
 {% block body %}
 
 <div class="post-title">{{post.title}}</div>
-<div class="edit-delete">edit | delete</div> <br/>
+
+{% if (current_user.is_authenticated) %}
+<div class="edit-delete">
+<a href="/editpost?postid={{post.id}}">edit</a>
+ | 
+ <a href="/delpost?postid={{post.id}}">delete</a>
+</div>
+{% endif %}
+
+<br/>
+
 {{post.timestamp.strftime("%A, %B %d, %Y")}}
 <br>
 <p class="post-body">

@@ -304,6 +304,10 @@ h5 {
   background-color: #A269CE;
 }
 
+#title {
+  width:50%;
+}
+
 #body {
   width: 100%;
   height:500px;
@@ -343,6 +347,11 @@ h5 {
 .edit-delete {
   clear:both;
   float:right;
+  color:inherit;
+}
+
+.edit-delete > a {
+  color:inherit;
 }
 
 .post-body {
