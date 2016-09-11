@@ -263,6 +263,7 @@ h5 {
   overflow-x:hidden;
   overflow-y:hidden;
   float:left;
+  width:33%;
 }
 
 .latest-news-index {
