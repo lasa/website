@@ -1,7 +1,7 @@
 from app import app, db
 from app.models import User, Post
 from flask import Flask, redirect, render_template
-from flask.ext.login import current_user
+from flask_login import current_user
 from flask_wtf import Form
 from wtforms import validators, StringField, TextAreaField
 from wtforms.validators import DataRequired

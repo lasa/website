@@ -1,7 +1,7 @@
 #!../flask/bin/python
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
+from flask_login import LoginManager
 
 app = Flask(__name__)
 app.config.from_object('config')
