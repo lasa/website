@@ -40,6 +40,42 @@ def contact():
 def mission():
     return render_template("mission.html")
 
+@app.route('/probation/')
+def probation():
+    return render_template("probation.html")
+
+@app.route('/schedule/')
+def schedule():
+    return render_template("schedule.html")
+
+@app.route('/college/')
+def college():
+    return render_template("college.html")
+
+@app.route('/college/sessions/')
+def college_sessions():
+    return render_template("college/sessions.html")
+
+@app.route('/college/reps/')
+def college_reps():
+    return render_template("college/reps.html")
+
+@app.route('/college/testing/')
+def college_testing():
+    return render_template("college/testing.html")
+
+@app.route('/college/faq/')
+def college_faq():
+    return render_template("college/faq.html")
+
+@app.route('/college/aid/')
+def college_aid():
+    return render_template("college/aid.html")
+
+@app.route('/college/naviance/')
+def college_naviance():
+    return render_template("college/naviance.html")
+
 @app.route("/login/", methods=["GET", "POST"])
 def login():
     return login_signup.login()
