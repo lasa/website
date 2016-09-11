@@ -258,13 +258,6 @@ h5 {
 #copyright {
   color:#bbb;
 }
-.google-calendar {
-  overflow:hidden;
-  overflow-x:hidden;
-  overflow-y:hidden;
-  float:left;
-  width:33%;
-}
 
 .latest-news-index {
   float:right;
@@ -274,6 +267,11 @@ h5 {
 .news-item-link-index {
   display:inline-block;
   padding-bottom:7px;
+}
+
+.lasa-quick-calendar {
+  display:inline-block;
+  width:33%;
 }
 
 /* Login/Form submission */
