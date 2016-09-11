@@ -2,7 +2,7 @@ from app import app
 from app.models import User
 from flask import Flask, session, request, flash, url_for, redirect, \
     render_template, abort, g
-from flask.ext.login import login_user, logout_user, current_user, \
+from flask_login import login_user, logout_user, current_user, \
     login_required
 from flask_wtf import Form
 from wtforms import validators, StringField, PasswordField

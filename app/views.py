@@ -1,6 +1,6 @@
 from app import app, login_signup, models, login_manager, post
 from app.models import User, Post
-from flask.ext.login import login_required
+from flask_login import login_required
 from flask import render_template, request
 
 @app.route('/')
