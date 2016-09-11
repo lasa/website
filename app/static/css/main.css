@@ -270,6 +270,11 @@ h5 {
   width:33%;
 }
 
+.news-item-link-index {
+  display:inline-block;
+  padding-bottom:7px;
+}
+
 /* Login/Form submission */
 
 .form-label {
