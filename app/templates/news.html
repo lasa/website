@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="latest-news">
+<h1>Latest News</h1>
+{% for post in posts %}
+
+<a href="/news?postid={{post.id}}" class="news-item">{{post.title}}</a>
+<br/>
+
+{% endfor %}
+</div>
+
+{% endblock %}
