@@ -258,7 +258,7 @@ h5 {
 #copyright {
   color:#bbb;
 }
-iframe {
+.google-calendar {
   overflow:hidden;
   overflow-x:hidden;
   overflow-y:hidden;
