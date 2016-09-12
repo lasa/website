@@ -358,6 +358,11 @@ h5 {
 }
 
 
+.table > tbody > tr > td {
+  width:33%;
+}
+
+
 #fast-facts td {
   padding:1em;
 }
