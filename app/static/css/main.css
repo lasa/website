@@ -230,6 +230,14 @@ h5 {
 
 .dotted-rule {
   border-top:dotted 1px #ccc;
+  margin:10px auto;
+  margin-left:50px;
+}
+
+.footer-tel-label {
+  display:inline-block;
+  line-height:1em;
+  border-bottom:dotted 1px #ccc;
 }
 
 .latest-news-index {
