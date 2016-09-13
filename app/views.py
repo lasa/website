@@ -48,6 +48,18 @@ def probation():
 def schedule():
     return render_template("schedule.html")
 
+@app.route('/calendar/')
+def calendar():
+    return render_template("calendar.html")
+
+@app.route('/calendar/college/')
+def calendar_college():
+    return render_template("calendar/college.html")
+
+@app.route('/calendar/athletic/')
+def calendar_athletic():
+    return render_template("calendar/athletic.html")
+
 @app.route('/college/')
 def college():
     return render_template("college.html")
