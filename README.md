@@ -33,7 +33,7 @@ possible to manually setup the database:
 2. Import a SQLite interface and (among other things) the User class:
 `from app import db, models`
 
-3. Import modules needed to hash and salt passwords: `import bcrypt, hmac`
+3. Import modules needed to hash and salt passwords: `import bcrypt`
 
 4. Create User "u" with specificed information: ```u =
 models.User(name="harambe", email="harambe@cincinnatizoo.org",
