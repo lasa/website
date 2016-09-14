@@ -320,8 +320,12 @@ h5 {
   display:inline-block;
   clear:both;
   max-width:90%;
-  min-width:30%;
+  min-width:43%;
   border-bottom:1px solid #A8A6A6;
+}
+
+.post-subtitle > a {
+  
 }
 
 .edit-delete {
