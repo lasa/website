@@ -88,6 +88,26 @@ def college_aid():
 def college_naviance():
     return render_template("college/naviance.html")
 
+@app.route('/courseguide/')
+def course_guide():
+    return render_template("courseguide.html")
+
+@app.route('/coursefaq/')
+def course_faq():
+    return render_template("coursefaq.html")
+
+@app.route('/honorcode/')
+def honor_code():
+    return render_template("honorcode.html")
+
+@app.route('/magnetendorsement')
+def magnet_endorsement():
+    return render_template("magnetendorsement.html")
+
+@app.route('/finearts')
+def fine_arts():
+    return render_template("finearts.html")
+
 @app.route("/login/", methods=["GET", "POST"])
 def login():
     return login_signup.login()
