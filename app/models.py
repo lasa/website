@@ -11,6 +11,12 @@ post_limits = {'title': 1000,
 page_limits = {'title': 1000,
                'body': 75000}
 
+# Define char limits allowed in fields for names, occupations, and emails
+faculty_limits = {'name': 50,
+                  'occupation': 200,
+                  'email': 50,
+                  'website': 50}
+
 
 class User(db.Model):
     __tablename__ = "users"
@@ -48,7 +54,7 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime)
 
     def __repr__(self):
-        return '<Post %r>' % (self.body)
+        return '<Post %r>' % (self.title)
 
 
 class Page(db.Model):
@@ -58,4 +64,15 @@ class Page(db.Model):
     timestamp = db.Column(db.DateTime)
 
     def __repr__(self):
-        return '<Page %r>' % (self.body)
+        return '<Page %r>' % (self.title)
+
+class Faculty(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    firstname = db.Column(db.String(faculty_limits['name']))
+    lastname = db.Column(db.String(faculty_limits['name']))
+    occupation = db.Column(db.String(faculty_limits['occupation']))
+    email = db.Column(db.String(faculty_limits['email']))
+    website = db.Column(db.String(faculty_limits['website']))
+
+    def __repr__(self):
+        return '<Faculty %r>' % (self.lastname)
