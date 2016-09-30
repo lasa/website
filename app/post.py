@@ -31,8 +31,11 @@ def edit_post():
     if not postid: 
         return redirect("/newpost")
 
-    form = NewPostForm()
     currentPost = Post.query.filter_by(id=postid).first()
+    if not currentPost:
+        return redirect("/newpost")
+
+    form = NewPostForm()
 
     title = currentPost.title
     body = currentPost.body

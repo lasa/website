@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="form-label">New Faculty Member</div>
+<br/>
+<br/>
+<div>
+	<form method="post">
+		{{form.csrf_token}}
+
+		{{form.firstname.label}} <br/>
+		{{form.firstname|safe}} <br/>
+		<div class="error">{{form.firstname.errors[0]}}</div> 
+		
+		{{form.lastname.label}} <br/>
+		{{form.lastname()|safe}} <br/>
+		<div class="error">{{form.lastname.errors[0]}}</div> 
+		
+		{{form.occupation.label}} <br/>
+		{{form.occupation()|safe}} <br/>
+		<div class="error">{{form.occupation.errors[0]}}</div> 
+	
+		{{form.email.label}} <br/>
+		{{form.email()|safe}} <br/>
+		<div class="error">{{form.email.errors[0]}}</div> 
+
+        {{form.tel.label}} <br/>
+		{{form.tel()|safe}} <br/>
+		<div class="error">{{form.tel.errors[0]}}</div> 
+
+		{{form.website.label}} <br/>
+		{{form.website()|safe}} <br/>
+		<div class="error">{{form.website.errors[0]}}</div> 
+
+		{{form.category.label}} <br/>
+		{{form.category()|safe}} <br/>
+		<div class="error">{{form.category.errors[0]}}</div> 
+	
+		<input type="submit" value="Submit" class="submit-btn">
+
+	</form>
+</div>
+
+{% endblock %}

@@ -15,6 +15,7 @@ page_limits = {'title': 1000,
 faculty_limits = {'name': 50,
                   'occupation': 200,
                   'email': 50,
+                  'tel': 30,
                   'website': 50}
 
 
@@ -72,7 +73,9 @@ class Faculty(db.Model):
     lastname = db.Column(db.String(faculty_limits['name']))
     occupation = db.Column(db.String(faculty_limits['occupation']))
     email = db.Column(db.String(faculty_limits['email']))
+    tel = db.Column(db.String(faculty_limits['tel']))
     website = db.Column(db.String(faculty_limits['website']))
+    category = db.Column(db.String(50))
 
     def __repr__(self):
         return '<Faculty %r>' % (self.lastname)
