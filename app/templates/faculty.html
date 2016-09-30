@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<h2>LASA {{title}}</h2>
+<h2 class="post-title" style="border-bottom:0px">LASA {{title}}</h2>
+{% if current_user.is_authenticated %}
+<div class="edit-delete">
+    <a href="/newfaculty">new faculty member</a>
+</div>
+{% endif %}
 
 <p>Click on a faculty member's name to access their individual website.</p>
 
