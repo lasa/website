@@ -2,7 +2,12 @@
 {% block body %}
 
 <div class="latest-news">
-<h2>Latest News</h2>
+<h2 class="post-title" style="border-bottom:0px">Latest News</h2>
+{% if current_user.is_authenticated %}
+<div class="edit-delete">
+    <a href="/newpost">new post</a>
+</div>
+{% endif %}
 {% for post in posts %}
 
 <div class="news-item">
