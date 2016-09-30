@@ -336,6 +336,7 @@ h5 {
   clear:both;
   float:right;
   color:inherit;
+  white-space:nowrap;
 }
 
 .edit-delete > a {

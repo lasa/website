@@ -11,6 +11,9 @@
     <th>Position</th>
     <th>Phone</th>
     <th>Email</th>
+    {% if (current_user.is_authenticated) %}
+    <th></th>
+    {% endif %}
 </tr>
 
 {% for member in faculty %}
@@ -26,6 +29,16 @@
     <td>{{member.occupation}}</td>
     <td>{{member.tel}}</td>
     <td><a href="mailto:{{member.email}}">{{member.email}}</a>
+
+    {% if (current_user.is_authenticated) %}
+    <td>
+    <div class="edit-delete">
+    <a href="/editfaculty?id={{member.id}}">edit</a> 
+    | 
+    <a href="/delfaculty?id={{member.id}}">delete</a>
+    </div>
+    </td>
+    {% endif %}
 </tr>
 
 {% endfor %}
