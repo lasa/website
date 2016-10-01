@@ -25,7 +25,7 @@ def all_faculty():
 
 @app.route('/administration/')
 def administration():
-    administrators = Faculty.query.filter_by(category="administrators").order_by(Faculty.lastname.asc())
+    administrators = Faculty.query.filter_by(category="admin").order_by(Faculty.lastname.asc())
     return render_template("faculty.html", faculty=administrators, title="Administration")
 
 @app.route('/guidance/')
@@ -125,13 +125,37 @@ def course_faq():
 def honor_code():
     return render_template("honorcode.html")
 
-@app.route('/magnetendorsement')
+@app.route('/magnetendorsement/')
 def magnet_endorsement():
     return render_template("magnetendorsement.html")
 
-@app.route('/finearts')
+@app.route('/finearts/')
 def fine_arts():
     return render_template("finearts.html")
+
+@app.route('/service/')
+def service():
+    return render_template("service.html")
+
+@app.route('/ranking/')
+def ranking():
+    return render_template("ranking.html")
+
+@app.route('/wellness/')
+def wellness():
+    return render_template("wellness.html")
+
+@app.route('/wellness/issues/')
+def wellness_issues():
+    return render_template("wellness/issues.html")
+
+@app.route('/wellness/when/')
+def wellness_when():
+    return render_template("wellness/when.html")
+
+@app.route('/wellness/abuse/')
+def wellness_abuse():
+    return render_template("wellness/abuse.html")
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
