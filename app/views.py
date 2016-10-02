@@ -21,141 +21,140 @@ def news():
 @app.route('/faculty/')
 def all_faculty():
     faculty = Faculty.query.order_by(Faculty.lastname.asc())
-    return render_template("faculty.html", faculty=faculty, title="Faculty")
+    return render_template("faculty/faculty.html", faculty=faculty, title="Faculty")
 
 @app.route('/administration/')
 def administration():
     administrators = Faculty.query.filter_by(category="admin").order_by(Faculty.lastname.asc())
-    return render_template("faculty.html", faculty=administrators, title="Administration")
+    return render_template("faculty/faculty.html", faculty=administrators, title="Administration")
 
 @app.route('/guidance/')
 def guidance():
     counselors = Faculty.query.filter_by(category="guidance").order_by(Faculty.lastname.asc())
-    return render_template("faculty.html", faculty=counselors, title="Guidance and Counseling")
+    return render_template("faculty/faculty.html", faculty=counselors, title="Guidance and Counseling")
 
 @app.route('/teachers/')
 def teachers():
     teachers = Faculty.query.filter_by(category="teaching").order_by(Faculty.lastname.asc())
-    return render_template("faculty.html", faculty=teachers, title="Teachers")
+    return render_template("faculty/faculty.html", faculty=teachers, title="Teachers")
 
 @app.route('/support/')
 def support():
     support = Faculty.query.filter_by(category="support").order_by(Faculty.lastname.asc())
-    return render_template("faculty.html", faculty=support, title="Support Staff")
-
+    return render_template("faculty/faculty.html", faculty=support, title="Support Staff")
 
 @app.route('/history/')
 def history():
-    return render_template("history.html")
+    return render_template("about/history.html")
 
 @app.route('/profile/')
 def profile():
-    return render_template("profile.html")
+    return render_template("about/profile.html")
 
 @app.route('/accolades/')
 def accolades():
-    return render_template("accolades.html")
+    return render_template("about/accolades.html")
 
 @app.route('/contact/')
 def contact():
-    return render_template("contact.html")
+    return render_template("about/contact.html")
 
 @app.route('/mission/')
 @app.route('/vision/')
 def mission():
-    return render_template("mission.html")
+    return render_template("about/mission.html")
 
 @app.route('/probation/')
 def probation():
-    return render_template("probation.html")
+    return render_template("academics/probation.html")
 
 @app.route('/schedule/')
 def schedule():
-    return render_template("schedule.html")
+    return render_template("academics/schedule.html")
 
 @app.route('/calendar/')
 def calendar():
-    return render_template("calendar.html")
+    return render_template("academics/calendar.html")
 
 @app.route('/calendar/college/')
 def calendar_college():
-    return render_template("calendar/college.html")
+    return render_template("academics/calendar/college.html")
 
 @app.route('/calendar/athletic/')
 def calendar_athletic():
-    return render_template("calendar/athletic.html")
+    return render_template("academics/calendar/athletic.html")
 
 @app.route('/college/')
 def college():
-    return render_template("college.html")
+    return render_template("academics/college.html")
 
 @app.route('/college/sessions/')
 def college_sessions():
-    return render_template("college/sessions.html")
+    return render_template("academics/college/sessions.html")
 
 @app.route('/college/reps/')
 def college_reps():
-    return render_template("college/reps.html")
+    return render_template("academics/college/reps.html")
 
 @app.route('/college/testing/')
 def college_testing():
-    return render_template("college/testing.html")
+    return render_template("academics/college/testing.html")
 
 @app.route('/college/faq/')
 def college_faq():
-    return render_template("college/faq.html")
+    return render_template("academics/college/faq.html")
 
 @app.route('/college/aid/')
 def college_aid():
-    return render_template("college/aid.html")
+    return render_template("academics/college/aid.html")
 
 @app.route('/college/naviance/')
 def college_naviance():
-    return render_template("college/naviance.html")
+    return render_template("academics/college/naviance.html")
 
 @app.route('/courseguide/')
 def course_guide():
-    return render_template("courseguide.html")
+    return render_template("academics/courseguide.html")
 
 @app.route('/coursefaq/')
 def course_faq():
-    return render_template("coursefaq.html")
+    return render_template("academics/coursefaq.html")
 
 @app.route('/honorcode/')
 def honor_code():
-    return render_template("honorcode.html")
+    return render_template("academics/honorcode.html")
 
 @app.route('/magnetendorsement/')
 def magnet_endorsement():
-    return render_template("magnetendorsement.html")
+    return render_template("academics/magnetendorsement.html")
 
 @app.route('/finearts/')
 def fine_arts():
-    return render_template("finearts.html")
+    return render_template("academics/finearts.html")
 
 @app.route('/service/')
-def service():
-    return render_template("service.html")
+def students_service():
+    return render_template("students/service.html")
 
 @app.route('/ranking/')
-def ranking():
-    return render_template("ranking.html")
+def students_ranking():
+    return render_template("students/ranking.html")
 
 @app.route('/wellness/')
-def wellness():
-    return render_template("wellness.html")
+def students_wellness():
+    return render_template("students/wellness.html")
 
 @app.route('/wellness/issues/')
 def wellness_issues():
-    return render_template("wellness/issues.html")
+    return render_template("students/wellness/issues.html")
 
 @app.route('/wellness/when/')
 def wellness_when():
-    return render_template("wellness/when.html")
+    return render_template("students/wellness/when.html")
 
 @app.route('/wellness/abuse/')
 def wellness_abuse():
-    return render_template("wellness/abuse.html")
+    return render_template("students/wellness/abuse.html")
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
@@ -194,7 +193,6 @@ def edit_faculty():
 @login_required
 def delete_faculty():
     return faculty.delete_faculty()
-
 
 @login_manager.user_loader
 def load_user(id):
