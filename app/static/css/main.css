@@ -11,6 +11,11 @@ hr {
   border-color:#ccc;
 }
 
+h4 {
+  font-size:18px;
+  font-weight:bold;
+}
+
 h5 {
   font-weight:bolder;
 }
