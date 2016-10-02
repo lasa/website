@@ -70,19 +70,23 @@ def probation():
 
 @app.route('/schedule/')
 def schedule():
-    return render_template("academics/schedule.html")
+    return render_template("calendars/schedule.html")
 
 @app.route('/calendar/')
 def calendar():
-    return render_template("academics/calendar.html")
+    return render_template("calendars/master.html")
 
 @app.route('/calendar/college/')
 def calendar_college():
-    return render_template("academics/calendar/college.html")
+    return render_template("calendars/college.html")
 
 @app.route('/calendar/athletic/')
 def calendar_athletic():
-    return render_template("academics/calendar/athletic.html")
+    return render_template("calendars/athletic.html")
+
+@app.route('/calendar/library/')
+def calendar_library():
+    return render_template("calendars/library.html")
 
 @app.route('/college/')
 def college():
