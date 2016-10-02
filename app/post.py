@@ -24,7 +24,7 @@ def new_post():
         db.session.commit()
         return redirect("/news")
 
-    return render_template("newpost.html", form=form)
+    return render_template("news/newpost.html", form=form)
 
 def edit_post():
     postid = request.args.get("postid")
@@ -48,7 +48,7 @@ def edit_post():
         db.session.commit()
         return redirect("/news?postid="+postid)
 
-    return render_template("editpost.html", form=form, title=title, body=body)
+    return render_template("news/editpost.html", form=form, title=title, body=body)
 
 def delete_post():
     postid = request.args.get("postid")
