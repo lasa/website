@@ -14,9 +14,9 @@ def news():
     if request.args.get("postid"):
         post = Post.query.filter_by(id=request.args.get("postid")).first()
         if post:
-            return render_template("newsitem.html", post=post)
+            return render_template("news/newsitem.html", post=post)
     posts = Post.query.order_by(Post.timestamp.desc())
-    return render_template("news.html", posts=posts)
+    return render_template("news/news.html", posts=posts)
 
 @app.route('/faculty/')
 def all_faculty():
