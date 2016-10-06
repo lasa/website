@@ -120,10 +120,6 @@ def college_naviance():
 def course_guide():
     return render_template("academics/courseguide.html")
 
-@app.route('/coursefaq/')
-def course_faq():
-    return render_template("academics/coursefaq.html")
-
 @app.route('/honorcode/')
 def honor_code():
     return render_template("academics/honorcode.html")
@@ -159,6 +155,22 @@ def wellness_when():
 @app.route('/wellness/abuse/')
 def wellness_abuse():
     return render_template("students/wellness/abuse.html")
+
+@app.route('/howtoapply/')
+def how_to_apply():
+    return render_template("admissions/howtoapply.html")
+
+@app.route('/shadowing/')
+def shadowing():
+    return render_template("admissions/shadowing.html")
+
+@app.route('/coursefaq/')
+def course_faq():
+    return render_template("admissions/coursefaq.html")
+
+@app.route('/signature/')
+def signature_courses():
+    return render_template("admissions/signature.html")
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
