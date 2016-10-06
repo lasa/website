@@ -1,5 +1,5 @@
 from app import app, db
-from app.models import User, Post
+from app.models import User, Post, Message
 from flask import Flask, redirect, render_template, request
 from flask_login import current_user
 from flask_wtf import Form
@@ -24,7 +24,22 @@ def new_post():
         db.session.commit()
         return redirect("/news")
 
-    return render_template("news/newpost.html", form=form)
+    return render_template("news/newpost.html", form=form, heading="News Item")
+
+def new_message():
+    form = NewPostForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        body = form.body.data
+
+        newpost = Message(title=title, body=body, author=current_user.id, timestamp=datetime.datetime.now())
+        db.session.add(newpost)
+        db.session.commit()
+        return redirect("/message")
+
+    return render_template("news/newpost.html", form=form, heading="Principal's Message")
+
+
 
 def edit_post():
     postid = request.args.get("postid")
@@ -48,7 +63,32 @@ def edit_post():
         db.session.commit()
         return redirect("/news?postid="+postid)
 
-    return render_template("news/editpost.html", form=form, title=title, body=body)
+    return render_template("news/editpost.html", form=form, title=title, body=body, heading="News Item")
+
+def edit_message():
+    postid = request.args.get("postid")
+    if not postid: 
+        return redirect("/newmessage")
+
+    currentPost = Message.query.filter_by(id=postid).first()
+    if not currentPost:
+        return redirect("/newmessage")
+
+    form = NewPostForm()
+
+    title = currentPost.title
+    body = currentPost.body
+
+    if form.validate_on_submit():
+        newtitle = form.title.data
+        newbody = form.body.data
+        currentPost.title = newtitle
+        currentPost.body = newbody
+        db.session.commit()
+        return redirect("/messages?postid="+postid)
+
+    return render_template("news/editpost.html", form=form, title=title, body=body, heading="Principal's Message")
+
 
 def delete_post():
     postid = request.args.get("postid")
@@ -59,3 +99,13 @@ def delete_post():
     post.delete()
     db.session.commit()
     return redirect("/news")
+
+def delete_message():
+    postid = request.args.get("postid")
+    if not postid:
+        return redirect("/messages")
+
+    post = Message.query.filter_by(id=postid)
+    post.delete()
+    db.session.commit()
+    return redirect("/messages")

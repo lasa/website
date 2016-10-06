@@ -1,7 +1,7 @@
 from app import app, login_signup, models, login_manager, post, faculty
-from app.models import User, Post, Faculty
+from app.models import User, Post, Faculty, Message
 from flask_login import login_required
-from flask import render_template, request
+from flask import render_template, request, redirect
 
 @app.route('/')
 @app.route('/index/')
@@ -14,9 +14,25 @@ def news():
     if request.args.get("postid"):
         post = Post.query.filter_by(id=request.args.get("postid")).first()
         if post:
-            return render_template("news/newsitem.html", post=post)
+            return render_template("news/newsitem.html", post=post, heading="LASA News")
     posts = Post.query.order_by(Post.timestamp.desc())
-    return render_template("news/news.html", posts=posts)
+    return render_template("news/news.html", posts=posts, heading="LASA News")
+
+@app.route('/messages/')
+def messages():
+    if request.args.get("postid"):
+        post = Message.query.filter_by(id=request.args.get("postid")).first()
+        if post:
+            return render_template("news/newsitem.html", post=post, heading="Principal's Messages")
+    posts = Message.query.order_by(Message.timestamp.desc())
+    return render_template("news/news.html", posts=posts, heading="Principal's Messages")
+
+@app.route('/message/')
+def message():
+    post = Message.query.order_by(Message.timestamp.desc()).first()
+    if not post:
+        return redirect("/newmessage")
+    return render_template("news/newsitem.html", post=post, heading="Principal's Message")
 
 @app.route('/faculty/')
 def all_faculty():
@@ -194,6 +210,21 @@ def edit_post():
 @login_required
 def delete_post():
     return post.delete_post()
+
+@app.route("/newmessage/", methods=["GET", "POST"])
+@login_required
+def new_message():
+    return post.new_message()
+
+@app.route("/editmessage/", methods=["GET", "POST"])
+@login_required
+def edit_message():
+    return post.edit_message()
+
+@app.route("/delmessage/")
+@login_required
+def delete_message():
+    return post.delete_message()
 
 @app.route("/newfaculty/", methods=["GET", "POST"])
 @login_required

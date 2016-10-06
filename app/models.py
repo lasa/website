@@ -57,6 +57,15 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post %r>' % (self.title)
 
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(post_limits['title']))
+    body = db.Column(db.Text())
+    author = db.Column(db.Integer)
+    timestamp = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return '<Message %r>' % (self.title)
 
 class Page(db.Model):
     id = db.Column(db.Integer, primary_key=True)

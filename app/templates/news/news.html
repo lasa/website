@@ -2,16 +2,29 @@
 {% block body %}
 
 <div class="latest-news">
-<h2 class="post-title" style="border-bottom:0px">Latest News</h2>
+<h2 class="post-title" style="border-bottom:0px">{{heading}}</h2>
 {% if current_user.is_authenticated %}
 <div class="edit-delete">
+    {% if "Principal" in heading %}
+    <a href="/newmessage">new post</a>
+    {% else %}
     <a href="/newpost">new post</a>
+    {% endif %}
 </div>
 {% endif %}
 {% for post in posts %}
 
 <div class="news-item">
+    {% if "Principal" in heading %}
+
+	<a class="news-item-link" href="/messages?postid={{post.id}}">{{post.title}}</a>
+
+    {% else %}
+
 	<a class="news-item-link" href="/news?postid={{post.id}}">{{post.title}}</a>
+
+    {% endif %}
+
 	<br/>
 	{{post.timestamp.strftime("%A, %B %d, %Y")}}
 </div>
