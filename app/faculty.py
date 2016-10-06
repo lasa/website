@@ -44,7 +44,7 @@ def new_faculty():
 
         category = form.category.data
 
-        newfaculty = Faculty(firstname=firstname, lastname=lastname, occupation=occupation, email=email, tel=tel,  category=category)
+        newfaculty = Faculty(firstname=firstname, lastname=lastname, occupation=occupation, email=email, tel=tel, website=website,  category=category)
         db.session.add(newfaculty)
         db.session.commit()
         return redirect("/faculty")
