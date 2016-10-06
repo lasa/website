@@ -28,9 +28,9 @@ h5 {
 }
 
 #top-banner {
-	width: 100%;
-	background-color: #4c0080;
-	height: 135px;
+  width: 100%;
+  background-color: #4c0080;
+  height: 135px;
   position:relative;
   z-index:0;
 }
@@ -42,6 +42,19 @@ h5 {
   margin-left:-450px;
   top:10px;
   z-index:1;
+}
+
+#logged-in {
+  color:#ADADAD;
+  position:absolute;
+  right:50%;
+  margin-right:-450px;
+  top:30px;
+  z-index:1;
+}
+
+#logged-in > a {
+  color:#ADADAD;
 }
 
 #home-link {
