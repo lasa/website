@@ -2,6 +2,8 @@
 
 body {
   background-color:#F7F7F7;
+  background-size:cover;
+  background-position:center;
   font-family:"Roboto",sans-serif;
   letter-spacing:0.5px;
   color:#777;
@@ -29,7 +31,7 @@ h5 {
 
 #top-banner {
   width: 100%;
-  background-color: #4c0080;
+  background-color: #4E2A84;
   height: 135px;
   position:relative;
   z-index:0;
