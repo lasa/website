@@ -5,15 +5,34 @@
 
 {% if (current_user.is_authenticated) %}
 <div class="edit-delete">
+{% if "Principal" in heading %}
+
+<a href="/editmessage?postid={{post.id}}">edit</a>
+ | 
+<a href="/delmessage?postid={{post.id}}">delete</a>
+
+{% else %}
+
 <a href="/editpost?postid={{post.id}}">edit</a>
  | 
- <a href="/delpost?postid={{post.id}}">delete</a>
+<a href="/delpost?postid={{post.id}}">delete</a>
+
+{% endif %}
 </div>
 {% endif %}
 
 <br/>
 
-<div class="post-subtitle">{{post.timestamp.strftime("%A, %B %d, %Y")}} | <a href="/news">Back to All Latest News</a></div>
+{% if "Principal" in heading %}
+
+<div class="post-subtitle">{{post.timestamp.strftime("%A, %B %d, %Y")}} | <a href="/messages">View All Principal's Messages</a></div>
+
+{% else %}
+
+<div class="post-subtitle">{{post.timestamp.strftime("%A, %B %d, %Y")}} | <a href="/news">View All Latest News</a></div>
+
+{% endif %}
+
 <br>
 <p class="post-body">
 {{post.body}}
