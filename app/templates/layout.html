@@ -30,6 +30,9 @@
       </div>
       
       <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
+      {% if current_user.is_authenticated %}
+      <div id="logged-in">{{current_user.name}} (<a href="/logout">logout</a>)</div>
+      {% endif %}
       <nav class="navbar">
         <div class="container-fluid">
           <ul class="nav navbar-nav">
