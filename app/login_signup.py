@@ -14,7 +14,6 @@ class LoginForm(Form):
     username = StringField('Username:', validators=[validators.DataRequired(), validators.Length(min=4,max=16)])
     password = PasswordField('Password:', [
         validators.DataRequired(),
-        validators.Length(min=8,max=25)
     ])
 
 
