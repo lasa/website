@@ -75,6 +75,9 @@ wsgi.*
 # Scrapy stuff:
 .scrapy
 
+# LetsEncrypt challenge/response
+.well-known/
+
 # Sphinx documentation
 docs/_build/
 
