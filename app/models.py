@@ -69,7 +69,8 @@ class Message(db.Model):
 
 class Page(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(post_limits['title']))
+    title = db.Column(db.String(page_limits['title']))
+    name = db.Column(db.String(page_limits['title']))
     body = db.Column(db.Text())
     timestamp = db.Column(db.DateTime)
 

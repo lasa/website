@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="form-label">New Page</div>
+<br/>
+<br/>
+<div>
+	<form method="post">
+		{{form.csrf_token}}
+
+		{{form.title.label}} <br/>
+		{{form.title()|safe}} <br/>
+		<div class="error">{{form.title.errors[0]}}</div> 
+		
+		{{form.body.label}} <br/>
+		{{form.body()|safe}} <br/>
+		<div class="error">{{form.body.errors[0]}}</div> 
+
+		<input type="button" value="Submit" class="submit-btn" onclick="doSubmit()">
+
+        {{form.bodyhtml}}
+
+	</form>
+</div>
+
+<script>
+function doSubmit() {
+    document.getElementById("bodyhtml").value = document.getElementsByClassName("ql-editor")[0].innerHTML
+    document.forms[0].submit();
+}
+</script>
+
+{% endblock %}
