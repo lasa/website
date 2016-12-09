@@ -8,21 +8,24 @@ from wtforms.validators import DataRequired
 import datetime, time
 
 #custom widget for rendering a QuillJS input
-def QuillJS(field):
-    return """  <link href="https://cdn.quilljs.com/1.1.6/quill.snow.css" rel="stylesheet">
-                <div id="editor">
-                %s
-                </div>
-                <script src="https://cdn.quilljs.com/1.1.6/quill.js"></script>
-                <script>
-                  var quill = new Quill('#editor', {
-                    theme: 'snow'
-                  });
-                </script> """ % field._value()
+def TinyMCE(field):
+    return """  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+         <script>tinymce.init({ 
+            selector:'#editor', 
+            theme: 'modern',
+			plugins: [
+            'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+            'save table contextmenu directionality emoticons template paste textcolor autoresize'
+            ],
+            content_css: '/static/css/tinymce.css',
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor'
+         });</script>
+         <textarea id='editor'> %s </textarea>""" % field._value()
 
 class NewPageForm(Form):
     title = StringField('Title:', validators=[validators.DataRequired(), validators.Length(min=0,max=1000)])
-    body = TextAreaField('Body:', validators=[validators.Length(min=0,max=75000)], widget=QuillJS)
+    body = TextAreaField('Body:', validators=[validators.Length(min=0,max=75000)], widget=TinyMCE)
     bodyhtml = HiddenField();
 
 
