@@ -43,38 +43,44 @@ def new_page():
     return render_template("newpage.html", form=form)
 
 
-def edit_post():
-    postid = request.args.get("postid")
-    if not postid: 
-        return redirect("/newpost")
+def edit_page(page_name):
+    if not page_name: 
+        return render_template("404.html"), 404
 
-    currentPost = Post.query.filter_by(id=postid).first()
-    if not currentPost:
-        return redirect("/newpost")
+    currentPage = Page.query.filter_by(name=page_name).first()
+    if not currentPage:
+        return render_template("404.html"), 404
 
-    form = NewPostForm()
+    form = NewPageForm()
 
-    title = currentPost.title
-    body = currentPost.body
+    title = currentPage.title
+    bodyhtml = currentPage.body
+
+    form.body.data = bodyhtml
 
     if form.validate_on_submit():
         newtitle = form.title.data
-        newbody = form.body.data
-        currentPost.title = newtitle
-        currentPost.body = newbody
+        newbody = form.bodyhtml.data
+        newname = "-".join(newtitle.split(" ")).lower()
+        currentPage.title = newtitle
+        currentPage.body = newbody
+        currentPage.name = newname
         db.session.commit()
-        return redirect("/news?postid="+postid)
+        time.sleep(0.5)
+        return redirect("/page/" + newname)
 
-    return render_template("news/editpost.html", form=form, title=title, body=body, heading="News Item")
+    return render_template("editpage.html", form=form, title=title, body=bodyhtml)
 
 
-def delete_post():
-    postid = request.args.get("postid")
-    if not postid:
-        return redirect("/news")
+def delete_page(page_name):
+    if not page_name:
+        return render_template("404.html"), 404
 
-    post = Post.query.filter_by(id=postid)
-    post.delete()
+    page = Page.query.filter_by(name=page_name)
+    if not page:
+        return render_template("404.html"), 404
+
+    page.delete()
     db.session.commit()
-    return redirect("/news")
+    return redirect("/")
 

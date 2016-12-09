@@ -11,12 +11,25 @@ def index():
 
 @app.route('/page/<string:page_name>/')
 def render_page(page_name):
-    page = Page.query.filter_by(name=page_name).first();
-    return render_template("page.html", page=page);
+    page = Page.query.filter_by(name=page_name).first()
+    if page:
+        return render_template("page.html", page=page)
+    return page_not_found(404)
 
 @app.route('/newpage/', methods=["GET", "POST"])
+@login_required
 def new_page():
     return page.new_page()
+
+@app.route('/page/<string:page_name>/delete')
+@login_required
+def delete_page(page_name):
+    return page.delete_page(page_name)
+
+@app.route('/page/<string:page_name>/edit', methods=["GET", "POST"])
+@login_required
+def edit_page(page_name):
+    return page.edit_page(page_name)
 
 @app.route('/news/')
 def news():
