@@ -398,3 +398,7 @@ tr:hover {
 th {
   color:#7d6aba;
 }
+
+.ql-tooltip {
+  visibility: visible !important;
+}

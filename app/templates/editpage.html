@@ -24,7 +24,7 @@
 
 <script>
 function doSubmit() {
-    document.getElementById("bodyhtml").value = document.getElementsByClassName("ql-editor")[0].innerHTML
+    document.getElementById("bodyhtml").value = tinymce.get('editor').getContent();
     document.forms[0].submit();
 }
 </script>
