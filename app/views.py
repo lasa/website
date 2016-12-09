@@ -1,5 +1,5 @@
-from app import app, login_signup, models, login_manager, post, faculty
-from app.models import User, Post, Faculty, Message
+from app import app, login_signup, models, login_manager, post, faculty, page
+from app.models import User, Post, Page, Faculty, Message
 from flask_login import login_required
 from flask import render_template, request, redirect
 
@@ -8,6 +8,15 @@ from flask import render_template, request, redirect
 def index():
     posts = Post.query.order_by(Post.timestamp.desc())
     return render_template("index.html", posts=posts)
+
+@app.route('/page/<string:page_name>/')
+def render_page(page_name):
+    page = Page.query.filter_by(name=page_name).first();
+    return render_template("page.html", page=page);
+
+@app.route('/newpage/', methods=["GET", "POST"])
+def new_page():
+    return page.new_page()
 
 @app.route('/news/')
 def news():
