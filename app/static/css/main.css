@@ -365,11 +365,6 @@ h5 {
   white-space:pre-wrap;
 }
 
-.page-body {
-  white-space:pre-wrap;
-  word-break: break-all;
-}
-
 
 .table > tbody > tr > td {
   width:33%;
