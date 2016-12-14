@@ -24,7 +24,7 @@ def TinyMCE(field):
          <textarea id='editor'> %s </textarea>""" % field._value()
 
 class NewPageForm(Form):
-    title = StringField('Title:', validators=[validators.DataRequired(), validators.Length(min=0,max=1000)])
+    title = StringField('Title:', validators=[validators.Length(min=0,max=1000)])
     body = TextAreaField('Body:', validators=[validators.Length(min=0,max=75000)], widget=TinyMCE)
     bodyhtml = HiddenField();
 
@@ -34,6 +34,11 @@ def new_page():
     if form.validate_on_submit():
         title = form.title.data
         body = form.bodyhtml.data
+
+        if len(title) < 1:
+            form.title.errors.append("This field is required.")
+            form.body.data = body
+            return render_template("editpage.html", form=form, title=title)
 
         name = "-".join(title.split(" ")).lower()
 
@@ -64,7 +69,21 @@ def edit_page(page_name):
     if form.validate_on_submit():
         newtitle = form.title.data
         newbody = form.bodyhtml.data
+
+        if len(newtitle) < 1:
+            form.title.errors.append("This field is required.")
+            form.body.data = newbody
+            return render_template("editpage.html", form=form, title=newtitle)
+
         newname = "-".join(newtitle.split(" ")).lower()
+
+        if newname != page_name:
+            page = Page.query.filter_by(name=newname).first()
+            if page:
+                form.title.errors.append("A page with this name already exists.")
+                form.body.data = newbody
+                return render_template("editpage.html", form=form, title=newtitle)
+
         currentPage.title = newtitle
         currentPage.body = newbody
         currentPage.name = newname
@@ -72,7 +91,7 @@ def edit_page(page_name):
         time.sleep(0.5)
         return redirect("/page/" + newname)
 
-    return render_template("editpage.html", form=form, title=title, body=bodyhtml)
+    return render_template("editpage.html", form=form, title=title)
 
 
 def delete_page(page_name):
