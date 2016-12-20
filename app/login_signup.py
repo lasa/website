@@ -1,7 +1,7 @@
-from app import app
+from app import app, views
 from app.models import User
 from flask import Flask, session, request, flash, url_for, redirect, \
-    render_template, abort, g
+    abort, g
 from flask_login import login_user, logout_user, current_user, \
     login_required
 from flask_wtf import Form
@@ -39,7 +39,7 @@ def login():
         if real_user is None:
             form.username.errors.append("Username does not exist.")
             del candidate_password
-            return render_template("login.html", form=form)
+            return views.render_with_navbar("login.html", form=form)
         else:
             if check_password(candidate_password, real_user.password):
                 login_user(User.query.get(real_user.id))
@@ -49,8 +49,8 @@ def login():
             else:
                 form.password.errors.append("Username and password do not match.")
                 del candidate_password
-                return render_template("login.html", form=form)
-    return render_template("login.html", form=form)
+                return views.render_with_navbar("login.html", form=form)
+    return views.render_with_navbar("login.html", form=form)
 
 def logout():
     logout_user()

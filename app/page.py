@@ -1,9 +1,9 @@
-from app import app, db
+from app import app, db, views
 from app.models import User, Page
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, request
 from flask_login import current_user
 from flask_wtf import Form
-from wtforms import validators, StringField, TextAreaField, HiddenField, SelectField
+from wtforms import validators, StringField, TextAreaField, HiddenField, SelectField, BooleanField
 from wtforms.validators import DataRequired
 import datetime, time
 
@@ -14,7 +14,7 @@ choices = [('calendars', 'Calendars'),
                 ('parents', 'Parents'),
                 ('admissions', 'Admissions')]
 
-#custom widget for rendering a QuillJS input
+#custom widget for rendering a TinyMCE input
 def TinyMCE(field):
     return """  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
          <script>tinymce.init({ 
@@ -47,7 +47,7 @@ def new_page():
         if len(title) < 1:
             form.title.errors.append("This field is required.")
             form.body.data = body
-            return render_template("editpage.html", form=form, title=title)
+            return views.render_with_navbar("editpage.html", form=form, title=title)
 
         name = "-".join(title.split(" ")).lower()
 
@@ -57,16 +57,16 @@ def new_page():
         time.sleep(0.5);
         return redirect("/page/" + name)
 
-    return render_template("newpage.html", form=form)
+    return views.render_with_navbar("newpage.html", form=form)
 
 
 def edit_page(page_name):
     if not page_name: 
-        return render_template("404.html"), 404
+        return views.render_with_navbar("404.html"), 404
 
     currentPage = Page.query.filter_by(name=page_name).first()
     if not currentPage:
-        return render_template("404.html"), 404
+        return views.render_with_navbar("404.html"), 404
 
 
     title = currentPage.title
@@ -85,7 +85,7 @@ def edit_page(page_name):
         if len(newtitle) < 1:
             form.title.errors.append("This field is required.")
             form.body.data = newbody
-            return render_template("editpage.html", form=form, title=newtitle)
+            return views.render_with_navbar("editpage.html", form=form, title=newtitle)
 
         newname = "-".join(newtitle.split(" ")).lower()
 
@@ -94,7 +94,7 @@ def edit_page(page_name):
             if page:
                 form.title.errors.append("A page with this name already exists.")
                 form.body.data = newbody
-                return render_template("editpage.html", form=form, title=newtitle)
+                return views.render_with_navbar("editpage.html", form=form, title=newtitle)
 
         currentPage.title = newtitle
         currentPage.body = newbody
@@ -104,16 +104,16 @@ def edit_page(page_name):
         time.sleep(0.5)
         return redirect("/page/" + newname)
 
-    return render_template("editpage.html", form=form, title=title)
+    return views.render_with_navbar("editpage.html", form=form, title=title)
 
 
 def delete_page(page_name):
     if not page_name:
-        return render_template("404.html"), 404
+        return views.render_with_navbar("404.html"), 404
 
     page = Page.query.filter_by(name=page_name)
     if not page:
-        return render_template("404.html"), 404
+        return views.render_with_navbar("404.html"), 404
 
     page.delete()
     db.session.commit()

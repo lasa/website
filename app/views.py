@@ -3,17 +3,26 @@ from app.models import User, Post, Page, Faculty, Message
 from flask_login import login_required
 from flask import render_template, request, redirect
 
+def render_with_navbar(template, **kwargs):
+    pages = {'calendars': Page.query.filter_by(category='calendars'),
+                'about': Page.query.filter_by(category='about'),
+                'academics': Page.query.filter_by(category='academics'),
+                'students': Page.query.filter_by(category='students'),
+                'parents': Page.query.filter_by(category='parents'),
+                'admissions': Page.query.filter_by(category='admissions')}
+    return render_template(template, pages=pages, **kwargs)
+
 @app.route('/')
 @app.route('/index/')
 def index():
     posts = Post.query.order_by(Post.timestamp.desc())
-    return render_template("index.html", posts=posts)
+    return render_with_navbar("index.html", posts=posts)
 
 @app.route('/page/<string:page_name>/')
 def render_page(page_name):
     page = Page.query.filter_by(name=page_name).first()
     if page:
-        return render_template("page.html", page=page)
+        return render_with_navbar("page.html", page=page)
     return page_not_found(404)
 
 @app.route('/newpage/', methods=["GET", "POST"])
@@ -36,179 +45,179 @@ def news():
     if request.args.get("postid"):
         post = Post.query.filter_by(id=request.args.get("postid")).first()
         if post:
-            return render_template("news/newsitem.html", post=post, heading="LASA News")
+            return render_with_navbar("news/newsitem.html", post=post, heading="LASA News")
     posts = Post.query.order_by(Post.timestamp.desc())
-    return render_template("news/news.html", posts=posts, heading="LASA News")
+    return render_with_navbar("news/news.html", posts=posts, heading="LASA News")
 
 @app.route('/messages/')
 def messages():
     if request.args.get("postid"):
         post = Message.query.filter_by(id=request.args.get("postid")).first()
         if post:
-            return render_template("news/newsitem.html", post=post, heading="Principal's Messages")
+            return render_with_navbar("news/newsitem.html", post=post, heading="Principal's Messages")
     posts = Message.query.order_by(Message.timestamp.desc())
-    return render_template("news/news.html", posts=posts, heading="Principal's Messages")
+    return render_with_navbar("news/news.html", posts=posts, heading="Principal's Messages")
 
 @app.route('/message/')
 def message():
     post = Message.query.order_by(Message.timestamp.desc()).first()
     if not post:
         return redirect("/newmessage")
-    return render_template("news/newsitem.html", post=post, heading="Principal's Message")
+    return render_with_navbar("news/newsitem.html", post=post, heading="Principal's Message")
 
 @app.route('/faculty/')
 def all_faculty():
     faculty = Faculty.query.order_by(Faculty.lastname.asc())
-    return render_template("faculty/faculty.html", faculty=faculty, title="Faculty")
+    return render_with_navbar("faculty/faculty.html", faculty=faculty, title="Faculty")
 
 @app.route('/administration/')
 def administration():
     administrators = Faculty.query.filter_by(category="admin").order_by(Faculty.lastname.asc())
-    return render_template("faculty/faculty.html", faculty=administrators, title="Administration")
+    return render_with_navbar("faculty/faculty.html", faculty=administrators, title="Administration")
 
 @app.route('/guidance/')
 def guidance():
     counselors = Faculty.query.filter_by(category="guidance").order_by(Faculty.lastname.asc())
-    return render_template("faculty/faculty.html", faculty=counselors, title="Guidance and Counseling")
+    return render_with_navbar("faculty/faculty.html", faculty=counselors, title="Guidance and Counseling")
 
 @app.route('/teachers/')
 def teachers():
     teachers = Faculty.query.filter_by(category="teaching").order_by(Faculty.lastname.asc())
-    return render_template("faculty/faculty.html", faculty=teachers, title="Teachers")
+    return render_with_navbar("faculty/faculty.html", faculty=teachers, title="Teachers")
 
 @app.route('/support/')
 def support():
     support = Faculty.query.filter_by(category="support").order_by(Faculty.lastname.asc())
-    return render_template("faculty/faculty.html", faculty=support, title="Support Staff")
+    return render_with_navbar("faculty/faculty.html", faculty=support, title="Support Staff")
 
 @app.route('/history/')
 def history():
-    return render_template("about/history.html")
+    return render_with_navbar("about/history.html")
 
 @app.route('/profile/')
 def profile():
-    return render_template("about/profile.html")
+    return render_with_navbar("about/profile.html")
 
 @app.route('/accolades/')
 def accolades():
-    return render_template("about/accolades.html")
+    return render_with_navbar("about/accolades.html")
 
 @app.route('/contact/')
 def contact():
-    return render_template("about/contact.html")
+    return render_with_navbar("about/contact.html")
 
 @app.route('/mission/')
 @app.route('/vision/')
 def mission():
-    return render_template("about/mission.html")
+    return render_with_navbar("about/mission.html")
 
 @app.route('/probation/')
 def probation():
-    return render_template("academics/probation.html")
+    return render_with_navbar("academics/probation.html")
 
 @app.route('/schedule/')
 def schedule():
-    return render_template("calendars/schedule.html")
+    return render_with_navbar("calendars/schedule.html")
 
 @app.route('/calendar/')
 def calendar():
-    return render_template("calendars/master.html")
+    return render_with_navbar("calendars/master.html")
 
 @app.route('/calendar/college/')
 def calendar_college():
-    return render_template("calendars/college.html")
+    return render_with_navbar("calendars/college.html")
 
 @app.route('/calendar/athletic/')
 def calendar_athletic():
-    return render_template("calendars/athletic.html")
+    return render_with_navbar("calendars/athletic.html")
 
 @app.route('/calendar/library/')
 def calendar_library():
-    return render_template("calendars/library.html")
+    return render_with_navbar("calendars/library.html")
 
 @app.route('/college/')
 def college():
-    return render_template("academics/college.html")
+    return render_with_navbar("academics/college.html")
 
 @app.route('/college/sessions/')
 def college_sessions():
-    return render_template("academics/college/sessions.html")
+    return render_with_navbar("academics/college/sessions.html")
 
 @app.route('/college/reps/')
 def college_reps():
-    return render_template("academics/college/reps.html")
+    return render_with_navbar("academics/college/reps.html")
 
 @app.route('/college/testing/')
 def college_testing():
-    return render_template("academics/college/testing.html")
+    return render_with_navbar("academics/college/testing.html")
 
 @app.route('/college/faq/')
 def college_faq():
-    return render_template("academics/college/faq.html")
+    return render_with_navbar("academics/college/faq.html")
 
 @app.route('/college/aid/')
 def college_aid():
-    return render_template("academics/college/aid.html")
+    return render_with_navbar("academics/college/aid.html")
 
 @app.route('/college/naviance/')
 def college_naviance():
-    return render_template("academics/college/naviance.html")
+    return render_with_navbar("academics/college/naviance.html")
 
 @app.route('/courseguide/')
 def course_guide():
-    return render_template("academics/courseguide.html")
+    return render_with_navbar("academics/courseguide.html")
 
 @app.route('/honorcode/')
 def honor_code():
-    return render_template("academics/honorcode.html")
+    return render_with_navbar("academics/honorcode.html")
 
 @app.route('/magnetendorsement/')
 def magnet_endorsement():
-    return render_template("academics/magnetendorsement.html")
+    return render_with_navbar("academics/magnetendorsement.html")
 
 @app.route('/finearts/')
 def fine_arts():
-    return render_template("academics/finearts.html")
+    return render_with_navbar("academics/finearts.html")
 
 @app.route('/service/')
 def students_service():
-    return render_template("students/service.html")
+    return render_with_navbar("students/service.html")
 
 @app.route('/ranking/')
 def students_ranking():
-    return render_template("students/ranking.html")
+    return render_with_navbar("students/ranking.html")
 
 @app.route('/wellness/')
 def students_wellness():
-    return render_template("students/wellness.html")
+    return render_with_navbar("students/wellness.html")
 
 @app.route('/wellness/issues/')
 def wellness_issues():
-    return render_template("students/wellness/issues.html")
+    return render_with_navbar("students/wellness/issues.html")
 
 @app.route('/wellness/when/')
 def wellness_when():
-    return render_template("students/wellness/when.html")
+    return render_with_navbar("students/wellness/when.html")
 
 @app.route('/wellness/abuse/')
 def wellness_abuse():
-    return render_template("students/wellness/abuse.html")
+    return render_with_navbar("students/wellness/abuse.html")
 
 @app.route('/howtoapply/')
 def how_to_apply():
-    return render_template("admissions/howtoapply.html")
+    return render_with_navbar("admissions/howtoapply.html")
 
 @app.route('/shadowing/')
 def shadowing():
-    return render_template("admissions/shadowing.html")
+    return render_with_navbar("admissions/shadowing.html")
 
 @app.route('/coursefaq/')
 def course_faq():
-    return render_template("admissions/coursefaq.html")
+    return render_with_navbar("admissions/coursefaq.html")
 
 @app.route('/signature/')
 def signature_courses():
-    return render_template("admissions/signature.html")
+    return render_with_navbar("admissions/signature.html")
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
@@ -269,4 +278,4 @@ def load_user(id):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_with_navbar('404.html'), 404
