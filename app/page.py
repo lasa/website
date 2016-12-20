@@ -3,9 +3,16 @@ from app.models import User, Page
 from flask import Flask, redirect, render_template, request
 from flask_login import current_user
 from flask_wtf import Form
-from wtforms import validators, StringField, TextAreaField, HiddenField
+from wtforms import validators, StringField, TextAreaField, HiddenField, SelectField
 from wtforms.validators import DataRequired
 import datetime, time
+
+choices = [('calendars', 'Calendars'),
+                ('about', 'About Us'),
+                ('academics', 'Academics'),
+                ('students', 'Students'),
+                ('parents', 'Parents'),
+                ('admissions', 'Admissions')]
 
 #custom widget for rendering a QuillJS input
 def TinyMCE(field):
@@ -25,8 +32,9 @@ def TinyMCE(field):
 
 class NewPageForm(Form):
     title = StringField('Title:', validators=[validators.Length(min=0,max=1000)])
+    category = SelectField('Category:', choices=choices)
     body = TextAreaField('Body:', validators=[validators.Length(min=0,max=75000)], widget=TinyMCE)
-    bodyhtml = HiddenField();
+    bodyhtml = HiddenField()
 
 
 def new_page():
@@ -34,6 +42,7 @@ def new_page():
     if form.validate_on_submit():
         title = form.title.data
         body = form.bodyhtml.data
+        category = form.category.data
 
         if len(title) < 1:
             form.title.errors.append("This field is required.")
@@ -42,7 +51,7 @@ def new_page():
 
         name = "-".join(title.split(" ")).lower()
 
-        newpage = Page(title=title, name=name, body=body)
+        newpage = Page(title=title, name=name, category=category, body=body)
         db.session.add(newpage)
         db.session.commit()
         time.sleep(0.5);
@@ -59,16 +68,19 @@ def edit_page(page_name):
     if not currentPage:
         return render_template("404.html"), 404
 
-    form = NewPageForm()
 
     title = currentPage.title
     bodyhtml = currentPage.body
+    category = currentPage.category
+
+    form = NewPageForm(category=category)
 
     form.body.data = bodyhtml
 
     if form.validate_on_submit():
         newtitle = form.title.data
         newbody = form.bodyhtml.data
+        newcategory = form.category.data
 
         if len(newtitle) < 1:
             form.title.errors.append("This field is required.")
@@ -87,6 +99,7 @@ def edit_page(page_name):
         currentPage.title = newtitle
         currentPage.body = newbody
         currentPage.name = newname
+        currentPage.category = newcategory
         db.session.commit()
         time.sleep(0.5)
         return redirect("/page/" + newname)
