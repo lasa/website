@@ -12,6 +12,12 @@
 		{{form.title()|safe}} <br/>
 		<div class="error">{{form.title.errors[0]}}</div> 
 	    <br/>	
+
+        {{form.category.label}} <br/>
+        {{form.category()|safe}} <br/>
+        <div class="error">{{form.category.errors[0]}}</div>
+        <br/>
+
 		{{form.body.label}} <br/>
 		{{form.body()|safe}}
 
