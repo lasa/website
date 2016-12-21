@@ -38,11 +38,18 @@
           <ul class="nav navbar-nav">
             <li id="home-link"><a class="dropdown-toggle" href="/"><span class="glyphicon glyphicon-home"></span></a></li>
 
+        {% macro render_dropdown(page) -%}
+        <li><a href="/page/{{page.name}}">{{page.title}}</a></li>
+        {% if page.dividerBelow %}
+          <li class="divider"></li>
+        {% endif %}
+        {%- endmacro %}
+
 	    <li class="dropdown">
         <a class="dropdown-toggle"><span class="glyphicon glyphicon-calendar"></span></a>
         <ul class="dropdown-menu">
         {% for page in pages['calendars'] %}
-		<li><a href="/page/{{page.name}}">{{page.title}}</a></li>
+          {{render_dropdown(page)}}
         {% endfor %}
         </ul>
         </li>
@@ -51,7 +58,7 @@
         <a class="dropdown-toggle">About Us</a>
         <ul class="dropdown-menu">
         {% for page in pages['about'] %}
-		<li><a href="/page/{{page.name}}">{{page.title}}</a></li>
+          {{render_dropdown(page)}}
         {% endfor %}
         </ul>
         </li>
@@ -60,7 +67,7 @@
         <a class="dropdown-toggle">Academics</a>
         <ul class="dropdown-menu">
         {% for page in pages['academics'] %}
-        <li><a href="/page/{{page.name}}">{{page.title}}</a>
+          {{render_dropdown(page)}}
         {% endfor %}
         </ul>
         </li>
@@ -69,7 +76,7 @@
         <a class="dropdown-toggle">Students</a>
         <ul class="dropdown-menu">
         {% for page in pages['students'] %}
-        <li><a href="/page/{{page.name}}">{{page.title}}</a></li>
+          {{render_dropdown(page)}}
         {% endfor %}
         </ul>
         </li>
@@ -78,7 +85,7 @@
         <a class="dropdown-toggle">Parents</a>
         <ul class="dropdown-menu">
         {% for page in pages['parents'] %}
-        <li><a href="/page/{{page.name}}">{{page.title}}</a></li>
+          {{render_dropdown(page)}}
         {% endfor %}
         </ul>
         </li>
@@ -100,7 +107,7 @@
         <a class="dropdown-toggle">Admissions</a>
         <ul class="dropdown-menu">
         {% for page in pages['admissions'] %}
-        <li><a href="/page/{{page.name}}">{{page.title}}</a></li>
+          {{render_dropdown(page)}}
         {% endfor %}
         </ul>
         </li>
