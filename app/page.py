@@ -1,4 +1,4 @@
-from app import app, db, views
+from app import app, db, utils
 from app.models import User, Page
 from flask import Flask, redirect, request
 from flask_login import current_user
@@ -56,11 +56,11 @@ def new_page():
         if len(title) < 1:
             form.title.errors.append("This field is required.")
             form.body.data = body
-            return views.render_with_navbar("newpage.html", form=form, title=title, index=index)
+            return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
         if index<0 or index>100:
             form.index.errors.append("Number must be between 0 and 100.")
             form.body.data = body
-            return views.render_with_navbar("newpage.html", form=form, title=title, index=index)
+            return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
 
         name = "-".join(title.split(" ")).lower()
 
@@ -70,16 +70,16 @@ def new_page():
         time.sleep(0.5);
         return redirect("/page/" + name)
 
-    return views.render_with_navbar("newpage.html", form=form)
+    return utils.render_with_navbar("newpage.html", form=form)
 
 
 def edit_page(page_name):
     if not page_name: 
-        return views.render_with_navbar("404.html"), 404
+        return utils.render_with_navbar("404.html"), 404
 
     currentPage = Page.query.filter_by(name=page_name).first()
     if not currentPage:
-        return views.render_with_navbar("404.html"), 404
+        return utils.render_with_navbar("404.html"), 404
 
 
     title = currentPage.title
@@ -102,12 +102,12 @@ def edit_page(page_name):
         if len(newtitle) < 1:
             form.title.errors.append("This field is required.")
             form.body.data = newbody
-            return views.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
+            return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
 
         if index<0 or index>100:
             form.index.erros.append("Number must be between 0 and 100.")
             form.body.data = newbody
-            return views.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
+            return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
 
         newname = "-".join(newtitle.split(" ")).lower()
 
@@ -116,7 +116,7 @@ def edit_page(page_name):
             if page:
                 form.title.errors.append("A page with this name already exists.")
                 form.body.data = newbody
-                return views.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
+                return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
 
         currentPage.title = newtitle
         currentPage.body = newbody
@@ -128,16 +128,16 @@ def edit_page(page_name):
         time.sleep(0.5)
         return redirect("/page/" + newname)
 
-    return views.render_with_navbar("editpage.html", form=form, title=title, index=index)
+    return utils.render_with_navbar("editpage.html", form=form, title=title, index=index)
 
 
 def delete_page(page_name):
     if not page_name:
-        return views.render_with_navbar("404.html"), 404
+        return utils.render_with_navbar("404.html"), 404
 
     page = Page.query.filter_by(name=page_name)
     if not page:
-        return views.render_with_navbar("404.html"), 404
+        return utils.render_with_navbar("404.html"), 404
 
     page.delete()
     db.session.commit()

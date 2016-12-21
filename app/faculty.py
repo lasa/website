@@ -1,4 +1,4 @@
-from app import app, db, views
+from app import app, db, utils
 from app.models import User, Faculty
 from flask import Flask, redirect, request
 from flask_login import current_user
@@ -49,7 +49,7 @@ def new_faculty():
         db.session.commit()
         return redirect("/faculty")
 
-    return views.render_with_navbar("faculty/newfaculty.html", form=form)
+    return utils.render_with_navbar("faculty/newfaculty.html", form=form)
 
 def edit_faculty():
     facultyid = request.args.get("id")
@@ -97,7 +97,7 @@ def edit_faculty():
 
     if not website:
         website = ""
-    return views.render_with_navbar("faculty/editfaculty.html", form=form, firstname=firstname, lastname=lastname, occupation=occupation, email=email, tel=tel, website=website)
+    return utils.render_with_navbar("faculty/editfaculty.html", form=form, firstname=firstname, lastname=lastname, occupation=occupation, email=email, tel=tel, website=website)
 
 def delete_faculty():
     facultyid = request.args.get("id")
