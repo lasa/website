@@ -72,6 +72,8 @@ class Page(db.Model):
     title = db.Column(db.String(page_limits['title']))
     name = db.Column(db.String(page_limits['title']))
     category = db.Column(db.String(50))
+    dividerBelow = db.Column(db.Boolean())
+    index = db.Column(db.Integer)
     body = db.Column(db.Text())
     timestamp = db.Column(db.DateTime)
 
