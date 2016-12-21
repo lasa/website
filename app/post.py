@@ -1,4 +1,4 @@
-from app import app, db, views
+from app import app, db, utils
 from app.models import User, Post, Message
 from flask import Flask, redirect, request
 from flask_login import current_user
@@ -24,7 +24,7 @@ def new_post():
         db.session.commit()
         return redirect("/news")
 
-    return views.render_with_navbar("news/newpost.html", form=form, heading="News Item")
+    return utils.render_with_navbar("news/newpost.html", form=form, heading="News Item")
 
 def new_message():
     form = NewPostForm()
@@ -37,7 +37,7 @@ def new_message():
         db.session.commit()
         return redirect("/message")
 
-    return views.render_with_navbar("news/newpost.html", form=form, heading="Principal's Message")
+    return utils.render_with_navbar("news/newpost.html", form=form, heading="Principal's Message")
 
 
 
@@ -63,7 +63,7 @@ def edit_post():
         db.session.commit()
         return redirect("/news?postid="+postid)
 
-    return views.render_with_navbar("news/editpost.html", form=form, title=title, body=body, heading="News Item")
+    return utils.render_with_navbar("news/editpost.html", form=form, title=title, body=body, heading="News Item")
 
 def edit_message():
     postid = request.args.get("postid")
@@ -87,7 +87,7 @@ def edit_message():
         db.session.commit()
         return redirect("/messages?postid="+postid)
 
-    return views.render_with_navbar("news/editpost.html", form=form, title=title, body=body, heading="Principal's Message")
+    return utils.render_with_navbar("news/editpost.html", form=form, title=title, body=body, heading="Principal's Message")
 
 
 def delete_post():
