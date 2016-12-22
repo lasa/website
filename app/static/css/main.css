@@ -2,8 +2,6 @@
 
 body {
   background-color:#F7F7F7;
-  background-size:cover;
-  background-position:center;
   font-family:"Roboto",sans-serif;
   letter-spacing:0.5px;
   color:#777;
@@ -49,6 +47,7 @@ h5 {
 #logged-in {
   color:#ADADAD;
   position:absolute;
+  text-align:right;
   right:50%;
   margin-right:-450px;
   top:30px;

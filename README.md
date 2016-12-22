@@ -24,25 +24,11 @@ is necessary to run the following scripts:
 
 2. Migrate the existing database models: `./db_migrate.py`
 
-In the future there will likely be a script that will create and
-populate the database with some default data. In the meantime, it is
-possible to manually setup the database:
+To create a user that can log in and edit the website, run the following script:
 
-1. Start python: `flask/bin/python`
+`./create_user.py harambe gorilla@cincinnatizoo.org neverforget`
 
-2. Import a SQLite interface and (among other things) the User class:
-`from app import db, models`
-
-3. Import modules needed to hash and salt passwords: `import bcrypt`
-
-4. Create User "u" with specificed information: ```u =
-models.User(name="harambe", email="harambe@cincinnatizoo.org",
-password=bcrypt.hashpw("IAmHarambe".encode("utf-8"), 
-bcrypt.gensalt()))```
-
-5. Add the User to the SQLite session: `db.session.add(u)`
-
-6. Commit the session: `db.session.commit()`
+where the three arguments are the username, email, and password, respectively.
 
 ## Licensing
 All files are released under the GNU AGPL (whose full text is located
