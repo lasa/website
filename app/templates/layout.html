@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Titillium:400">
     <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Roboto:400,400i">
   </head>
-  <body style="background-image:url({{ url_for('static', filename='images/background-students.jpg') }})">
+  <body style="background-image:url({{ url_for('static', filename='images/background.jpg') }})">
     
     <div class="top-bar-wrapper">
       <div id="top-banner">
@@ -37,74 +37,59 @@
         <div class="container-fluid">
           <ul class="nav navbar-nav">
             <li id="home-link"><a class="dropdown-toggle" href="/"><span class="glyphicon glyphicon-home"></span></a></li>
+
+        {% macro render_dropdown(page) -%}
+        <li><a href="/page/{{page.name}}">{{page.title}}</a></li>
+        {% if page.dividerBelow %}
+          <li class="divider"></li>
+        {% endif %}
+        {%- endmacro %}
+
 	    <li class="dropdown">
-              <a class="dropdown-toggle"><span class="glyphicon glyphicon-calendar"></span></a>
-              <ul class="dropdown-menu">
-		<li><a href="/schedule">Bell Schedules</a></li>
-		<li class="divider"></li>
-		<li><a href="/calendar">Master Calendar</a></li>
-                <li><a href="/calendar/college">College Counselor Events</a></li>
-                <li><a href="/calendar/athletic">Athletic Events</a></li>
-                <li><a href="/calendar/library">Campus Library Calendar</a></li>
-              </ul>
-            </li>
+        <a class="dropdown-toggle"><span class="glyphicon glyphicon-calendar"></span></a>
+        <ul class="dropdown-menu">
+        {% for page in pages['calendars'] %}
+          {{render_dropdown(page)}}
+        {% endfor %}
+        </ul>
+        </li>
+
 	    <li class="dropdown">
-              <a class="dropdown-toggle">About Us</a>
-              <ul class="dropdown-menu">
-		<li><a href="/accolades">Accolades</a></li>
-		<li><a href="/mission">Mission and Vision</a></li>
-                <li><a href="/profile">School Profile</a></li>
-                <li><a href="/history">School History</a></li>
-                <li class="divider"></li>
-                <li><a href="/contact">Contact and Directions</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">Academics</a>
-              <ul class="dropdown-menu">
-                <li><a href="/probation">Academic Probation</a>
-                <li><a href="/college">College Counseling</a>
-                <li><a href="/courseguide">Course Guide</a>
-                <li><a href="/honorcode">Honor Code</a>
-                <li><a href="/magnetendorsement">Magnet Endorsement</a>
-                <li class="divider"></li>
-                <li class="dropdown-header">Departments</li>
-                <li><a href="http://lasacs.com" target="_blank">Computer Science</a></li>
-                <li><a href="/finearts">Fine Arts</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">Students</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Clubs and Organizations</a></li>
-                <li><a target="_blank" href="{{url_for('static', filename='documents/2016-2017_Student_Handbook-Final.pdf')}}">Handbook</a></li>
-                <li><a target="_blank" href="https://docs.google.com/document/d/18SepSLa2qFxqihF15YgCwn5mGKvc-JbjmolhViQjaRU/edit?ts=57bb436b">Homeroom Schedule</a></li>
-                <li><a target="_blank" href="{{url_for('static', filename='documents/ParkingPermit.pdf')}}">Parking Application</a></li>
-                <li><a href="/ranking">Student Ranking</a></li>	
-                <li><a href="/wellness">Wellness Counseling</a></li>
-                <li><a href="/service">Service Learning</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">Parents</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">FAQs</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">PFLASA</li>
-                <li><a href="#">PFLASA</a></li>
-                <li><a href="#">PFLASA Forms</a></li>
-                <li><a href="#">PFLASA Meetings</a></li>
-                <li><a href="#">Support PFLASA</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Stay in Touch</li>
-                <li><a href="#">Campus Advisory Council</a></li>
-                <li><a href="#">Lots of LASA</a></li>
-                <li><a href="#">PFLASA Stay Connected</a></li>
-                <li class="divider"></li>
-                <li><a href="#">PTSA</a></li>
-                <li><a href="#">Transporation</a></li>
-              </ul>
-            </li>
+        <a class="dropdown-toggle">About Us</a>
+        <ul class="dropdown-menu">
+        {% for page in pages['about'] %}
+          {{render_dropdown(page)}}
+        {% endfor %}
+        </ul>
+        </li>
+
+        <li class="dropdown">
+        <a class="dropdown-toggle">Academics</a>
+        <ul class="dropdown-menu">
+        {% for page in pages['academics'] %}
+          {{render_dropdown(page)}}
+        {% endfor %}
+        </ul>
+        </li>
+
+        <li class="dropdown">
+        <a class="dropdown-toggle">Students</a>
+        <ul class="dropdown-menu">
+        {% for page in pages['students'] %}
+          {{render_dropdown(page)}}
+        {% endfor %}
+        </ul>
+        </li>
+
+        <li class="dropdown">
+        <a class="dropdown-toggle">Parents</a>
+        <ul class="dropdown-menu">
+        {% for page in pages['parents'] %}
+          {{render_dropdown(page)}}
+        {% endfor %}
+        </ul>
+        </li>
+
             <li class="dropdown">
               <a class="dropdown-toggle">Faculty</a>
               <ul class="dropdown-menu">
@@ -117,17 +102,16 @@
                 <li><a href="/message">Principal's Message</a></li>
               </ul>
             </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle">Admissions</a>
-              <ul class="dropdown-menu">
-                <li><a href="/howtoapply">How to Apply</a></li>
-                <li><a target="_blank" href="{{url_for('static', filename='documents/recruitment_calendar.pdf')}}">Recruitment Calendar</a></li>
-                <li><a href="/shadowing">Shadowing</a></li>
-                <li class="divider"></li>
-                <li><a href="/coursefaq">Course FAQs</a></li>
-                <li><a href="/signature">Signature Courses</a></li>
-              </ul>
-            </li>
+
+        <li class="dropdown">
+        <a class="dropdown-toggle">Admissions</a>
+        <ul class="dropdown-menu">
+        {% for page in pages['admissions'] %}
+          {{render_dropdown(page)}}
+        {% endfor %}
+        </ul>
+        </li>
+
           </ul>
         </div>
       </nav>

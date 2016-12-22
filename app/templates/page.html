@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if (current_user.is_authenticated) %}
+<div class="edit-delete">
+
+<a href="edit">edit</a>
+ | 
+<a href="delete">delete</a>
+
+</div>
+{% endif %}
+<br/>
+
+{{page.body | safe}}
+
+{% endblock %}
