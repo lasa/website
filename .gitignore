@@ -1,6 +1,6 @@
 # database
 *.db
-db_repository/
+migrations/
 
 # ini files
 *.ini
