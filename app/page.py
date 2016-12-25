@@ -8,7 +8,8 @@ from flask_wtf.html5 import IntegerField
 from wtforms.validators import DataRequired
 import datetime, time
 
-choices = [('calendars', 'Calendars'),
+choices = [('none', 'None'),
+                ('calendars', 'Calendars'),
                 ('about', 'About Us'),
                 ('academics', 'Academics'),
                 ('students', 'Students'),
@@ -39,7 +40,7 @@ class NewPageForm(Form):
     title = StringField('Title:', validators=[validators.Length(min=0,max=1000)])
     category = SelectField('Category:', choices=choices)
     dividerBelow = BooleanField('Divider below page name in dropdown menu')
-    index = IntegerField('Ordering index (lower is higher up):')
+    index = IntegerField('Ordering index (lower is higher up):', validators=[validators.Optional()])
     body = TextAreaField('Body:', validators=[validators.Length(min=0,max=75000)], widget=TinyMCE)
     bodyhtml = HiddenField()
 
@@ -57,12 +58,20 @@ def new_page():
             form.title.errors.append("This field is required.")
             form.body.data = body
             return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
-        if index<0 or index>100:
+
+        if index and (index<0 or index>100):
             form.index.errors.append("Number must be between 0 and 100.")
             form.body.data = body
             return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
 
         name = "-".join(title.split(" ")).lower()
+
+        page = Page.query.filter_by(name=name).first()
+        if page:
+            form.title.errors.append("A page with this name already exists.")
+            form.body.data = body
+            return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
+
 
         newpage = Page(title=title, name=name, category=category, dividerBelow=dividerBelow, index=index, body=body)
         db.session.add(newpage)
@@ -104,7 +113,7 @@ def edit_page(page_name):
             form.body.data = newbody
             return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
 
-        if index<0 or index>100:
+        if index and (index<0 or index>100):
             form.index.erros.append("Number must be between 0 and 100.")
             form.body.data = newbody
             return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
