@@ -1,12 +1,10 @@
 #!flask/bin/python
-from migrate.versioning import api
+from sqlalchemy import create_engine
 from config import SQLALCHEMY_DATABASE_URI
-from config import SQLALCHEMY_MIGRATE_REPO
 from app import db
 import os.path
+
+engine = create_engine(SQLALCHEMY_DATABASE_URI[0:SQLALCHEMY_DATABASE_URI.rfind('/')])
+engine.execute("CREATE DATABASE " + SQLALCHEMY_DATABASE_URI.split('/')[-1] + ';')
+engine.execute("USE " + SQLALCHEMY_DATABASE_URI.split('/')[-1] + ';')
 db.create_all()
-if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
-    api.create(SQLALCHEMY_MIGRATE_REPO, 'database repository')
-    api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
-else:
-    api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))
