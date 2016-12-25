@@ -10,25 +10,34 @@ list of dependencies is available in requirements.txt.
 ### Virtual environment setup
 
 Run everything inside a python virtual environment (venv):  `python -m
-venv flask`. 
+venv flask` or `python3 -m venv flask` if Python 3 is not the system default. 
 
 ### Package installation
 Install all necessary packages: `flask/bin/pip3 install -r
 requirements.txt`
 
 ### Database setup
-In order to get database file with the correct columns and records, it
-is necessary to run the following scripts:
+First, install and set up the latest version of MySQL. The following are instructions for Debian linux:
 
-1. Create a new SQLite database: `./db_create.py`
+1. Install the latest version of MySQL server and client: `sudo apt-get install mysql-server libmysqlclient-dev`
 
-2. Migrate the existing database models: `./db_migrate.py`
+2. When prompted, enter "password" as the MySQL root password, or otherwise change the SQLALCHEMY\_DATABASE\_URI in config.py to match your password.
+
+3. Start the MySQL service: `sudo systemctl start mysql`
+
+4. Create a new database: `./db_create.py`
+
+5. Set up database migrations: `./db_migrate.py db init`
 
 To create a user that can log in and edit the website, run the following script:
 
-`./create_user.py harambe gorilla@cincinnatizoo.org neverforget`
+`./create_user.py harambe gorilla@cincinnatizoo.org #neverforget123`
 
 where the three arguments are the username, email, and password, respectively.
+
+### Testing the application
+
+To run an instance of the website in debug mode on localhost:5000: `./run.py`
 
 ## Licensing
 All files are released under the GNU AGPL (whose full text is located

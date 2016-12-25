@@ -23,7 +23,7 @@ def generate_hash(password):
 
 
 def check_password(candidate_password, pwhash):
-    if (hmac.compare_digest(bcrypt.hashpw(candidate_password.encode("utf-8"), pwhash), pwhash)):
+    if (hmac.compare_digest(bcrypt.hashpw(candidate_password.encode("utf-8"), pwhash.encode("utf-8")), pwhash.encode("utf-8"))):
         return True
     else:
         return False
