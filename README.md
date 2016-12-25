@@ -19,7 +19,7 @@ requirements.txt`
 ### Database setup
 First, install and set up the latest version of MySQL. The following are instructions for Debian linux:
 
-1. Install the latest version of mysql-server: `sudo apt-get install mysql-server`
+1. Install the latest version of MySQL server and client: `sudo apt-get install mysql-server libmysqlclient-dev`
 
 2. When prompted, enter "password" as the MySQL root password, or otherwise change the SQLALCHEMY\_DATABASE\_URI in config.py to match your password.
 
