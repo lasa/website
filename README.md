@@ -12,8 +12,8 @@ list of dependencies is available in requirements.txt.
 Run everything inside a python virtual environment (venv):  `python -m
 venv flask` or `python3 -m venv flask` if Python 3 is not the system default. 
 
-### Package installation
-Install all necessary packages: `flask/bin/pip3 install -r
+### Packages
+First, install your distribution's package for MySQL/MariaDB (using `apt-get`, `dnf`, `pacman`, whatever). Then install all of the necessary python dependencies: `flask/bin/pip3 install -r
 requirements.txt`
 
 ### Database setup
