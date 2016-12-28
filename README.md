@@ -31,7 +31,7 @@ First, install and set up the latest version of MySQL. The following are instruc
 
 To create a user that can log in and edit the website, run the following script:
 
-`./create_user.py harambe gorilla@cincinnatizoo.org #neverforget123`
+`./create_user.py harambe gorilla@cincinnatizoo.org neverforget123`
 
 where the three arguments are the username, email, and password, respectively.
 
