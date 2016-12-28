@@ -1,4 +1,4 @@
-#!../flask/bin/python
+#!flask/bin/python
 import os
 import unittest
 import bcrypt
@@ -12,8 +12,8 @@ from app.models import User
 class TestCase(unittest.TestCase):
     def setUp(self):
         app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'test.db')
+        app.config['WTF_CSRF_ENABLED'] = True
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/website-testdb'
         self.app = app.test_client()
         db.create_all()
 
