@@ -16,32 +16,12 @@ choices = [('none', 'None'),
                 ('parents', 'Parents'),
                 ('admissions', 'Admissions')]
 
-#custom widget for rendering a TinyMCE input
-def TinyMCE(field):
-    return """  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-         <script>tinymce.init({ 
-            selector:'#editor', 
-            theme: 'modern',
-            height: 800,
-			plugins: [
-            'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-            'save table contextmenu directionality emoticons template paste textcolor'
-            ],
-            table_default_attributes: {
-            class: 'table-condensed'
-            },
-            content_css: '/static/css/tinymce.css',
-            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor'
-         });</script>
-         <textarea id='editor'> %s </textarea>""" % field._value()
-
 class NewPageForm(Form):
     title = StringField('Title:', validators=[validators.Length(min=0,max=1000)])
     category = SelectField('Category:', choices=choices)
     dividerBelow = BooleanField('Divider below page name in dropdown menu')
     index = IntegerField('Ordering index (lower is higher up):', validators=[validators.Optional()])
-    body = TextAreaField('Body:', validators=[validators.Length(min=0,max=75000)], widget=TinyMCE)
+    body = TextAreaField('Body:', validators=[validators.Length(min=0,max=75000)], widget=utils.TinyMCE)
     bodyhtml = HiddenField()
 
 
