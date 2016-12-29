@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<div class="latest-news">
 <h2 class="post-title" style="border-bottom:0px">{{heading}}</h2>
 {% if current_user.is_authenticated %}
 <div class="edit-delete">
@@ -30,6 +29,5 @@
 </div>
 
 {% endfor %}
-</div>
 
 {% endblock %}

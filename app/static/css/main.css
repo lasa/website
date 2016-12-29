@@ -318,11 +318,6 @@ h5 {
 
 /*News page*/
 
-.latest-news {
-  float:left
-  text-align:left;
-}
-
 .news-item {
   display:inline-block;
   width:100%;
