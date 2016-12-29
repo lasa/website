@@ -23,7 +23,15 @@ def TinyMCE(field):
     liststr = liststr[:-1] + ']'
 
     return """  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-         <script>tinymce.init({ 
+         <script>
+            function customInit() {
+                setTimeout(function(){
+                    window.scrollTo(0, 0);
+                    $('form *:input[type!=hidden]:first').focus();
+                },0);
+            }
+            tinymce.init({ 
+            oninit: customInit(),
             selector:'#editor', 
             theme: 'modern',
             height: 800,
