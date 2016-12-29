@@ -19,11 +19,40 @@ def upload_file():
 
         f = request.files[form.uploadfile.name]
         filename = secure_filename(f.filename)
-        f.save(os.path.join('app/', app.config['UPLOAD_FOLDER'], filename))
+        uploads = os.listdir(os.path.join('app', app.config['UPLOAD_FOLDER']))
+        
+        if filename in uploads:
+            form.uploadfile.errors.append("A file with this name already exists.")
+            return utils.render_with_navbar("upload.html", form=form)
+        if not filename:
+            form.uploadfile.errors.append("Invalid file name.")
+            return utils.render_with_navbar("upload.html", form=form)
+
+        f.save(os.path.join('app', app.config['UPLOAD_FOLDER'], filename))
         f.close()
         time.sleep(0.5)
-        #calls views.uploaded_file(filename)
-        return redirect(url_for('uploaded_file', filename=filename))
-        #TODO create a page at /uploads/ to view all uploads in a list and redirect to there instead
+        return redirect('/uploads/')
 
     return utils.render_with_navbar("upload.html", form=form)
+
+def show_uploads():
+    uploads = os.listdir(os.path.join('app', app.config['UPLOAD_FOLDER']))
+    uploads.remove('.gitignore')
+    #sorts uploads by time last modified, which should always be the same as time uploaded
+    uploads.sort(key=lambda filename:os.stat(os.path.join('app', app.config['UPLOAD_FOLDER'], filename)).st_mtime)
+    return utils.render_with_navbar("uploads.html", uploads=uploads[::-1])
+
+def delete_upload():
+    filename = request.args.get("name")
+    if not filename:
+        return redirect("/uploads")
+    filename = secure_filename(filename)
+    if not filename:
+        return redirect("/uploads")
+
+    try:
+        os.remove(os.path.join('app', app.config['UPLOAD_FOLDER'], filename))
+    except FileNotFoundError:
+        return redirect("/uploads")
+    time.sleep(0.5)
+    return redirect("/uploads")

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h2 class="post-title" style="border-bottom:0px">Uploaded Files</h2>
+<div class="edit-delete">
+    <a href="/upload">new upload</a>
+</div>
+{% for upload in uploads %}
+
+<div class="news-item">
+	<a class="news-item-link" href="/uploads/{{upload}}">{{upload}}</a>
+    <div class="edit-delete"> <a href="/delupload?name={{upload}}">delete</a> </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

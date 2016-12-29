@@ -37,6 +37,16 @@ def edit_page(page_name):
 def upload_file():
     return upload.upload_file()
 
+@app.route('/uploads/')
+@login_required
+def show_uploads():
+    return upload.show_uploads()
+
+@app.route('/delupload/')
+@login_required
+def delete_upload():
+    return upload.delete_upload()
+
 @app.route('/uploads/<string:filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
