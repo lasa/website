@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="form-label">Upload a file</div>
+<br/>
+<br/>
+<div>
+	<form method="post" enctype="multipart/form-data">
+		{{form.csrf_token}}
+
+		{{form.uploadfile()|safe}}
+		<div class="error">{{form.uploadfile.errors[0]}}</div> 
+		
+		<input type="submit" value="Upload" class="submit-btn">
+
+	</form>
+</div>
+
+{% endblock %}

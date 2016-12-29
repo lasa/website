@@ -1,8 +1,8 @@
-from app import app, utils, login_signup, models, login_manager, post, faculty, page
+from app import app, utils, login_signup, models, login_manager, post, faculty, page, upload
 from app.utils import render_with_navbar
 from app.models import User, Post, Page, Faculty, Message
 from flask_login import login_required
-from flask import request, redirect
+from flask import request, redirect, send_from_directory
 
 @app.route('/')
 @app.route('/index/')
@@ -22,15 +22,24 @@ def render_page(page_name):
 def new_page():
     return page.new_page()
 
-@app.route('/page/<string:page_name>/delete')
+@app.route('/page/<string:page_name>/delete/')
 @login_required
 def delete_page(page_name):
     return page.delete_page(page_name)
 
-@app.route('/page/<string:page_name>/edit', methods=["GET", "POST"])
+@app.route('/page/<string:page_name>/edit/', methods=["GET", "POST"])
 @login_required
 def edit_page(page_name):
     return page.edit_page(page_name)
+
+@app.route('/upload/', methods=["GET", "POST"])
+@login_required
+def upload_file():
+    return upload.upload_file()
+
+@app.route('/uploads/<string:filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/news/')
 def news():
