@@ -8,7 +8,7 @@ from flask_wtf.html5 import IntegerField
 from wtforms.validators import DataRequired
 import datetime, time
 
-choices = [('none', 'None'),
+choices = [('none', 'None (hidden)'),
                 ('calendars', 'Calendars'),
                 ('about', 'About Us'),
                 ('academics', 'Academics'),
@@ -131,5 +131,5 @@ def delete_page(page_name):
     page.delete()
     db.session.commit()
     time.sleep(0.5)
-    return redirect("/")
+    return redirect("/pages")
 

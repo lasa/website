@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h2 class="post-title" style="border-bottom:0px">Manage Pages</h2>
+<div class="edit-delete">
+    <a href="/newpage">new page</a>
+</div>
+
+<p>All of the categorized pages appear in the navigation bar at the top of the website and can be managed by navigating to them there.</p> <p>The following are hidden pages not accessible from the navigation bar. However, they can still be linked to from other, visible pages.</p>
+{% for page in hidden_pages %}
+
+<div class="news-item">
+	<a class="news-item-link" href="/page/{{page.name}}">{{page.title}}</a>
+    <div class="edit-delete"> <a href="/page/{{page.name}}/edit">edit</a> | <a href="/page/{{page.name}}/delete">delete</a> </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

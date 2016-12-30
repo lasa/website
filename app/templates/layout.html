@@ -31,7 +31,14 @@
       
       <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
       {% if current_user.is_authenticated %}
-      <div id="logged-in">{{current_user.name}} (<a href="/logout/?next={{request.path}}">logout</a>)<br/><a href="/newpage">new page</a></div>
+      <div id="logged-in">
+        {{current_user.name}} (<a href="/logout/?next={{request.path}}">logout</a>) <br/>
+        <a href="/pages">pages</a> <br/>
+        <a href="/news">news</a> <br/>
+        <a href="/messages">messages</a> <br/>
+        <a href="/faculty">faculty</a> <br/>
+        <a href="/uploads">uploads</a> <br/>
+      </div>
       {% endif %}
       <nav class="navbar">
         <div class="container-fluid">

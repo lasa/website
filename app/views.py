@@ -7,15 +7,21 @@ from flask import request, redirect, send_from_directory
 @app.route('/')
 @app.route('/index/')
 def index():
-    posts = Post.query.order_by(Post.timestamp.desc())
+    posts = Post.query.order_by(Post.timestamp.desc()).limit(10)
     return render_with_navbar("index.html", posts=posts)
 
 @app.route('/page/<string:page_name>/')
 def render_page(page_name):
     page = Page.query.filter_by(name=page_name).first()
     if page:
-        return render_with_navbar("page.html", page=page)
+        return render_with_navbar("page.html", page=page, title=page.title)
     return page_not_found(404)
+
+@app.route('/pages/')
+@login_required
+def show_hidden_pages():
+    pages = Page.query.filter_by(category="none")
+    return render_with_navbar("pages.html", hidden_pages=pages)
 
 @app.route('/newpage/', methods=["GET", "POST"])
 @login_required
