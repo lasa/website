@@ -5,7 +5,7 @@ from flask_login import current_user
 from flask_wtf import Form
 from wtforms import validators, StringField, TextAreaField
 from wtforms.validators import DataRequired
-import datetime
+import time, datetime
 
 
 class NewPostForm(Form):
@@ -22,6 +22,7 @@ def new_post():
         newpost = Post(title=title, body=body, author=current_user.id, timestamp=datetime.datetime.now())
         db.session.add(newpost)
         db.session.commit()
+        time.sleep(0.5)
         return redirect("/news")
 
     return utils.render_with_navbar("news/newpost.html", form=form, heading="News Item")
@@ -35,6 +36,7 @@ def new_message():
         newpost = Message(title=title, body=body, author=current_user.id, timestamp=datetime.datetime.now())
         db.session.add(newpost)
         db.session.commit()
+        time.sleep(0.5)
         return redirect("/message")
 
     return utils.render_with_navbar("news/newpost.html", form=form, heading="Principal's Message")
@@ -61,6 +63,7 @@ def edit_post():
         currentPost.title = newtitle
         currentPost.body = newbody
         db.session.commit()
+        time.sleep(0.5)
         return redirect("/news?postid="+postid)
 
     return utils.render_with_navbar("news/editpost.html", form=form, title=title, body=body, heading="News Item")
@@ -85,6 +88,7 @@ def edit_message():
         currentPost.title = newtitle
         currentPost.body = newbody
         db.session.commit()
+        time.sleep(0.5)
         return redirect("/messages?postid="+postid)
 
     return utils.render_with_navbar("news/editpost.html", form=form, title=title, body=body, heading="Principal's Message")
@@ -98,6 +102,7 @@ def delete_post():
     post = Post.query.filter_by(id=postid)
     post.delete()
     db.session.commit()
+    time.sleep(0.5)
     return redirect("/news")
 
 def delete_message():
@@ -108,4 +113,5 @@ def delete_message():
     post = Message.query.filter_by(id=postid)
     post.delete()
     db.session.commit()
+    time.sleep(0.5)
     return redirect("/messages")

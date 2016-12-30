@@ -6,6 +6,7 @@ from flask_wtf import Form
 from wtforms import validators, StringField, SelectField
 from flask_wtf.html5 import TelField
 from wtforms.validators import DataRequired
+import time
 
 choices = [('admin', 'Administration'),
                ('teaching', 'Teaching'),
@@ -47,6 +48,7 @@ def new_faculty():
         newfaculty = Faculty(firstname=firstname, lastname=lastname, occupation=occupation, email=email, tel=tel, website=website,  category=category)
         db.session.add(newfaculty)
         db.session.commit()
+        time.sleep(0.5)
         return redirect("/faculty")
 
     return utils.render_with_navbar("faculty/newfaculty.html", form=form)
@@ -93,6 +95,7 @@ def edit_faculty():
         currentFaculty.category = newcategory
 
         db.session.commit()
+        time.sleep(0.5)
         return redirect("/faculty")
 
     if not website:
@@ -107,4 +110,5 @@ def delete_faculty():
     faculty = Faculty.query.filter_by(id=facultyid)
     faculty.delete()
     db.session.commit()
+    time.sleep(0.5)
     return redirect("/faculty")

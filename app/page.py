@@ -130,5 +130,6 @@ def delete_page(page_name):
 
     page.delete()
     db.session.commit()
+    time.sleep(0.5)
     return redirect("/")
 
