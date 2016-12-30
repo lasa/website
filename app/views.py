@@ -3,6 +3,12 @@ from app.utils import render_with_navbar
 from app.models import User, Post, Page, Faculty, Message
 from flask_login import login_required
 from flask import request, redirect, send_from_directory
+from werkzeug.utils import secure_filename
+
+@app.before_request
+def before_request():
+    if not request.url.endswith('/'):
+        return redirect(request.url + '/'), 301
 
 @app.route('/')
 @app.route('/index/')
@@ -53,9 +59,9 @@ def show_uploads():
 def delete_upload():
     return upload.delete_upload()
 
-@app.route('/uploads/<string:filename>')
+@app.route('/uploads/<string:filename>/')
 def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    return send_from_directory(app.config['UPLOAD_FOLDER'], secure_filename(filename))
 
 @app.route('/news/')
 def news():
@@ -165,5 +171,7 @@ def load_user(id):
     return User.query.get(int(id))
 
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found(*args):
     return render_with_navbar('404.html'), 404
+
+login_manager.unauthorized = page_not_found

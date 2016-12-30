@@ -54,5 +54,4 @@ def login():
 
 def logout():
     logout_user()
-    #if request.args.get('next') is None, redirect to /
-    return redirect(request.args.get("next") if request.args.get("next") else "/")
+    return redirect("/")
