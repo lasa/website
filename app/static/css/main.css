@@ -261,7 +261,18 @@ h5 {
 
 .latest-news-index {
   float:right;
+  padding-left:40px;
   width:33%;
+}
+
+.latest-news-index > div > a {
+  text-decoration:none;
+  color:inherit;
+}
+
+.latest-news-index > div > a > h3 {
+  border-bottom:1px solid #A8A6A6;
+  padding-bottom:2px;
 }
 
 .news-item-link-index {
@@ -270,7 +281,13 @@ h5 {
 }
 
 .lasa-quick-calendar {
-  display:inline-block;
+  float:left;
+  clear:both;
+  width:33%;
+}
+
+.schedules-widget {
+  float:left;
   width:33%;
 }
 

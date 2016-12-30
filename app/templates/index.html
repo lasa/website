@@ -2,12 +2,17 @@
 {% block body %}
 
 <div class="lasa-quick-calendar">
-<h2>Calendar</h2>
+<h3>LASA Quick Calendar</h3>
 <iframe class="google-calendar" frameborder="1" height="685" scrolling="no" src="https://www.google.com/calendar/embed?showTitle=0&amp;mode=AGENDA&amp;height=450&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=lasawebmaster%40gmail.com&amp;color=%23711616&amp;src=aq61mgj5p5v16v00l1228n3a4s%40group.calendar.google.com&amp;color=%231B887A&amp;src=en.usa%23holiday%40group.v.calendar.google.com&amp;color=%232F6309&amp;ctz=America%2FChicago&widget=false" style="border-width: 0;" width="250"></iframe>
 </div>
 
+<div class="schedules-widget">
+<h3>Today's Schedule</h3>
+<iframe sandbox="allow-scripts" height="500" frameborder="0" src="https://lasa2017.com/schedulewidget/"></iframe>
+</div>
+
 <div class="latest-news-index">
-<a style="text-decoration:none;color:inherit" href="/news"><h2>Latest News</h2></a>
+<div><a href="/news"><h3>Latest News</h3></a></div>
 {% for post in posts %}
 
 <a class="news-item-link-index" href="/news?postid={{post.id}}">{{post.title}}</a>
