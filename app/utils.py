@@ -15,12 +15,18 @@ def render_with_navbar(template, **kwargs):
 #custom widget for rendering a TinyMCE input
 def TinyMCE(field):
     uploads = os.listdir(os.path.join('app', app.config['UPLOAD_FOLDER']))
-    liststr = "["
+    uploads.remove(".gitignore")
+    image_list = link_list = "["
     image_extensions = ["png", "jpg", "jpeg", "gif", "bmp"]
+
     for upload in uploads:
         if '.' in upload and upload.rsplit('.', 1)[1].lower() in image_extensions:
-            liststr += "{title: '" + upload + "', value: '/uploads/" + upload + "'},"
-    liststr = liststr[:-1] + ']'
+            image_list += "{title: '" + upload + "', value: '/uploads/" + upload + "'},"
+        else:
+            link_list += "{title: '" + upload + "', value: '/uploads/" + upload + "'},"
+
+    image_list = image_list[:-1] + '],'
+    link_list = link_list[:-1] + ']'
 
     return """  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
          <script>
@@ -43,16 +49,24 @@ def TinyMCE(field):
                      });
                    },
 			plugins: [
-            'advlist autolink link image lists charmap preview hr anchor pagebreak spellchecker',
+            'advlist autolink link image lists charmap preview hr anchor',
             'wordcount visualblocks visualchars code nonbreaking',
-            'table contextmenu directionality paste textcolor'
+            'table contextmenu paste textcolor'
             ],
             table_default_attributes: {
             class: 'table-condensed'
             },
             content_css: '/static/css/tinymce.css',
             toolbar: 'styleselect | fontsizeselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor',
-            image_list: """ + liststr + """
+            plugin_preview_height: 600,
+            plugin_preview_width: 925,
+            link_context_toolbar: true,
+            link_title: false,
+            image_advtab: true,
+            image_title: true,
+            image_description: false,
+            image_list: """ + image_list + """
+            link_list: """ + link_list + """
          });
          </script>
          <textarea id='editor'> %s </textarea>""" % field._value()
