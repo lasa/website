@@ -44,8 +44,7 @@ def login():
             if check_password(candidate_password, real_user.password):
                 login_user(User.query.get(real_user.id))
                 del candidate_password
-                #if request.args.get('next') is None, redirect to /
-                return redirect(request.args.get("next") if request.args.get("next") else "/")
+                return redirect("/")
             else:
                 form.password.errors.append("Username and password do not match.")
                 del candidate_password

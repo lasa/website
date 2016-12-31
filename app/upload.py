@@ -31,7 +31,7 @@ def upload_file():
         f.save(os.path.join('app', app.config['UPLOAD_FOLDER'], filename))
         f.close()
         time.sleep(0.5)
-        return redirect('/uploads/')
+        return redirect('/uploads')
 
     return utils.render_with_navbar("upload.html", form=form)
 
