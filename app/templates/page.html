@@ -4,9 +4,9 @@
 {% if (current_user.is_authenticated) %}
 <div class="edit-delete">
 
-<a href="edit">edit</a>
+<a href="{{page.name}}/edit">edit</a>
  | 
-<a href="delete">delete</a>
+<a href="{{page.name}}/delete">delete</a>
 
 </div>
 {% endif %}
