@@ -14,7 +14,7 @@ def render_with_navbar(template, **kwargs):
 
 #custom widget for rendering a TinyMCE input
 def TinyMCE(field):
-    uploads = os.listdir(os.path.join('app', app.config['UPLOAD_FOLDER']))
+    uploads = os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
     uploads.remove(".gitignore")
     image_list = link_list = "["
     image_extensions = ["png", "jpg", "jpeg", "gif", "bmp"]
