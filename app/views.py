@@ -1,4 +1,4 @@
-from app import app, utils, login_signup, models, login_manager, post, faculty, page, upload
+from app import app, utils, login_signup, models, login_manager, post, faculty, page, upload, link
 from app.utils import render_with_navbar
 from app.models import User, Post, Page, Faculty, Message
 from flask_login import login_required
@@ -50,6 +50,26 @@ def delete_page(page_name):
 @login_required
 def edit_page(page_name):
     return page.edit_page(page_name)
+
+@app.route('/newlink', methods=["GET", "POST"])
+@login_required
+def new_link():
+    return link.new_link()
+
+@app.route('/editlink', methods=["GET", "POST"])
+@login_required
+def edit_link():
+    return link.edit_link()
+
+@app.route('/dellink')
+@login_required
+def delete_link():
+    return link.delete_link()
+
+@app.route('/links')
+@login_required
+def show_links():
+    return utils.render_with_navbar("links.html")
 
 @app.route('/upload', methods=["GET", "POST"])
 @login_required

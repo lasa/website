@@ -18,6 +18,9 @@ faculty_limits = {'name': 50,
                   'tel': 30,
                   'website': 50}
 
+link_limits = {'title': 1000,
+               'url': 50}
+
 
 class User(db.Model):
     __tablename__ = "users"
@@ -79,6 +82,17 @@ class Page(db.Model):
 
     def __repr__(self):
         return '<Page %r>' % (self.title)
+
+class Link(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(link_limits['title']))
+    category = db.Column(db.String(50))
+    dividerBelow = db.Column(db.Boolean())
+    index = db.Column(db.Integer)
+    url = db.Column(db.String(link_limits['url']))
+
+    def __repr__(self):
+        return '<Link %r>' % (self.title)
 
 class Faculty(db.Model):
     id = db.Column(db.Integer, primary_key=True)

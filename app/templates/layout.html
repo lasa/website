@@ -32,9 +32,8 @@
       {% if current_user.is_authenticated %}
       <div id="logged-in">
         {{current_user.name}} (<a href="/logout">logout</a>) <br/>
-        <a href="/pages">pages</a> <br/>
-        <a href="/news">news</a> <br/>
-        <a href="/messages">messages</a> <br/>
+        <a href="/pages">pages</a> | <a href="/links">links</a> <br/>
+        <a href="/news">news</a> | <a href="/messages">messages</a> <br/>
         <a href="/faculty">faculty</a> <br/>
         <a href="/uploads">uploads</a> <br/>
       </div>
@@ -45,7 +44,11 @@
             <li id="home-link"><a class="dropdown-toggle" href="/"><span class="glyphicon glyphicon-home"></span></a></li>
 
         {% macro render_dropdown(page) -%}
-        <li><a href="/page/{{page.name}}">{{page.title}}</a></li>
+        {% if 'Page' in page.__class__|string %}
+          <li><a href="/page/{{page.name}}">{{page.title}}</a></li>
+        {% else %}
+          <li><a href="{{page.url}}" target="_blank">{{page.title}}</a></li>
+        {% endif %}
         {% if page.dividerBelow %}
           <li class="divider"></li>
         {% endif %}
@@ -54,7 +57,7 @@
 	    <li class="dropdown">
         <a class="dropdown-toggle"><span class="glyphicon glyphicon-calendar"></span></a>
         <ul class="dropdown-menu">
-        {% for page in pages['calendars'] %}
+        {% for page in pages['Calendars'] %}
           {{render_dropdown(page)}}
         {% endfor %}
         </ul>
@@ -63,7 +66,7 @@
 	    <li class="dropdown">
         <a class="dropdown-toggle">About Us</a>
         <ul class="dropdown-menu">
-        {% for page in pages['about'] %}
+        {% for page in pages['About'] %}
           {{render_dropdown(page)}}
         {% endfor %}
         </ul>
@@ -72,7 +75,7 @@
         <li class="dropdown">
         <a class="dropdown-toggle">Academics</a>
         <ul class="dropdown-menu">
-        {% for page in pages['academics'] %}
+        {% for page in pages['Academics'] %}
           {{render_dropdown(page)}}
         {% endfor %}
         </ul>
@@ -81,7 +84,7 @@
         <li class="dropdown">
         <a class="dropdown-toggle">Students</a>
         <ul class="dropdown-menu">
-        {% for page in pages['students'] %}
+        {% for page in pages['Students'] %}
           {{render_dropdown(page)}}
         {% endfor %}
         </ul>
@@ -90,7 +93,7 @@
         <li class="dropdown">
         <a class="dropdown-toggle">Parents</a>
         <ul class="dropdown-menu">
-        {% for page in pages['parents'] %}
+        {% for page in pages['Parents'] %}
           {{render_dropdown(page)}}
         {% endfor %}
         </ul>
@@ -112,7 +115,7 @@
         <li class="dropdown">
         <a class="dropdown-toggle">Admissions</a>
         <ul class="dropdown-menu">
-        {% for page in pages['admissions'] %}
+        {% for page in pages['Admissions'] %}
           {{render_dropdown(page)}}
         {% endfor %}
         </ul>
