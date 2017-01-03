@@ -214,6 +214,10 @@ h5 {
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 
+.custom-page {
+  font-size: 12pt;
+}
+
 .external-links {
   width:925px;
   margin:10px auto;

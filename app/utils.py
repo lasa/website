@@ -1,6 +1,6 @@
 from app import app
 from app.models import Page, Link
-from flask import render_template
+from flask import render_template, url_for
 import os
 
 def render_with_navbar(template, **kwargs):
@@ -30,26 +30,14 @@ def TinyMCE(field):
     image_list = image_list[:-1] + '],'
     link_list = link_list[:-1] + ']'
 
-    return """  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    return """  <script src=' """ + url_for('static', filename='js/tinymce/tinymce.full.min.js') + """ '></script>
          <script>
-            function customInit() {
-                setTimeout(function(){
-                    window.scrollTo(0, 0);
-                    $('form *:input[type!=hidden]:first').focus();
-                },0);
-            }
             tinymce.init({ 
-            oninit: customInit(),
             selector:'#editor', 
             theme: 'modern',
             height: 800,
             convert_urls: false,
             fontsize_formats: '8pt 10pt 11pt 12pt 14pt 18pt 24pt 36pt',
-            setup: function(ed) {
-                     ed.on('init', function(ed) {
-                       ed.target.editorCommands.execCommand("fontSize", false, "11pt");
-                     });
-                   },
 			plugins: [
             'advlist autolink link image lists charmap preview hr anchor',
             'wordcount visualblocks visualchars code nonbreaking',
