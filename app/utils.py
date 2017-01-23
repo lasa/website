@@ -23,17 +23,17 @@ def TinyMCE(field):
 
     for upload in uploads:
         if '.' in upload and upload.rsplit('.', 1)[1].lower() in image_extensions:
-            image_list += "{title: '" + upload + "', value: '/uploads/" + upload + "'},"
+            image_list += "{title: '%s', value: '/uploads/%s'}," % (upload, upload)
         else:
-            link_list += "{title: '" + upload + "', value: '/uploads/" + upload + "'},"
+            link_list += "{title: '%s', value: '/uploads/%s'}," % (upload, upload)
 
-    image_list = image_list[:-1] + '],'
-    link_list = link_list[:-1] + ']'
+    image_list = "[]" if image_list == "[" else image_list[:-1] + "]"
+    link_list = "[]" if link_list == "[" else link_list[:-1] + "]"
 
     return """  <script src=' """ + url_for('static', filename='js/tinymce/tinymce.full.min.js') + """ '></script>
          <script>
-            tinymce.init({ 
-            selector:'#editor', 
+            tinymce.init({
+            selector:'#editor',
             theme: 'modern',
             height: 800,
             convert_urls: false,
@@ -55,10 +55,10 @@ def TinyMCE(field):
             image_advtab: true,
             image_title: true,
             image_description: false,
-            image_list: """ + image_list + """
-            link_list: """ + link_list + """
+            image_list: %s,
+            link_list: %s
          });
          </script>
-         <textarea id='editor'> %s </textarea>""" % field._value()
+         <textarea id='editor'> %s </textarea>""" % (image_list, link_list, field._value())
 
 
