@@ -109,6 +109,7 @@
               <ul class="news-list">
                   {% for post in posts %}
                   <li><a href="/news?postid={{post.id}}">{{post.title}}</a></li>
+                  <hr class="news-divider">
                   {% endfor %}
               </ul>
               </div>
