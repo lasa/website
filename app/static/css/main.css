@@ -263,37 +263,126 @@ h5 {
   border-bottom:dotted 1px #ccc;
 }
 
-.latest-news-index {
-  float:right;
-  padding-left:40px;
-  width:33%;
-}
-
-.latest-news-index > div > a {
-  text-decoration:none;
-  color:inherit;
-}
-
-.latest-news-index > div > a > h3 {
-  border-bottom:1px solid #A8A6A6;
-  padding-bottom:2px;
-}
-
-.news-item-link-index {
-  display:inline-block;
-  padding-bottom:7px;
-}
-
-.lasa-quick-calendar {
-  float:left;
-  clear:both;
-  width:33%;
-}
-
 .schedules-widget {
-  float:left;
-  width:33%;
+  border:1px solid #e0e0e0;
 }
+
+.news-box {
+  background-color:#f0f0f0;
+  border:1px solid #e0e0e0;
+  /*padding:1em;*/
+}
+
+#box-title {
+  font-size:1.5em;
+  background-color:#e8e8e8;
+  padding:0.2em 1em 0.2em .5em;
+}
+
+.news-items {
+  padding:.3em;
+}
+
+ul.news-list {
+  padding-left:0.2em;
+  list-style-type:none;
+}
+ul.news-list>li {
+  margin-top: 0.2em;
+  padding-left:0.5em;
+  -webkit-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  -moz-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  -ms-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  -o-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+}
+ul.news-list>li:hover {
+  margin-top: 0.2em;
+  background-color:#ddd;
+  padding-top:0.5em;
+  padding-bottom:0.5em;
+  -webkit-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  -moz-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  -ms-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  -o-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+}
+#news-footer {
+  font-size:smaller;
+  text-align: right;
+  background-color:#e8e8e8;
+  padding-right:0.2em;
+  -webkit-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  -moz-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  -ms-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  -o-transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+  transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+}
+#news-footer:hover {
+  color:white;
+  background-color:#337ab7;
+  padding:1em;
+  -webkit-transition: background-color 0.25s ease-in-out;
+  -moz-transition: background-color 0.25s ease-in-out;
+  -ms-transition: background-color 0.25s ease-in-out;
+  -o-transition: background-color 0.25s ease-in-out;
+  transition: background-color 0.25s ease-in-out, padding 0.25s linear;
+}
+#news-footer {
+  text-decoration:none;
+}
+.news-divider {
+  border-color:#ddd;
+  margin-top:0.3em;
+  margin-bottom:0.3em;
+}
+
+.carousel-indicators li {
+  border-radius:0;
+}
+
+/* Style the list */
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {background-color: #ddd;}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {background-color: #ccc;}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+#twitter-widget-0 { 
+      width: 100% !important; 
+      font-size:1em !important;
+    }
+/
 
 /* Login/Form submission */
 
