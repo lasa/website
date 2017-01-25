@@ -1,0 +1,3 @@
+[submodule "app/static/schedules-widget"]
+	path = app/static/schedules-widget
+	url = https://github.com/lasa/schedules-widget
