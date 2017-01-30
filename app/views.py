@@ -112,7 +112,7 @@ def messages():
 def message():
     post = Message.query.order_by(Message.timestamp.desc()).first()
     if not post:
-        return redirect("/newmessage")
+        return redirect("/messages")
     return render_with_navbar("news/newsitem.html", post=post, heading="Principal's Message")
 
 @app.route('/faculty')

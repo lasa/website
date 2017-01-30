@@ -71,11 +71,11 @@ def edit_post():
 def edit_message():
     postid = request.args.get("postid")
     if not postid: 
-        return redirect("/newmessage")
+        return redirect("/messages")
 
     currentPost = Message.query.filter_by(id=postid).first()
     if not currentPost:
-        return redirect("/newmessage")
+        return redirect("/messages")
 
     form = NewPostForm()
 
