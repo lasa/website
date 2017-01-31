@@ -31,6 +31,7 @@ def TinyMCE(field):
     link_list = "[]" if link_list == "[" else link_list[:-1] + "]"
 
     return """  <script src=' """ + url_for('static', filename='js/tinymce/tinymce.full.min.js') + """ '></script>
+                <script src=' """ + url_for('static', filename='js/tinymce-form.js') + """ '></script>
          <script>
             tinymce.init({
             selector:'#editor',

@@ -10,8 +10,8 @@
 
 		{{form.title.label}} <br/>
 		{{form.title(value=title)|safe}} <br/>
-		<div class="error">{{form.title.errors[0]}}</div> 
-	    <br/>	
+		<div class="error">{{form.title.errors[0]}}</div>
+	    <br/>
 
         {{form.category.label}} <br/>
         {{form.category(default=category)|safe}}<br/>
@@ -33,28 +33,5 @@
 
 	</form>
 </div>
-
-<script>
-
-var confirmExit = function (e) 
-{
-    e = e || window.event;
-    var message = 'Are you sure you want to leave this page? Any changes you have made will not be saved.';
-
-    if (e) 
-    {
-        e.returnValue = message;
-    }
-
-    return message;
-};
-window.onbeforeunload = confirmExit;
-
-function doSubmit() {
-    window.onbeforeunload = null;
-    document.getElementById("bodyhtml").value = tinymce.get('editor').getContent();
-    document.forms[0].submit();
-}
-</script>
 
 {% endblock %}
