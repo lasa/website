@@ -54,3 +54,5 @@ any purpose.
 
 ## Authors
 Harrison Tran, Kevin Black, Ojas Ahuja
+
+Schedules widget [forked](https://github.com/lasa/schedules-widget) from [the original](https://github.com/oscarnewman/schedules-widget) by Oscar Newman.
