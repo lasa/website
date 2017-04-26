@@ -1,121 +1,72 @@
 {% extends "layout.html" %}
 {% block body %}
 
-    <div class="row">
-        <div class="col-sm-8">
+<div class="row">
+    <div class="col-sm-8">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-              <!-- Indicators -->
-              <ol class="carousel-indicators">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
                 <li data-target="#myCarousel" data-slide-to="3"></li>
-              </ol>
+            </ol>
 
-              <!-- Wrapper for slides -->
-              <div class="carousel-inner" role="listbox">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
                 <div class="item active">
                     <img src="https://thevanhornadvocate.com/wp-content/uploads/2016/04/guadalupe.jpg" alt="Chania">
-                    <div class="carousel-caption">
-                      <h3>Slide 1</h3>
-                      <p>This is the content of slide 1</p>
-                    </div>
-                  </div>
+                </div>
 
-                  <div class="item">
+                <div class="item">
                     <img src="https://thevanhornadvocate.com/wp-content/uploads/2016/04/guadalupe.jpg" alt="Chania">
-                    <div class="carousel-caption">
-                      <h3>Slide 2</h3>
-                      <p>This is the content of slide 2</p>
-                    </div>
-                  </div>
+                </div>
 
-                  <div class="item">
+                <div class="item">
                     <img src="https://thevanhornadvocate.com/wp-content/uploads/2016/04/guadalupe.jpg" alt="Flower">
-                    <div class="carousel-caption">
-                      <h3>Slide 3</h3>
-                      <p>This is the content of slide 3</p>
-                    </div>
-                  </div>
+                </div>
 
-                  <div class="item">
+                <div class="item">
                     <img src="https://thevanhornadvocate.com/wp-content/uploads/2016/04/guadalupe.jpg" alt="Flower">
-                    <div class="carousel-caption">
-                      <h3>Slide 4</h3>
-                      <p>This is the content of slide 4</p>
-                    </div>
-                  </div>
-              </div>
+                </div>
+            </div>
 
-              <!-- Left and right controls -->
-              <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
-              </a>
-              <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
-              </a>
-            </div>
-            <br>
-            <iframe src="https://calendar.google.com/calendar/embed?mode=AGENDA&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=lasawebmaster%40gmail.com&amp;color=%23691426&amp;src=aq61mgj5p5v16v00l1228n3a4s%40group.calendar.google.com&amp;color=%238C500B&amp;ctz=America%2FChicago" style="border-width:0" width="100%" height="400" frameborder="0" scrolling="no"></iframe>
-            <ul class="tab">
-              <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'for-parents')">For Parents</a></li>
-              <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'for-students')">For Students</a></li>
-              <li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'for-prospective-students')">For Prospective Students</a></li>
-            </ul>
-
-                <div id="for-parents" class="tabcontent">
-                  <h3>For Parents</h3>
-                  <ul>
-                    <li>How do I contribute to PFLASA?</li>
-                    <li>Where can I read the latest Lots of LASA newsletter?</li>
-                    <li>How can I contact the LASA staff?</li>
-                    <li>When does the Campus Advisory Council meet?</li>
-                  </ul>
-                </div>
-
-                <div id="for-students" class="tabcontent">
-                  <h3>For Students</h3>
-                  <ul>
-                    <li>What's the A/B day rotation this school year?</li>
-                    <li>What clubs does LASA have?</li>
-                    <li>How do I contact LASA's guidance and counseling staff?</li>
-                    <li>How can I reach a particular teacher?</li>
-                  </ul>
-                </div>
-
-                <div id="for-prospective-students" class="tabcontent">
-                  <h3>For Prospective Students</h3>
-                  <ul>
-                    <li>How do I get to LASA?</li>
-                    <li>What classes does LASA offer?</li>
-                    <li>What do I need to apply to LASA?</li>
-                    <li>When is the deadline for applications?</li>
-                  </ul>
-                </div>
-          <a class="twitter-timeline"  href="https://twitter.com/lasahighschool" data-widget-id="652680685455454209">Tweets by @lasahighschool</a>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
+            </a>
         </div>
-        <div class="col-sm-4">
-            <div class="schedules-widget">
-              <iframe scrolling="no" width="100%" height="490" frameborder="0" src="/static/schedules-widget/index.html"></iframe>
-            </div>
-            <br/>
-            <div class="news-box">
-             <div id="box-title"><a href="/news" style="text-decoration:none; color:gray">Latest News</a></div>
-              <div class="news-items">
-              <ul class="news-list">
-                  {% for post in posts %}
-                  <li><a href="/news?postid={{post.id}}">{{post.title}}</a></li>
-                  <hr class="news-divider">
-                  {% endfor %}
-              </ul>
-              </div>
-              <a href="/news" style="text-decoration:none"><div id="news-footer">Read more &raquo;</div></a>
-          </div>
-       </div>
+        <br>
+
+        <iframe src="https://calendar.google.com/calendar/embed?mode=AGENDA&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=lasawebmaster%40gmail.com&amp;color=%23691426&amp;src=aq61mgj5p5v16v00l1228n3a4s%40group.calendar.google.com&amp;color=%238C500B&amp;ctz=America%2FChicago" style="border-width:0" width="100%" height="400" frameborder="0" scrolling="no"></iframe>
+
+        <a class="twitter-timeline"  href="https://twitter.com/lasahighschool" data-widget-id="652680685455454209">Tweets by @lasahighschool</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
     </div>
+    <div class="col-sm-4">
+        <div class="schedules-widget">
+            <iframe scrolling="no" width="100%" height="490" frameborder="0" src="/static/schedules-widget/index.html"></iframe>
+        </div>
+        <br/>
+        <div class="news-box">
+            <div id="box-title"><a href="/news" style="text-decoration:none; color:gray">Latest News</a></div>
+            <div class="news-items">
+                <ul class="news-list">
+                    {% for post in posts %}
+                    <li><a href="/news?postid={{post.id}}">{{post.title}}</a></li>
+                    <hr class="news-divider">
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href="/news" style="text-decoration:none"><div id="news-footer">Read more &raquo;</div></a>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
