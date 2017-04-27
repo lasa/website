@@ -22,47 +22,54 @@ class NewPageForm(Form):
     index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.Optional()])  # not actually optional
     body = TextAreaField('Body:', validators=[validators.Length(min=0, max=75000)], widget=utils.TinyMCE)
     bodyhtml = HiddenField()
+    name = None
+
+    def __init__(self, name=None, **kwargs):
+        Form.__init__(self, **kwargs)
+        self.name = name
+
+    def validate(self):
+        is_valid = True
+        is_valid = Form.validate(self)
+
+        # do manual validation
+        if len(self.title.data) < 1:
+            self.title.errors.append("This field is required.")
+            is_valid = False
+
+        if not self.index.data or (self.index.data < 0 or self.index.data > 100):
+            self.index.errors.append("Must be a number between 0 and 100.")
+            is_valid = False
+
+        old_name = self.name
+        print(old_name)
+        self.name = "-".join(self.title.data.split(" ")).lower()
+
+        if self.name != old_name and Page.query.filter_by(name=self.name).first():
+            self.title.errors.append("A page with this name already exists.")
+            is_valid = False
+
+        self.body.data = self.bodyhtml.data  # preserve what has already been entered
+        return is_valid
 
 
 
 def new_page():
     form = NewPageForm()
+
     if form.validate_on_submit():
         data = {"title": form.title.data,
                 "body": form.bodyhtml.data,
                 "category": form.category.data,
                 "divider_below": form.divider_below.data,
-                "index": form.index.data}
-
-        # do manual validation because form.body.data needs to be set after
-        # a failed validation and WTForm's validation system does not
-        # allow for a post-failed-validation hook
-
-        if len(data["title"]) < 1:
-            form.title.errors.append("This field is required.")
-
-        if not data["index"] or (data["index"] < 0 or data["index"] > 100):
-            form.index.errors.append("Must be a number between 0 and 100.")
-
-        data["name"] = "-".join(data["title"].split(" ")).lower()
-
-        if Page.query.filter_by(name=data["name"]).first():
-            form.title.errors.append("A page with this name already exists.")
-
-        # if there are any errors, return the form again with form.body.data preserved
-        for key in data.keys():
-            try:
-                if len(getattr(form, key).errors) > 0:
-                    form.body.data = data["body"]
-                    return utils.render_with_navbar("newpage.html", form=form, **data)
-            except AttributeError:
-                pass
+                "index": form.index.data,
+                "name": form.name}
 
         newpage = Page(**data)
         db.session.add(newpage)
         db.session.commit()
         time.sleep(0.5)
-        return redirect("/page/" + data["name"])
+        return redirect("/page/" + form.name)
 
     return utils.render_with_navbar("newpage.html", form=form)
 
@@ -79,7 +86,8 @@ def edit_page(page_name):
             "body": current_page.body,
             "category": current_page.category,
             "divider_below": current_page.divider_below,
-            "index": current_page.index}
+            "index": current_page.index,
+            "name": page_name}
 
     form = NewPageForm(**data)
 
@@ -88,31 +96,8 @@ def edit_page(page_name):
                     "body": form.bodyhtml.data,
                     "category": form.category.data,
                     "divider_below": form.divider_below.data,
-                    "index": form.index.data}
-
-        # do manual validation because form.body.data needs to be set after
-        # a failed validation and WTForm's validation system does not
-        # allow for a post-failed-validation hook
-
-        if len(new_data["title"]) < 1:
-            form.title.errors.append("This field is required.")
-
-        if not new_data["index"] or (new_data["index"] < 0 or new_data["index"] > 100):
-            form.index.errors.append("Must be a number between 0 and 100.")
-
-        new_data["name"] = "-".join(new_data["title"].split(" ")).lower()
-
-        if new_data["name"] != page_name and Page.query.filter_by(name=new_data["name"]).first():
-            form.title.errors.append("A page with this name already exists.")
-
-        # if there are any errors, return the form again with form.body.data preserved
-        for key in new_data.keys():
-            try:
-                if len(getattr(form, key).errors) > 0:
-                    form.body.data = new_data["body"]
-                    return utils.render_with_navbar("newpage.html", form=form, **new_data)
-            except AttributeError:
-                pass
+                    "index": form.index.data,
+                    "name": form.name}
 
         for key, value in new_data.items():
             setattr(current_page, key, value)
@@ -120,7 +105,7 @@ def edit_page(page_name):
         time.sleep(0.5)
         return redirect("/page/" + new_data["name"])
 
-    return utils.render_with_navbar("editpage.html", form=form, **data)
+    return utils.render_with_navbar("editpage.html", form=form)
 
 
 def delete_page(page_name):
@@ -135,4 +120,3 @@ def delete_page(page_name):
     db.session.commit()
     time.sleep(0.5)
     return redirect("/pages")
-
