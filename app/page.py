@@ -19,44 +19,50 @@ class NewPageForm(Form):
     title = StringField('Title:', validators=[validators.Length(min=0, max=1000)])
     category = SelectField('Category:', choices=CHOICES)
     divider_below = BooleanField('Divider below page name in dropdown menu')
-    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.InputRequired()])
+    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.Optional()])  # not actually optional
     body = TextAreaField('Body:', validators=[validators.Length(min=0, max=75000)], widget=utils.TinyMCE)
     bodyhtml = HiddenField()
+
 
 
 def new_page():
     form = NewPageForm()
     if form.validate_on_submit():
-        title = form.title.data
-        body = form.bodyhtml.data
-        category = form.category.data
-        divider_below = form.divider_below.data
-        index = form.index.data
+        data = {"title": form.title.data,
+                "body": form.bodyhtml.data,
+                "category": form.category.data,
+                "divider_below": form.divider_below.data,
+                "index": form.index.data}
 
-        if len(title) < 1:
+        # do manual validation because form.body.data needs to be set after
+        # a failed validation and WTForm's validation system does not
+        # allow for a post-failed-validation hook
+
+        if len(data["title"]) < 1:
             form.title.errors.append("This field is required.")
-            form.body.data = body
-            return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
 
-        if index and (index < 0 or index > 100):
-            form.index.errors.append("Number must be between 0 and 100.")
-            form.body.data = body
-            return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
+        if not data["index"] or (data["index"] < 0 or data["index"] > 100):
+            form.index.errors.append("Must be a number between 0 and 100.")
 
-        name = "-".join(title.split(" ")).lower()
+        data["name"] = "-".join(data["title"].split(" ")).lower()
 
-        page = Page.query.filter_by(name=name).first()
-        if page:
+        if Page.query.filter_by(name=data["name"]).first():
             form.title.errors.append("A page with this name already exists.")
-            form.body.data = body
-            return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
 
+        # if there are any errors, return the form again with form.body.data preserved
+        for key in data.keys():
+            try:
+                if len(getattr(form, key).errors) > 0:
+                    form.body.data = data["body"]
+                    return utils.render_with_navbar("newpage.html", form=form, **data)
+            except AttributeError:
+                pass
 
-        newpage = Page(title=title, name=name, category=category, divider_below=divider_below, index=index, body=body)
+        newpage = Page(**data)
         db.session.add(newpage)
         db.session.commit()
         time.sleep(0.5)
-        return redirect("/page/" + name)
+        return redirect("/page/" + data["name"])
 
     return utils.render_with_navbar("newpage.html", form=form)
 
@@ -69,54 +75,52 @@ def edit_page(page_name):
     if not current_page:
         return utils.render_with_navbar("404.html"), 404
 
+    data = {"title": current_page.title,
+            "body": current_page.body,
+            "category": current_page.category,
+            "divider_below": current_page.divider_below,
+            "index": current_page.index}
 
-    title = current_page.title
-    bodyhtml = current_page.body
-    category = current_page.category
-    divider_below = current_page.divider_below
-    index = current_page.index
-
-    form = NewPageForm(category=category, divider_below=divider_below)
-
-    form.body.data = bodyhtml
+    form = NewPageForm(**data)
 
     if form.validate_on_submit():
-        newtitle = form.title.data
-        newbody = form.bodyhtml.data
-        newcategory = form.category.data
-        new_divider_below = form.divider_below.data
-        newindex = form.index.data
+        new_data = {"title": form.title.data,
+                    "body": form.bodyhtml.data,
+                    "category": form.category.data,
+                    "divider_below": form.divider_below.data,
+                    "index": form.index.data}
 
-        if len(newtitle) < 1:
+        # do manual validation because form.body.data needs to be set after
+        # a failed validation and WTForm's validation system does not
+        # allow for a post-failed-validation hook
+
+        if len(new_data["title"]) < 1:
             form.title.errors.append("This field is required.")
-            form.body.data = newbody
-            return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
 
-        if index and (index < 0 or index > 100):
-            form.index.erros.append("Number must be between 0 and 100.")
-            form.body.data = newbody
-            return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
+        if not new_data["index"] or (new_data["index"] < 0 or new_data["index"] > 100):
+            form.index.errors.append("Must be a number between 0 and 100.")
 
-        newname = "-".join(newtitle.split(" ")).lower()
+        new_data["name"] = "-".join(new_data["title"].split(" ")).lower()
 
-        if newname != page_name:
-            page = Page.query.filter_by(name=newname).first()
-            if page:
-                form.title.errors.append("A page with this name already exists.")
-                form.body.data = newbody
-                return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
+        if new_data["name"] != page_name and Page.query.filter_by(name=new_data["name"]).first():
+            form.title.errors.append("A page with this name already exists.")
 
-        current_page.title = newtitle
-        current_page.body = newbody
-        current_page.name = newname
-        current_page.category = newcategory
-        current_page.divider_below = new_divider_below
-        current_page.index = newindex
+        # if there are any errors, return the form again with form.body.data preserved
+        for key in new_data.keys():
+            try:
+                if len(getattr(form, key).errors) > 0:
+                    form.body.data = new_data["body"]
+                    return utils.render_with_navbar("newpage.html", form=form, **new_data)
+            except AttributeError:
+                pass
+
+        for key, value in new_data.items():
+            setattr(current_page, key, value)
         db.session.commit()
         time.sleep(0.5)
-        return redirect("/page/" + newname)
+        return redirect("/page/" + new_data["name"])
 
-    return utils.render_with_navbar("editpage.html", form=form, title=title, index=index)
+    return utils.render_with_navbar("editpage.html", form=form, **data)
 
 
 def delete_page(page_name):
