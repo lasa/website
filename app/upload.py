@@ -10,27 +10,35 @@ from werkzeug.utils import secure_filename
 
 class UploadForm(Form):
     uploadfile = FileField('', [validators.DataRequired()])
+    file_ = None
+    filename = None
+
+    def validate(self):
+        if not Form.validate(self):
+            return False
+        if self.uploadfile.name not in request.files:
+            self.uploadfile.errors.append("Please select a valid file.")
+            return False
+
+        self.file_ = request.files[self.uploadfile.name]
+        self.filename = secure_filename(self.file_.filename)
+        uploads = os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
+
+        if self.filename in uploads:
+            self.uploadfile.errors.append("A file with this name already exists.")
+            return False
+        if not self.filename:
+            self.uploadfile.errors.append("Invalid file name.")
+            return False
+        return True
 
 def upload_file():
     form = UploadForm()
     if form.validate_on_submit():
-        if form.uploadfile.name not in request.files:
-            form.uploadfile.errors.append("Please select a valid file.")
-            return utils.render_with_navbar("upload.html", form=form)
 
-        file_ = request.files[form.uploadfile.name]
-        filename = secure_filename(file_.filename)
-        uploads = os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
 
-        if filename in uploads:
-            form.uploadfile.errors.append("A file with this name already exists.")
-            return utils.render_with_navbar("upload.html", form=form)
-        if not filename:
-            form.uploadfile.errors.append("Invalid file name.")
-            return utils.render_with_navbar("upload.html", form=form)
-
-        file_.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
-        file_.close()
+        form.file_.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], form.filename))
+        form.file_.close()
         time.sleep(0.5)
         return redirect('/uploads')
 

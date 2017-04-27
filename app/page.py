@@ -37,12 +37,11 @@ class NewPageForm(Form):
             self.title.errors.append("This field is required.")
             is_valid = False
 
-        if not self.index.data or (self.index.data < 0 or self.index.data > 100):
+        if self.index.data is None or (self.index.data < 0 or self.index.data > 100):
             self.index.errors.append("Must be a number between 0 and 100.")
             is_valid = False
 
         old_name = self.name
-        print(old_name)
         self.name = "-".join(self.title.data.split(" ")).lower()
 
         if self.name != old_name and Page.query.filter_by(name=self.name).first():

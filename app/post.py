@@ -14,14 +14,22 @@ class NewPostForm(Form):
     body = TextAreaField('Body:', validators=[validators.Length(min=0, max=30000)], widget=utils.TinyMCE)
     bodyhtml = HiddenField()
 
+    def validate(self):
+        is_valid = Form.validate(self)
+        self.body.data = self.bodyhtml.data  # preserve what has already been entered
+        return is_valid
+
 
 def new_post():
     form = NewPostForm()
-    if form.validate_on_submit():
-        title = form.title.data
-        body = form.bodyhtml.data
 
-        newpost = Post(title=title, body=body, author=current_user.id_, timestamp=datetime.datetime.now())
+    if form.validate_on_submit():
+        data = {"title": form.title.data,
+                "body": form.bodyhtml.data,
+                "author": current_user.id_,
+                "timestamp": datetime.datetime.now()}
+
+        newpost = Post(**data)
         db.session.add(newpost)
         db.session.commit()
         time.sleep(0.5)
@@ -31,11 +39,14 @@ def new_post():
 
 def new_message():
     form = NewPostForm()
-    if form.validate_on_submit():
-        title = form.title.data
-        body = form.bodyhtml.data
 
-        newpost = Message(title=title, body=body, author=current_user.id_, timestamp=datetime.datetime.now())
+    if form.validate_on_submit():
+        data = {"title": form.title.data,
+                "body": form.bodyhtml.data,
+                "author": current_user.id_,
+                "timestamp": datetime.datetime.now()}
+
+        newpost = Message(**data)
         db.session.add(newpost)
         db.session.commit()
         time.sleep(0.5)
@@ -54,22 +65,22 @@ def edit_post():
     if not current_post:
         return redirect("/newpost")
 
-    form = NewPostForm()
+    data = {"title": current_post.title,
+            "body": current_post.body}
 
-    title = current_post.title
-    body = current_post.body
-    form.body.data = body
+    form = NewPostForm(**data)
 
     if form.validate_on_submit():
-        newtitle = form.title.data
-        newbody = form.bodyhtml.data
-        current_post.title = newtitle
-        current_post.body = newbody
+        new_data = {"title": form.title.data,
+                    "body": form.body.data}
+
+        for key, value in new_data.items():
+            setattr(current_post, key, value)
         db.session.commit()
         time.sleep(0.5)
         return redirect("/news?postid="+postid)
 
-    return utils.render_with_navbar("news/editpost.html", form=form, title=title, heading="News Item")
+    return utils.render_with_navbar("news/editpost.html", form=form, heading="News Item")
 
 def edit_message():
     postid = request.args.get("postid")
@@ -80,22 +91,22 @@ def edit_message():
     if not current_post:
         return redirect("/messages")
 
-    form = NewPostForm()
+    data = {"title": current_post.title,
+            "body": current_post.body}
 
-    title = current_post.title
-    body = current_post.body
-    form.body.data = body
+    form = NewPostForm(**data)
 
     if form.validate_on_submit():
-        newtitle = form.title.data
-        newbody = form.bodyhtml.data
-        current_post.title = newtitle
-        current_post.body = newbody
+        new_data = {"title": form.title.data,
+                    "body": form.body.data}
+
+        for key, value in new_data.items():
+            setattr(current_post, key, value)
         db.session.commit()
         time.sleep(0.5)
         return redirect("/messages?postid="+postid)
 
-    return utils.render_with_navbar("news/editpost.html", form=form, title=title, heading="Principal's Message")
+    return utils.render_with_navbar("news/editpost.html", form=form, heading="Principal's Message")
 
 
 def delete_post():

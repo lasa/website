@@ -15,6 +15,8 @@ CHOICES = [('calendars', 'Calendars'),
            ('parents', 'Parents'),
            ('admissions', 'Admissions')]
 
+URL_REGEX = r'((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&/=]*))|\/[-a-zA-Z0-9@:%_\+.~#?&/=]*'
+
 def generate_link_list():
     uploads = os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
     uploads.remove(".gitignore")
@@ -30,30 +32,33 @@ class NewLinkForm(Form):
     title = StringField('Title:', validators=[validators.InputRequired(), validators.Length(min=0, max=1000)])
     category = SelectField('Category:', choices=CHOICES)
     divider_below = BooleanField('Divider below link in dropdown menu')
-    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.InputRequired()])
+    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.Optional()])  # not actually optional
 
-    websiteregex = r'((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&/=]*))|\/[-a-zA-Z0-9@:%_\+.~#?&/=]*'
     link_list = SelectField('Choose from uploads: ', choices=generate_link_list())
-    url = StringField('URL (external link or relative path): ', validators=[validators.InputRequired(), validators.Regexp(websiteregex, message="Invalid URL. Must be a valid external link or a relative URL beginning with '/'."), validators.Length(min=0, max=50)])
+    url = StringField('URL (external link or relative path): ', validators=[validators.InputRequired(), validators.Regexp(URL_REGEX, message="Invalid URL. Must be a valid external link or a relative URL beginning with '/'."), validators.Length(min=0, max=50)])
+
+    def validate(self):
+        is_valid = True
+        is_valid = Form.validate(self)
+        if not (self.url.data.startswith('/') or self.url.data.startswith("http://") or self.url.data.startswith("https://")):
+            self.url.data = "http://" + self.url.data
+
+        if self.index.data is None or (self.index.data < 0 or self.index.data > 100):
+            self.index.errors.append("Must be a number between 0 and 100.")
+            is_valid = False
+        return is_valid
 
 
 def new_link():
     form = NewLinkForm()
     if form.validate_on_submit():
-        title = form.title.data
-        category = form.category.data
-        divider_below = form.divider_below.data
-        index = form.index.data
-        url = form.url.data
+        data = {"title": form.title.data,
+                "category": form.category.data,
+                "divider_below": form.divider_below.data,
+                "index": form.index.data,
+                "url": form.url.data}
 
-        if not (url.startswith('/')  or url.startswith("http://") or url.startswith("https://")):
-            url = "http://" + url
-
-        if index and (index < 0 or index > 100):
-            form.index.errors.append("Number must be between 0 and 100.")
-            return utils.render_with_navbar("newlink.html", form=form, title=title, index=index, url=url)
-
-        newlink = Link(title=title, index=index, category=category, divider_below=divider_below, url=url)
+        newlink = Link(**data)
         db.session.add(newlink)
         db.session.commit()
         time.sleep(0.5)
@@ -70,40 +75,28 @@ def edit_link():
     if not current_link:
         return redirect("/newlink")
 
-    title = current_link.title
-    category = current_link.category
-    divider_below = current_link.divider_below
-    index = current_link.index
-    url = current_link.url
+    data = {"title": current_link.title,
+            "category": current_link.category,
+            "divider_below": current_link.divider_below,
+            "index": current_link.index,
+            "url": current_link.url}
 
-    form = NewLinkForm(category=category, divider_below=divider_below)
+    form = NewLinkForm(**data)
 
     if form.validate_on_submit():
-        newtitle = form.title.data
-        newcategory = form.category.data
-        new_divider_below = form.divider_below.data
-        newindex = form.index.data
-        newurl = form.url.data
+        new_data = {"title": form.title.data,
+                    "category": form.category.data,
+                    "divider_below": form.divider_below.data,
+                    "index": form.index.data,
+                    "url": form.url.data}
 
-        if not (newurl.startswith('/')  or newurl.startswith("http://") or newurl.startswith("https://")):
-            newurl = "http://" + newurl
-
-        if newindex and (newindex < 0 or newindex > 100):
-            form.newindex.errors.append("Number must be between 0 and 100.")
-            return utils.render_with_navbar("editlink.html", form=form, title=newtitle, index=newindex, url=newurl)
-
-
-        current_link.title = newtitle
-        current_link.category = newcategory
-        current_link.divider_below = new_divider_below
-        current_link.index = newindex
-        current_link.url = newurl
-
+        for key, value in new_data.items():
+            setattr(current_link, key, value)
         db.session.commit()
         time.sleep(0.5)
         return redirect("/links")
 
-    return utils.render_with_navbar("editlink.html", form=form, title=title, index=index, url=url)
+    return utils.render_with_navbar("editlink.html", form=form)
 
 def delete_link():
     linkid = request.args.get("id")

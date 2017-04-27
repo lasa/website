@@ -9,7 +9,7 @@
 		{{form.csrf_token}}
 
 		{{form.title.label}} <br/>
-		{{form.title(value=title)|safe}} <br/>
+		{{form.title()|safe}} <br/>
 		<div class="error">{{form.title.errors[0]}}</div> 
         <br/>
 		
