@@ -11,14 +11,14 @@
 		{{form.title.label}} <br/>
 		{{form.title(value=title)|safe}} <br/>
 		<div class="error">{{form.title.errors[0]}}</div> 
+        <br/>
 		
 		{{form.body.label}} <br/>
-		{% set f = form.body.process_data(body) %}
 		{{form.body()|safe}} <br/>
-		<div class="error">{{form.body.errors[0]}}</div> 
 		
+		<input type="button" value="Submit" class="submit-btn" onclick="doSubmit()">
 
-		<input type="submit" value="Submit" class="submit-btn">
+        {{form.bodyhtml}}
 
 	</form>
 </div>
