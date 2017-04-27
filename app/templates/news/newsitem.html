@@ -7,15 +7,15 @@
 <div class="edit-delete">
 {% if "Principal" in heading %}
 
-<a href="/editmessage?postid={{post.id}}">edit</a>
+<a href="/editmessage?postid={{post.id_}}">edit</a>
  | 
-<a href="/delmessage?postid={{post.id}}">delete</a>
+<a href="/delmessage?postid={{post.id_}}">delete</a>
 
 {% else %}
 
-<a href="/editpost?postid={{post.id}}">edit</a>
+<a href="/editpost?postid={{post.id_}}">edit</a>
  | 
-<a href="/delpost?postid={{post.id}}">delete</a>
+<a href="/delpost?postid={{post.id_}}">delete</a>
 
 {% endif %}
 </div>

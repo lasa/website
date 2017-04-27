@@ -1,20 +1,21 @@
+import os
+
 from app import app
 from app.models import Page, Link
 from flask import render_template, url_for
-import os
 
 def render_with_navbar(template, **kwargs):
-    #concatenates Links and Pages in each category, then sorts by index
+    # concatenates Links and Pages in each category, then sorts by index
     def index(page): return page.index
     pages = {'Calendars': sorted((Page.query.filter_by(category='calendars').all() + Link.query.filter_by(category='calendars').all()), key=index),
-                'About': sorted((Page.query.filter_by(category='about').all() + Link.query.filter_by(category='about').all()), key=index),
-                'Academics': sorted((Page.query.filter_by(category='academics').all() + Link.query.filter_by(category='academics').all()), key=index),
-                'Students': sorted((Page.query.filter_by(category='students').all() + Link.query.filter_by(category='students').all()), key=index),
-                'Parents': sorted((Page.query.filter_by(category='parents').all() + Link.query.filter_by(category='parents').all()), key=index),
-                'Admissions': sorted((Page.query.filter_by(category='admissions').all() + Link.query.filter_by(category='admissions').all()), key=index)}
+             'About': sorted((Page.query.filter_by(category='about').all() + Link.query.filter_by(category='about').all()), key=index),
+             'Academics': sorted((Page.query.filter_by(category='academics').all() + Link.query.filter_by(category='academics').all()), key=index),
+             'Students': sorted((Page.query.filter_by(category='students').all() + Link.query.filter_by(category='students').all()), key=index),
+             'Parents': sorted((Page.query.filter_by(category='parents').all() + Link.query.filter_by(category='parents').all()), key=index),
+             'Admissions': sorted((Page.query.filter_by(category='admissions').all() + Link.query.filter_by(category='admissions').all()), key=index)}
     return render_template(template, pages=pages, **kwargs)
 
-#custom widget for rendering a TinyMCE input
+# custom widget for rendering a TinyMCE input
 def TinyMCE(field):
     uploads = os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
     uploads.remove(".gitignore")

@@ -1,10 +1,7 @@
 #!flask/bin/python
-import os
 import unittest
 import bcrypt
-import hmac
 
-from config import basedir
 from app import app, db
 from app.models import User
 
@@ -22,9 +19,9 @@ class TestCase(unittest.TestCase):
         db.drop_all()
 
     def test_signup(self):
-        u = User(name="harambe", email="harambe@cincinnatizoo.org",
-                 password=bcrypt.hashpw("IAmHarambe".encode("utf-8"), bcrypt.gensalt2()))
-        db.session.add(u)
+        user = User(name="harambe", email="harambe@cincinnatizoo.org",
+                    password=bcrypt.hashpw("IAmHarambe".encode("utf-8"), bcrypt.gensalt2()))
+        db.session.add(user)
         db.session.commit()
 
 if __name__ == '__main__':

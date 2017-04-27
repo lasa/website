@@ -1,4 +1,4 @@
-from app import app, utils, login_signup, models, login_manager, post, faculty, page, upload, link
+from app import app, utils, login_signup, login_manager, post, faculty, page, upload, link
 from app.utils import render_with_navbar
 from app.models import User, Post, Page, Faculty, Message
 from flask_login import login_required
@@ -25,9 +25,9 @@ def index():
 
 @app.route('/page/<string:page_name>')
 def render_page(page_name):
-    page = Page.query.filter_by(name=page_name).first()
-    if page:
-        return render_with_navbar("page.html", page=page, title=page.title)
+    query_page = Page.query.filter_by(name=page_name).first()
+    if query_page:
+        return render_with_navbar("page.html", page=query_page, title=query_page.title)
     return page_not_found(404)
 
 @app.route('/pages')
@@ -93,32 +93,32 @@ def uploaded_file(filename):
 @app.route('/news')
 def news():
     if request.args.get("postid"):
-        post = Post.query.filter_by(id=request.args.get("postid")).first()
-        if post:
-            return render_with_navbar("news/newsitem.html", post=post, heading="LASA News")
+        query_post = Post.query.filter_by(id_=request.args.get("postid")).first()
+        if query_post:
+            return render_with_navbar("news/newsitem.html", post=query_post, heading="LASA News")
     posts = Post.query.order_by(Post.timestamp.desc())
     return render_with_navbar("news/news.html", posts=posts, heading="LASA News")
 
 @app.route('/messages')
 def messages():
     if request.args.get("postid"):
-        post = Message.query.filter_by(id=request.args.get("postid")).first()
-        if post:
-            return render_with_navbar("news/newsitem.html", post=post, heading="Principal's Messages")
+        query_post = Message.query.filter_by(id_=request.args.get("postid")).first()
+        if query_post:
+            return render_with_navbar("news/newsitem.html", post=query_post, heading="Principal's Messages")
     posts = Message.query.order_by(Message.timestamp.desc())
     return render_with_navbar("news/news.html", posts=posts, heading="Principal's Messages")
 
 @app.route('/message')
 def message():
-    post = Message.query.order_by(Message.timestamp.desc()).first()
-    if not post:
+    query_post = Message.query.order_by(Message.timestamp.desc()).first()
+    if not query_post:
         return redirect("/messages")
-    return render_with_navbar("news/newsitem.html", post=post, heading="Principal's Message")
+    return render_with_navbar("news/newsitem.html", post=query_post, heading="Principal's Message")
 
 @app.route('/faculty')
 def all_faculty():
-    faculty = Faculty.query.order_by(Faculty.lastname.asc())
-    return render_with_navbar("faculty/faculty.html", faculty=faculty, title="Faculty")
+    query_faculty = Faculty.query.order_by(Faculty.lastname.asc())
+    return render_with_navbar("faculty/faculty.html", faculty=query_faculty, title="Faculty")
 
 @app.route('/administration')
 def administration():
@@ -194,8 +194,8 @@ def delete_faculty():
     return faculty.delete_faculty()
 
 @login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+def load_user(id_):
+    return User.query.get(int(id_))
 
 @app.errorhandler(404)
 def page_not_found(*args):

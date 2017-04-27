@@ -38,9 +38,9 @@
     {% if (current_user.is_authenticated) %}
     <td>
     <div class="edit-delete">
-    <a href="/editfaculty?id={{member.id}}">edit</a> 
+    <a href="/editfaculty?id={{member.id_}}">edit</a> 
     | 
-    <a href="/delfaculty?id={{member.id}}">delete</a>
+    <a href="/delfaculty?id={{member.id_}}">delete</a>
     </div>
     </td>
     {% endif %}

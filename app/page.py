@@ -1,27 +1,26 @@
-from app import app, db, utils
-from app.models import User, Page
-from flask import Flask, redirect, request
-from flask_login import current_user
-from flask_wtf import Form
-from wtforms import validators, StringField, TextAreaField, HiddenField, SelectField, BooleanField
-from flask_wtf.html5 import IntegerField
-from wtforms.validators import DataRequired
-import datetime, time
+import time
 
-choices = [('none', 'None (hidden)'),
-                ('calendars', 'Calendars'),
-                ('about', 'About Us'),
-                ('academics', 'Academics'),
-                ('students', 'Students'),
-                ('parents', 'Parents'),
-                ('admissions', 'Admissions')]
+from app import db, utils
+from app.models import Page
+from flask import redirect
+from flask_wtf import Form
+from flask_wtf.html5 import IntegerField
+from wtforms import validators, StringField, TextAreaField, HiddenField, SelectField, BooleanField
+
+CHOICES = [('none', 'None (hidden)'),
+           ('calendars', 'Calendars'),
+           ('about', 'About Us'),
+           ('academics', 'Academics'),
+           ('students', 'Students'),
+           ('parents', 'Parents'),
+           ('admissions', 'Admissions')]
 
 class NewPageForm(Form):
-    title = StringField('Title:', validators=[validators.Length(min=0,max=1000)])
-    category = SelectField('Category:', choices=choices)
-    dividerBelow = BooleanField('Divider below page name in dropdown menu')
+    title = StringField('Title:', validators=[validators.Length(min=0, max=1000)])
+    category = SelectField('Category:', choices=CHOICES)
+    divider_below = BooleanField('Divider below page name in dropdown menu')
     index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.InputRequired()])
-    body = TextAreaField('Body:', validators=[validators.Length(min=0,max=75000)], widget=utils.TinyMCE)
+    body = TextAreaField('Body:', validators=[validators.Length(min=0, max=75000)], widget=utils.TinyMCE)
     bodyhtml = HiddenField()
 
 
@@ -31,7 +30,7 @@ def new_page():
         title = form.title.data
         body = form.bodyhtml.data
         category = form.category.data
-        dividerBelow = form.dividerBelow.data
+        divider_below = form.divider_below.data
         index = form.index.data
 
         if len(title) < 1:
@@ -39,7 +38,7 @@ def new_page():
             form.body.data = body
             return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
 
-        if index and (index<0 or index>100):
+        if index and (index < 0 or index > 100):
             form.index.errors.append("Number must be between 0 and 100.")
             form.body.data = body
             return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
@@ -53,31 +52,31 @@ def new_page():
             return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
 
 
-        newpage = Page(title=title, name=name, category=category, dividerBelow=dividerBelow, index=index, body=body)
+        newpage = Page(title=title, name=name, category=category, divider_below=divider_below, index=index, body=body)
         db.session.add(newpage)
         db.session.commit()
-        time.sleep(0.5);
+        time.sleep(0.5)
         return redirect("/page/" + name)
 
     return utils.render_with_navbar("newpage.html", form=form)
 
 
 def edit_page(page_name):
-    if not page_name: 
+    if not page_name:
         return utils.render_with_navbar("404.html"), 404
 
-    currentPage = Page.query.filter_by(name=page_name).first()
-    if not currentPage:
+    current_page = Page.query.filter_by(name=page_name).first()
+    if not current_page:
         return utils.render_with_navbar("404.html"), 404
 
 
-    title = currentPage.title
-    bodyhtml = currentPage.body
-    category = currentPage.category
-    dividerBelow = currentPage.dividerBelow
-    index = currentPage.index
+    title = current_page.title
+    bodyhtml = current_page.body
+    category = current_page.category
+    divider_below = current_page.divider_below
+    index = current_page.index
 
-    form = NewPageForm(category=category, dividerBelow=dividerBelow)
+    form = NewPageForm(category=category, divider_below=divider_below)
 
     form.body.data = bodyhtml
 
@@ -85,7 +84,7 @@ def edit_page(page_name):
         newtitle = form.title.data
         newbody = form.bodyhtml.data
         newcategory = form.category.data
-        newdividerBelow = form.dividerBelow.data
+        new_divider_below = form.divider_below.data
         newindex = form.index.data
 
         if len(newtitle) < 1:
@@ -93,7 +92,7 @@ def edit_page(page_name):
             form.body.data = newbody
             return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
 
-        if index and (index<0 or index>100):
+        if index and (index < 0 or index > 100):
             form.index.erros.append("Number must be between 0 and 100.")
             form.body.data = newbody
             return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
@@ -107,12 +106,12 @@ def edit_page(page_name):
                 form.body.data = newbody
                 return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
 
-        currentPage.title = newtitle
-        currentPage.body = newbody
-        currentPage.name = newname
-        currentPage.category = newcategory
-        currentPage.dividerBelow = newdividerBelow
-        currentPage.index = newindex
+        current_page.title = newtitle
+        current_page.body = newbody
+        current_page.name = newname
+        current_page.category = newcategory
+        current_page.divider_below = new_divider_below
+        current_page.index = newindex
         db.session.commit()
         time.sleep(0.5)
         return redirect("/page/" + newname)

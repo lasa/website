@@ -1,32 +1,31 @@
-from app import app, db, utils
-from app.models import User, Faculty
-from flask import Flask, redirect, request
-from flask_login import current_user
-from flask_wtf import Form
-from wtforms import validators, StringField, SelectField
-from flask_wtf.html5 import TelField
-from wtforms.validators import DataRequired
 import time
 
-choices = [('admin', 'Administration'),
-               ('teaching', 'Teaching'),
-               ('guidance', 'Guidance and Counseling'),
-               ('support', 'Support Staff'),
-               ('other', 'Other')]
-    
+from app import db, utils
+from app.models import Faculty
+from flask import redirect, request
+from flask_wtf import Form
+from flask_wtf.html5 import TelField
+from wtforms import validators, StringField, SelectField
+
+CHOICES = [('admin', 'Administration'),
+           ('teaching', 'Teaching'),
+           ('guidance', 'Guidance and Counseling'),
+           ('support', 'Support Staff'),
+           ('other', 'Other')]
+
 class NewFacultyForm(Form):
-    firstname = StringField('First Name:', validators=[validators.DataRequired(), validators.Length(min=1,max=50)])
-    lastname = StringField('Last Name:', validators=[validators.DataRequired(), validators.Length(min=1,max=50)])
-    occupation = StringField('Position:', validators=[validators.DataRequired(), validators.Length(min=1,max=200)])
-    email = StringField('Email:', validators=[validators.DataRequired(), validators.email(), validators.Length(min=1,max=50)])
+    firstname = StringField('First Name:', validators=[validators.DataRequired(), validators.Length(min=1, max=50)])
+    lastname = StringField('Last Name:', validators=[validators.DataRequired(), validators.Length(min=1, max=50)])
+    occupation = StringField('Position:', validators=[validators.DataRequired(), validators.Length(min=1, max=200)])
+    email = StringField('Email:', validators=[validators.DataRequired(), validators.email(), validators.Length(min=1, max=50)])
 
     telregex = r'^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$'
     tel = TelField('Telephone Number (optional):', validators=[validators.Optional(), validators.Regexp(telregex, message="Must be a valid telephone number.")])
 
     websiteregex = r'(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)'
-    website = StringField('Website (optional):', validators=[validators.Optional(), validators.Regexp(websiteregex, message="Must be a valid URL."), validators.Length(min=0,max=50)])
+    website = StringField('Website (optional):', validators=[validators.Optional(), validators.Regexp(websiteregex, message="Must be a valid URL."), validators.Length(min=0, max=50)])
 
-    category = SelectField('Category:', choices=choices)
+    category = SelectField('Category:', choices=CHOICES)
 
 
 def new_faculty():
@@ -45,7 +44,7 @@ def new_faculty():
 
         category = form.category.data
 
-        newfaculty = Faculty(firstname=firstname, lastname=lastname, occupation=occupation, email=email, tel=tel, website=website,  category=category)
+        newfaculty = Faculty(firstname=firstname, lastname=lastname, occupation=occupation, email=email, tel=tel, website=website, category=category)
         db.session.add(newfaculty)
         db.session.commit()
         time.sleep(0.5)
@@ -55,20 +54,20 @@ def new_faculty():
 
 def edit_faculty():
     facultyid = request.args.get("id")
-    if not facultyid: 
+    if not facultyid:
         return redirect("/newfaculty")
 
-    currentFaculty = Faculty.query.filter_by(id=facultyid).first()
-    if not currentFaculty:
+    current_faculty = Faculty.query.filter_by(id_=facultyid).first()
+    if not current_faculty:
         return redirect("/newfaculty")
 
-    firstname = currentFaculty.firstname
-    lastname = currentFaculty.lastname
-    occupation = currentFaculty.occupation
-    email = currentFaculty.email
-    tel = currentFaculty.tel
-    website = currentFaculty.website
-    category = currentFaculty.category
+    firstname = current_faculty.firstname
+    lastname = current_faculty.lastname
+    occupation = current_faculty.occupation
+    email = current_faculty.email
+    tel = current_faculty.tel
+    website = current_faculty.website
+    category = current_faculty.category
 
     form = NewFacultyForm(category=category)
 
@@ -86,13 +85,13 @@ def edit_faculty():
 
         newcategory = form.category.data
 
-        currentFaculty.firstname = newfirstname
-        currentFaculty.lastname = newlastname
-        currentFaculty.occupation = newoccupation
-        currentFaculty.email = newemail
-        currentFaculty.tel = newtel
-        currentFaculty.website = newwebsite
-        currentFaculty.category = newcategory
+        current_faculty.firstname = newfirstname
+        current_faculty.lastname = newlastname
+        current_faculty.occupation = newoccupation
+        current_faculty.email = newemail
+        current_faculty.tel = newtel
+        current_faculty.website = newwebsite
+        current_faculty.category = newcategory
 
         db.session.commit()
         time.sleep(0.5)
@@ -107,7 +106,7 @@ def delete_faculty():
     if not facultyid:
         return redirect("/faculty")
 
-    faculty = Faculty.query.filter_by(id=facultyid)
+    faculty = Faculty.query.filter_by(id_=facultyid)
     faculty.delete()
     db.session.commit()
     time.sleep(0.5)
