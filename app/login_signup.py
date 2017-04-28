@@ -1,20 +1,17 @@
-from app import app, utils
+import hmac
+import bcrypt
+
+from app import utils
 from app.models import User
-from flask import Flask, session, request, flash, url_for, redirect, \
-    abort, g
-from flask_login import login_user, logout_user, current_user, \
-    login_required
+from flask import redirect
+from flask_login import login_user, logout_user, current_user
 from flask_wtf import Form
 from wtforms import validators, StringField, PasswordField
-from wtforms.validators import DataRequired
-import bcrypt, hmac
 
 
 class LoginForm(Form):
-    username = StringField('Username:', validators=[validators.DataRequired(), validators.Length(min=4,max=16)])
-    password = PasswordField('Password:', [
-        validators.DataRequired(),
-    ])
+    username = StringField('Username:', validators=[validators.DataRequired(), validators.Length(min=4, max=16)])
+    password = PasswordField('Password:', [validators.DataRequired()])
 
 
 def generate_hash(password):
@@ -23,10 +20,7 @@ def generate_hash(password):
 
 
 def check_password(candidate_password, pwhash):
-    if (hmac.compare_digest(bcrypt.hashpw(candidate_password.encode("utf-8"), pwhash.encode("utf-8")), pwhash.encode("utf-8"))):
-        return True
-    else:
-        return False
+    return hmac.compare_digest(bcrypt.hashpw(candidate_password.encode("utf-8"), pwhash.encode("utf-8")), pwhash.encode("utf-8"))
 
 def login():
     if current_user.is_authenticated:
@@ -42,7 +36,7 @@ def login():
             return utils.render_with_navbar("login.html", form=form)
         else:
             if check_password(candidate_password, real_user.password):
-                login_user(User.query.get(real_user.id))
+                login_user(User.query.get(real_user.id_))
                 del candidate_password
                 return redirect("/")
             else:

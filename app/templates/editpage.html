@@ -9,18 +9,18 @@
 		{{form.csrf_token}}
 
 		{{form.title.label}} <br/>
-		{{form.title(value=title)|safe}} <br/>
+		{{form.title()|safe}} <br/>
 		<div class="error">{{form.title.errors[0]}}</div>
 	    <br/>
 
         {{form.category.label}} <br/>
-        {{form.category(default=category)|safe}}<br/>
+        {{form.category()|safe}}<br/>
         <div class="error">{{form.category.errors[0]}}</div>
-        {{form.dividerBelow(default=dividerBelow)|safe}} {{form.dividerBelow.label}}
+        {{form.divider_below()|safe}} {{form.divider_below.label}}
         <br/>
         <br/>
         {{form.index.label}} <br/>
-        {{form.index(value=index)|safe}} <br/>
+        {{form.index()|safe}} <br/>
         <div class="error">{{form.index.errors[0]}}</div>
         <br/>
 

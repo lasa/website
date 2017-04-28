@@ -1,20 +1,26 @@
+import os
+from collections import OrderedDict
+
 from app import app
 from app.models import Page, Link
+import sqlalchemy
 from flask import render_template, url_for
-import os
 
 def render_with_navbar(template, **kwargs):
-    #concatenates Links and Pages in each category, then sorts by index
-    def index(page): return page.index
-    pages = {'Calendars': sorted((Page.query.filter_by(category='calendars').all() + Link.query.filter_by(category='calendars').all()), key=index),
-                'About': sorted((Page.query.filter_by(category='about').all() + Link.query.filter_by(category='about').all()), key=index),
-                'Academics': sorted((Page.query.filter_by(category='academics').all() + Link.query.filter_by(category='academics').all()), key=index),
-                'Students': sorted((Page.query.filter_by(category='students').all() + Link.query.filter_by(category='students').all()), key=index),
-                'Parents': sorted((Page.query.filter_by(category='parents').all() + Link.query.filter_by(category='parents').all()), key=index),
-                'Admissions': sorted((Page.query.filter_by(category='admissions').all() + Link.query.filter_by(category='admissions').all()), key=index)}
+    # unions Links and Pages, then sorts by index
+    query_pages = Page.query.with_entities(Page.id_, Page.title, Page.name, sqlalchemy.null().label("url"), Page.index, Page.category, Page.divider_below)
+    query_links = Link.query.with_entities(Link.id_, Link.title, sqlalchemy.null().label("name"), Link.url, Link.index, Link.category, Link.divider_below)
+    query_all = query_pages.union_all(query_links).order_by(Page.index)
+
+    pages = OrderedDict([('Calendars', query_all.filter_by(category='Calendars').all()),
+                         ('About Us', query_all.filter_by(category='About Us').all()),
+                         ('Academics', query_all.filter_by(category='Academics').all()),
+                         ('Students', query_all.filter_by(category='Students').all()),
+                         ('Parents', query_all.filter_by(category='Parents').all()),
+                         ('Admissions', query_all.filter_by(category='Admissions').all())])
     return render_template(template, pages=pages, **kwargs)
 
-#custom widget for rendering a TinyMCE input
+# custom widget for rendering a TinyMCE input
 def TinyMCE(field):
     uploads = os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
     uploads.remove(".gitignore")
@@ -61,5 +67,3 @@ def TinyMCE(field):
          });
          </script>
          <textarea id='editor'> %s </textarea>""" % (image_list, link_list, field._value())
-
-

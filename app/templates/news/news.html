@@ -16,18 +16,18 @@
 <div class="news-item">
     {% if "Principal" in heading %}
 
-	<a class="news-item-link" href="/messages?postid={{post.id}}">{{post.title}}</a>
+	<a class="news-item-link" href="/messages?postid={{post.id_}}">{{post.title}}</a>
 
     {% if current_user.is_authenticated %}
-    <div class="edit-delete"> <a href="/editmessage?postid={{post.id}}">edit</a> | <a href="/delmessage?postid={{post.id}}">delete</a> </div>
+    <div class="edit-delete"> <a href="/editmessage?postid={{post.id_}}">edit</a> | <a href="/delmessage?postid={{post.id_}}">delete</a> </div>
     {% endif %}
 
     {% else %}
 
-	<a class="news-item-link" href="/news?postid={{post.id}}">{{post.title}}</a>
+	<a class="news-item-link" href="/news?postid={{post.id_}}">{{post.title}}</a>
 
     {% if current_user.is_authenticated %}
-    <div class="edit-delete"> <a href="/editpost?postid={{post.id}}">edit</a> | <a href="/delpost?postid={{post.id}}">delete</a> </div>
+    <div class="edit-delete"> <a href="/editpost?postid={{post.id_}}">edit</a> | <a href="/delpost?postid={{post.id_}}">delete</a> </div>
     {% endif %}
 
     {% endif %}

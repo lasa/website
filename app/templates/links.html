@@ -9,7 +9,7 @@
 <p>The following are links that appear in the navigation bar and open in a new tab when clicked.</p>
 {% for category in pages %}
 
-{% for page in pages[category] if not 'Link' in page.__class__|string %}
+{% for page in pages[category] if page.name is not none %}
   {% if pages[category].remove(page) %} {% endif %}
 {% endfor %}
 
@@ -20,8 +20,8 @@
 <div class="news-item">
 	<a class="news-item-link" target="_blank" href="{{page.url}}">{{page.title}}</a> &nbsp;{{page.url}}
     <div class="edit-delete">
-    <a href="/editlink?id={{page.id}}">edit</a> | 
-    <a href="/dellink?id={{page.id}}">delete</a>
+    <a href="/editlink?id={{page.id_}}">edit</a> | 
+    <a href="/dellink?id={{page.id_}}">delete</a>
     </div>
 </div>
 {% endfor %}

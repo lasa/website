@@ -1,123 +1,110 @@
-from app import app, db, utils
-from app.models import User, Page
-from flask import Flask, redirect, request
-from flask_login import current_user
-from flask_wtf import Form
-from wtforms import validators, StringField, TextAreaField, HiddenField, SelectField, BooleanField
-from flask_wtf.html5 import IntegerField
-from wtforms.validators import DataRequired
-import datetime, time
+import time
 
-choices = [('none', 'None (hidden)'),
-                ('calendars', 'Calendars'),
-                ('about', 'About Us'),
-                ('academics', 'Academics'),
-                ('students', 'Students'),
-                ('parents', 'Parents'),
-                ('admissions', 'Admissions')]
+from app import db, utils
+from app.models import Page
+from flask import redirect
+from flask_wtf import Form
+from flask_wtf.html5 import IntegerField
+from wtforms import validators, StringField, TextAreaField, HiddenField, SelectField, BooleanField
+
+CHOICES = [('Hidden', 'None (hidden)'),
+           ('Calendars', 'Calendars'),
+           ('About Us', 'About Us'),
+           ('Academics', 'Academics'),
+           ('Students', 'Students'),
+           ('Parents', 'Parents'),
+           ('Admissions', 'Admissions')]
 
 class NewPageForm(Form):
-    title = StringField('Title:', validators=[validators.Length(min=0,max=1000)])
-    category = SelectField('Category:', choices=choices)
-    dividerBelow = BooleanField('Divider below page name in dropdown menu')
-    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.InputRequired()])
-    body = TextAreaField('Body:', validators=[validators.Length(min=0,max=75000)], widget=utils.TinyMCE)
+    title = StringField('Title:', validators=[validators.Length(min=0, max=1000)])
+    category = SelectField('Category:', choices=CHOICES)
+    divider_below = BooleanField('Divider below page name in dropdown menu')
+    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.Optional()])  # not actually optional
+    body = TextAreaField('Body:', validators=[validators.Length(min=0, max=75000)], widget=utils.TinyMCE)
     bodyhtml = HiddenField()
+    name = None
+
+    def __init__(self, name=None, **kwargs):
+        Form.__init__(self, **kwargs)
+        self.name = name
+
+    def validate(self):
+        is_valid = True
+        is_valid = Form.validate(self)
+
+        # do manual validation
+        if len(self.title.data) < 1:
+            self.title.errors.append("This field is required.")
+            is_valid = False
+
+        if self.index.data is None or (self.index.data < 0 or self.index.data > 100):
+            self.index.errors.append("Must be a number between 0 and 100.")
+            is_valid = False
+
+        old_name = self.name
+        self.name = "-".join(self.title.data.split(" ")).lower()
+
+        if self.name != old_name and Page.query.filter_by(name=self.name).first():
+            self.title.errors.append("A page with this name already exists.")
+            is_valid = False
+
+        self.body.data = self.bodyhtml.data  # preserve what has already been entered
+        return is_valid
+
 
 
 def new_page():
     form = NewPageForm()
+
     if form.validate_on_submit():
-        title = form.title.data
-        body = form.bodyhtml.data
-        category = form.category.data
-        dividerBelow = form.dividerBelow.data
-        index = form.index.data
+        data = {"title": form.title.data,
+                "body": form.bodyhtml.data,
+                "category": form.category.data,
+                "divider_below": form.divider_below.data,
+                "index": form.index.data,
+                "name": form.name}
 
-        if len(title) < 1:
-            form.title.errors.append("This field is required.")
-            form.body.data = body
-            return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
-
-        if index and (index<0 or index>100):
-            form.index.errors.append("Number must be between 0 and 100.")
-            form.body.data = body
-            return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
-
-        name = "-".join(title.split(" ")).lower()
-
-        page = Page.query.filter_by(name=name).first()
-        if page:
-            form.title.errors.append("A page with this name already exists.")
-            form.body.data = body
-            return utils.render_with_navbar("newpage.html", form=form, title=title, index=index)
-
-
-        newpage = Page(title=title, name=name, category=category, dividerBelow=dividerBelow, index=index, body=body)
+        newpage = Page(**data)
         db.session.add(newpage)
         db.session.commit()
-        time.sleep(0.5);
-        return redirect("/page/" + name)
+        time.sleep(0.5)
+        return redirect("/page/" + form.name)
 
     return utils.render_with_navbar("newpage.html", form=form)
 
 
 def edit_page(page_name):
-    if not page_name: 
+    if not page_name:
         return utils.render_with_navbar("404.html"), 404
 
-    currentPage = Page.query.filter_by(name=page_name).first()
-    if not currentPage:
+    current_page = Page.query.filter_by(name=page_name).first()
+    if not current_page:
         return utils.render_with_navbar("404.html"), 404
 
+    data = {"title": current_page.title,
+            "body": current_page.body,
+            "category": current_page.category,
+            "divider_below": current_page.divider_below,
+            "index": current_page.index,
+            "name": page_name}
 
-    title = currentPage.title
-    bodyhtml = currentPage.body
-    category = currentPage.category
-    dividerBelow = currentPage.dividerBelow
-    index = currentPage.index
-
-    form = NewPageForm(category=category, dividerBelow=dividerBelow)
-
-    form.body.data = bodyhtml
+    form = NewPageForm(**data)
 
     if form.validate_on_submit():
-        newtitle = form.title.data
-        newbody = form.bodyhtml.data
-        newcategory = form.category.data
-        newdividerBelow = form.dividerBelow.data
-        newindex = form.index.data
+        new_data = {"title": form.title.data,
+                    "body": form.bodyhtml.data,
+                    "category": form.category.data,
+                    "divider_below": form.divider_below.data,
+                    "index": form.index.data,
+                    "name": form.name}
 
-        if len(newtitle) < 1:
-            form.title.errors.append("This field is required.")
-            form.body.data = newbody
-            return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
-
-        if index and (index<0 or index>100):
-            form.index.erros.append("Number must be between 0 and 100.")
-            form.body.data = newbody
-            return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
-
-        newname = "-".join(newtitle.split(" ")).lower()
-
-        if newname != page_name:
-            page = Page.query.filter_by(name=newname).first()
-            if page:
-                form.title.errors.append("A page with this name already exists.")
-                form.body.data = newbody
-                return utils.render_with_navbar("editpage.html", form=form, title=newtitle, index=newindex)
-
-        currentPage.title = newtitle
-        currentPage.body = newbody
-        currentPage.name = newname
-        currentPage.category = newcategory
-        currentPage.dividerBelow = newdividerBelow
-        currentPage.index = newindex
+        for key, value in new_data.items():
+            setattr(current_page, key, value)
         db.session.commit()
         time.sleep(0.5)
-        return redirect("/page/" + newname)
+        return redirect("/page/" + new_data["name"])
 
-    return utils.render_with_navbar("editpage.html", form=form, title=title, index=index)
+    return utils.render_with_navbar("editpage.html", form=form)
 
 
 def delete_page(page_name):
@@ -132,4 +119,3 @@ def delete_page(page_name):
     db.session.commit()
     time.sleep(0.5)
     return redirect("/pages")
-
