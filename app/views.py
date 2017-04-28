@@ -33,7 +33,7 @@ def render_page(page_name):
 @app.route('/pages')
 @login_required
 def show_hidden_pages():
-    pages = Page.query.filter_by(category="none")
+    pages = Page.query.filter_by(category="Hidden")
     return render_with_navbar("pages.html", hidden_pages=pages)
 
 @app.route('/newpage', methods=["GET", "POST"])
@@ -122,22 +122,22 @@ def all_faculty():
 
 @app.route('/administration')
 def administration():
-    administrators = Faculty.query.filter_by(category="admin").order_by(Faculty.lastname.asc())
+    administrators = Faculty.query.filter_by(category="Administration").order_by(Faculty.lastname.asc())
     return render_with_navbar("faculty/faculty.html", faculty=administrators, title="Administration")
 
 @app.route('/guidance')
 def guidance():
-    counselors = Faculty.query.filter_by(category="guidance").order_by(Faculty.lastname.asc())
+    counselors = Faculty.query.filter_by(category="Guidance and Counseling").order_by(Faculty.lastname.asc())
     return render_with_navbar("faculty/faculty.html", faculty=counselors, title="Guidance and Counseling")
 
 @app.route('/teachers')
 def teachers():
-    teachers = Faculty.query.filter_by(category="teaching").order_by(Faculty.lastname.asc())
+    teachers = Faculty.query.filter_by(category="Teaching").order_by(Faculty.lastname.asc())
     return render_with_navbar("faculty/faculty.html", faculty=teachers, title="Teachers")
 
 @app.route('/support')
 def support():
-    support = Faculty.query.filter_by(category="support").order_by(Faculty.lastname.asc())
+    support = Faculty.query.filter_by(category="Support").order_by(Faculty.lastname.asc())
     return render_with_navbar("faculty/faculty.html", faculty=support, title="Support Staff")
 
 @app.route("/login", methods=["GET", "POST"])

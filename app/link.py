@@ -8,12 +8,12 @@ from flask_wtf import Form
 from flask_wtf.html5 import IntegerField
 from wtforms import validators, StringField, SelectField, BooleanField
 
-CHOICES = [('calendars', 'Calendars'),
-           ('about', 'About Us'),
-           ('academics', 'Academics'),
-           ('students', 'Students'),
-           ('parents', 'Parents'),
-           ('admissions', 'Admissions')]
+CHOICES = [('Calendars', 'Calendars'),
+           ('About Us', 'About Us'),
+           ('Academics', 'Academics'),
+           ('Students', 'Students'),
+           ('Parents', 'Parents'),
+           ('Admissions', 'Admissions')]
 
 URL_REGEX = r'((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&/=]*))|\/[-a-zA-Z0-9@:%_\+.~#?&/=]*'
 

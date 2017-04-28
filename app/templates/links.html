@@ -9,7 +9,7 @@
 <p>The following are links that appear in the navigation bar and open in a new tab when clicked.</p>
 {% for category in pages %}
 
-{% for page in pages[category] if not 'Link' in page.__class__|string %}
+{% for page in pages[category] if page.name is not none %}
   {% if pages[category].remove(page) %} {% endif %}
 {% endfor %}
 

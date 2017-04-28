@@ -44,7 +44,7 @@
             <li id="home-link"><a class="dropdown-toggle" href="/"><span class="glyphicon glyphicon-home"></span></a></li>
 
         {% macro render_dropdown(page) -%}
-        {% if 'Page' in page.__class__|string %}
+        {% if page.name is not none %}
           <li><a href="/page/{{page.name}}">{{page.title}}</a></li>
         {% else %}
           <li><a href="{{page.url}}" target="_blank">{{page.title}}</a></li>
@@ -66,7 +66,7 @@
 	    <li class="dropdown">
         <a class="dropdown-toggle">About Us</a>
         <ul class="dropdown-menu">
-        {% for page in pages['About'] %}
+        {% for page in pages['About Us'] %}
           {{render_dropdown(page)}}
         {% endfor %}
         </ul>

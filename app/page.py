@@ -7,13 +7,13 @@ from flask_wtf import Form
 from flask_wtf.html5 import IntegerField
 from wtforms import validators, StringField, TextAreaField, HiddenField, SelectField, BooleanField
 
-CHOICES = [('none', 'None (hidden)'),
-           ('calendars', 'Calendars'),
-           ('about', 'About Us'),
-           ('academics', 'Academics'),
-           ('students', 'Students'),
-           ('parents', 'Parents'),
-           ('admissions', 'Admissions')]
+CHOICES = [('Hidden', 'None (hidden)'),
+           ('Calendars', 'Calendars'),
+           ('About Us', 'About Us'),
+           ('Academics', 'Academics'),
+           ('Students', 'Students'),
+           ('Parents', 'Parents'),
+           ('Admissions', 'Admissions')]
 
 class NewPageForm(Form):
     title = StringField('Title:', validators=[validators.Length(min=0, max=1000)])
