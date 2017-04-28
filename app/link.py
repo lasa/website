@@ -43,9 +43,12 @@ class NewLinkForm(Form):
         if not (self.url.data.startswith('/') or self.url.data.startswith("http://") or self.url.data.startswith("https://")):
             self.url.data = "http://" + self.url.data
 
-        if self.index.data is None or (self.index.data < 0 or self.index.data > 100):
+        if self.index.data is not None and (self.index.data < 0 or self.index.data > 100):
             self.index.errors.append("Must be a number between 0 and 100.")
             is_valid = False
+        elif self.index.data is None:
+            self.index.data = 101
+
         return is_valid
 
 
@@ -78,7 +81,7 @@ def edit_link():
     data = {"title": current_link.title,
             "category": current_link.category,
             "divider_below": current_link.divider_below,
-            "index": current_link.index,
+            "index": None if current_link.index == 101 else current_link.index,
             "url": current_link.url}
 
     form = NewLinkForm(**data)

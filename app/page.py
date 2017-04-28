@@ -19,7 +19,7 @@ class NewPageForm(Form):
     title = StringField('Title:', validators=[validators.Length(min=0, max=1000)])
     category = SelectField('Category:', choices=CHOICES)
     divider_below = BooleanField('Divider below page name in dropdown menu')
-    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.Optional()])  # not actually optional
+    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.Optional()])
     body = TextAreaField('Body:', validators=[validators.Length(min=0, max=75000)], widget=utils.TinyMCE)
     bodyhtml = HiddenField()
     name = None
@@ -37,9 +37,11 @@ class NewPageForm(Form):
             self.title.errors.append("This field is required.")
             is_valid = False
 
-        if self.index.data is None or (self.index.data < 0 or self.index.data > 100):
+        if self.index.data is not None and (self.index.data < 0 or self.index.data > 100):
             self.index.errors.append("Must be a number between 0 and 100.")
             is_valid = False
+        elif self.index.data is None:
+            self.index.data = 101
 
         old_name = self.name
         self.name = "-".join(self.title.data.split(" ")).lower()
@@ -85,7 +87,7 @@ def edit_page(page_name):
             "body": current_page.body,
             "category": current_page.category,
             "divider_below": current_page.divider_below,
-            "index": current_page.index,
+            "index": None if current_page.index == 101 else current_page.index,
             "name": page_name}
 
     form = NewPageForm(**data)
