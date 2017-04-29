@@ -67,7 +67,7 @@ def new_link():
         time.sleep(0.5)
         return redirect("/pages")
 
-    return utils.render_with_navbar("newlink.html", form=form)
+    return utils.render_with_navbar("link/form.html", form=form)
 
 def edit_link():
     linkid = request.args.get("id")
@@ -99,7 +99,7 @@ def edit_link():
         time.sleep(0.5)
         return redirect("/pages")
 
-    return utils.render_with_navbar("editlink.html", form=form)
+    return utils.render_with_navbar("link/form.html", form=form)
 
 def delete_link():
     linkid = request.args.get("id")

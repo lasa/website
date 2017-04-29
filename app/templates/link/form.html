@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
 
+{% if "edit" in request.path %}
 <div class="form-label">Edit Link</div>
+{% else %}
+<div class="form-label">New Link</div>
+{% endif %}
+
 <br/>
 <br/>
 <div>

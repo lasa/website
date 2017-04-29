@@ -72,16 +72,16 @@ def new_page():
         time.sleep(0.5)
         return redirect("/page/" + form.name)
 
-    return utils.render_with_navbar("newpage.html", form=form)
+    return utils.render_with_navbar("page/form.html", form=form)
 
 
 def edit_page(page_name):
     if not page_name:
-        return utils.render_with_navbar("404.html"), 404
+        return utils.render_with_navbar("page/form.html"), 404
 
     current_page = Page.query.filter_by(name=page_name).first()
     if not current_page:
-        return utils.render_with_navbar("404.html"), 404
+        return utils.render_with_navbar("page/form.html"), 404
 
     data = {"title": current_page.title,
             "body": current_page.body,
@@ -106,16 +106,16 @@ def edit_page(page_name):
         time.sleep(0.5)
         return redirect("/page/" + new_data["name"])
 
-    return utils.render_with_navbar("editpage.html", form=form)
+    return utils.render_with_navbar("page/form.html", form=form)
 
 
 def delete_page(page_name):
     if not page_name:
-        return utils.render_with_navbar("404.html"), 404
+        return utils.render_with_navbar("page/form.html"), 404
 
     page = Page.query.filter_by(name=page_name)
     if not page:
-        return utils.render_with_navbar("404.html"), 404
+        return utils.render_with_navbar("page/form.html"), 404
 
     page.delete()
     db.session.commit()

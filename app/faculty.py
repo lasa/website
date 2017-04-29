@@ -53,7 +53,7 @@ def new_faculty():
         time.sleep(0.5)
         return redirect("/faculty")
 
-    return utils.render_with_navbar("faculty/newfaculty.html", form=form)
+    return utils.render_with_navbar("faculty/form.html", form=form)
 
 def edit_faculty():
     facultyid = request.args.get("id")
@@ -94,7 +94,7 @@ def edit_faculty():
         time.sleep(0.5)
         return redirect("/faculty")
 
-    return utils.render_with_navbar("faculty/editfaculty.html", form=form)
+    return utils.render_with_navbar("faculty/form.html", form=form)
 
 def delete_faculty():
     facultyid = request.args.get("id")

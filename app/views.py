@@ -27,13 +27,13 @@ def index():
 def render_page(page_name):
     query_page = Page.query.filter_by(name=page_name).first()
     if query_page:
-        return render_with_navbar("page.html", page=query_page, title=query_page.title)
+        return render_with_navbar("page/page.html", page=query_page, title=query_page.title)
     return page_not_found(404)
 
 @app.route('/pages')
 @login_required
 def show_hidden_pages():
-    return render_with_navbar("pages.html")
+    return render_with_navbar("page/pages.html")
 
 @app.route('/newpage', methods=["GET", "POST"])
 @login_required
@@ -89,25 +89,25 @@ def news():
     if request.args.get("postid"):
         query_post = Post.query.filter_by(id_=request.args.get("postid")).first()
         if query_post:
-            return render_with_navbar("news/newsitem.html", post=query_post, heading="LASA News")
+            return render_with_navbar("post/post.html", post=query_post, heading="LASA News")
     posts = Post.query.order_by(Post.timestamp.desc())
-    return render_with_navbar("news/news.html", posts=posts, heading="LASA News")
+    return render_with_navbar("post/posts.html", posts=posts, heading="LASA News")
 
 @app.route('/messages')
 def messages():
     if request.args.get("postid"):
         query_post = Message.query.filter_by(id_=request.args.get("postid")).first()
         if query_post:
-            return render_with_navbar("news/newsitem.html", post=query_post, heading="Principal's Messages")
+            return render_with_navbar("post/post.html", post=query_post, heading="Principal's Messages")
     posts = Message.query.order_by(Message.timestamp.desc())
-    return render_with_navbar("news/news.html", posts=posts, heading="Principal's Messages")
+    return render_with_navbar("post/posts.html", posts=posts, heading="Principal's Messages")
 
 @app.route('/message')
 def message():
     query_post = Message.query.order_by(Message.timestamp.desc()).first()
     if not query_post:
         return redirect("/messages")
-    return render_with_navbar("news/newsitem.html", post=query_post, heading="Principal's Message")
+    return render_with_navbar("post/post.html", post=query_post, heading="Principal's Message")
 
 @app.route('/faculty')
 def all_faculty():

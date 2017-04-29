@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
 
+{% if "edit" in request.path %}
+<div class="form-label">Edit Faculty Member</div>
+{% else %}
 <div class="form-label">New Faculty Member</div>
+{% endif %}
+
 <br/>
 <br/>
 <div>
@@ -9,7 +14,7 @@
 		{{form.csrf_token}}
 
 		{{form.firstname.label}} <br/>
-		{{form.firstname|safe}} <br/>
+		{{form.firstname()|safe}} <br/>
 		<div class="error">{{form.firstname.errors[0]}}</div> 
 		
 		{{form.lastname.label}} <br/>

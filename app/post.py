@@ -35,7 +35,7 @@ def new_post():
         time.sleep(0.5)
         return redirect("/news")
 
-    return utils.render_with_navbar("news/newpost.html", form=form, heading="News Item")
+    return utils.render_with_navbar("post/form.html", form=form, heading="News Item")
 
 def new_message():
     form = NewPostForm()
@@ -52,7 +52,7 @@ def new_message():
         time.sleep(0.5)
         return redirect("/message")
 
-    return utils.render_with_navbar("news/newpost.html", form=form, heading="Principal's Message")
+    return utils.render_with_navbar("post/form.html", form=form, heading="Principal's Message")
 
 
 
@@ -80,7 +80,7 @@ def edit_post():
         time.sleep(0.5)
         return redirect("/news?postid="+postid)
 
-    return utils.render_with_navbar("news/editpost.html", form=form, heading="News Item")
+    return utils.render_with_navbar("post/form.html", form=form, heading="News Item")
 
 def edit_message():
     postid = request.args.get("postid")
@@ -106,7 +106,7 @@ def edit_message():
         time.sleep(0.5)
         return redirect("/messages?postid="+postid)
 
-    return utils.render_with_navbar("news/editpost.html", form=form, heading="Principal's Message")
+    return utils.render_with_navbar("post/form.html", form=form, heading="Principal's Message")
 
 
 def delete_post():

@@ -42,14 +42,14 @@ def upload_file():
         time.sleep(0.5)
         return redirect('/uploads')
 
-    return utils.render_with_navbar("upload.html", form=form)
+    return utils.render_with_navbar("upload/upload.html", form=form)
 
 def show_uploads():
     uploads = os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
     uploads.remove('.gitignore')
     # sorts uploads by time last modified, which should always be the same as time uploaded
     uploads.sort(key=lambda filename: os.stat(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename)).st_mtime)
-    return utils.render_with_navbar("uploads.html", uploads=uploads[::-1])
+    return utils.render_with_navbar("upload/uploads.html", uploads=uploads[::-1])
 
 def delete_upload():
     filename = request.args.get("name")
