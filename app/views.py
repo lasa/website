@@ -33,8 +33,7 @@ def render_page(page_name):
 @app.route('/pages')
 @login_required
 def show_hidden_pages():
-    pages = Page.query.filter_by(category="Hidden")
-    return render_with_navbar("pages.html", hidden_pages=pages)
+    return render_with_navbar("pages.html")
 
 @app.route('/newpage', methods=["GET", "POST"])
 @login_required
@@ -65,11 +64,6 @@ def edit_link():
 @login_required
 def delete_link():
     return link.delete_link()
-
-@app.route('/links')
-@login_required
-def show_links():
-    return utils.render_with_navbar("links.html")
 
 @app.route('/upload', methods=["GET", "POST"])
 @login_required

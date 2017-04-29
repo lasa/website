@@ -32,10 +32,10 @@ class NewLinkForm(Form):
     title = StringField('Title:', validators=[validators.InputRequired(), validators.Length(min=0, max=1000)])
     category = SelectField('Category:', choices=CHOICES)
     divider_below = BooleanField('Divider below link in dropdown menu')
-    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.Optional()])  # not actually optional
+    index = IntegerField('Ordering index:', validators=[validators.Optional()])  # not actually optional
 
     link_list = SelectField('Choose from uploads: ', choices=generate_link_list())
-    url = StringField('URL (external link or relative path): ', validators=[validators.InputRequired(), validators.Regexp(URL_REGEX, message="Invalid URL. Must be a valid external link or a relative URL beginning with '/'."), validators.Length(min=0, max=50)])
+    url = StringField('URL (external link or relative path): ', validators=[validators.InputRequired(), validators.Regexp(URL_REGEX, message="Invalid URL. Must be a valid external link or a relative URL beginning with '/'."), validators.Length(min=0, max=200)])
 
     def validate(self):
         is_valid = True
@@ -65,7 +65,7 @@ def new_link():
         db.session.add(newlink)
         db.session.commit()
         time.sleep(0.5)
-        return redirect("/links")
+        return redirect("/pages")
 
     return utils.render_with_navbar("newlink.html", form=form)
 
@@ -97,17 +97,17 @@ def edit_link():
             setattr(current_link, key, value)
         db.session.commit()
         time.sleep(0.5)
-        return redirect("/links")
+        return redirect("/pages")
 
     return utils.render_with_navbar("editlink.html", form=form)
 
 def delete_link():
     linkid = request.args.get("id")
     if not linkid:
-        return redirect("/links")
+        return redirect("/pages")
 
     link = Link.query.filter_by(id_=linkid)
     link.delete()
     db.session.commit()
     time.sleep(0.5)
-    return redirect("/links")
+    return redirect("/pages")

@@ -19,7 +19,7 @@ class NewPageForm(Form):
     title = StringField('Title:', validators=[validators.Length(min=0, max=1000)])
     category = SelectField('Category:', choices=CHOICES)
     divider_below = BooleanField('Divider below page name in dropdown menu')
-    index = IntegerField('Ordering index (lower number = higher up in dropdown menu):', validators=[validators.Optional()])
+    index = IntegerField('Ordering index:', validators=[validators.Optional()])
     body = TextAreaField('Body:', validators=[validators.Length(min=0, max=75000)], widget=utils.TinyMCE)
     bodyhtml = HiddenField()
     name = None

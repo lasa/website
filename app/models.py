@@ -19,7 +19,7 @@ FACULTY_LIMITS = {'name': 50,
                   'website': 50}
 
 LINK_LIMITS = {'title': 1000,
-               'url': 50}
+               'url': 200}
 
 
 class User(db.Model):

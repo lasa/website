@@ -12,7 +12,8 @@ def render_with_navbar(template, **kwargs):
     query_links = Link.query.with_entities(Link.id_, Link.title, sqlalchemy.null().label("name"), Link.url, Link.index, Link.category, Link.divider_below)
     query_all = query_pages.union_all(query_links).order_by(Page.index)
 
-    pages = OrderedDict([('Calendars', query_all.filter_by(category='Calendars').all()),
+    pages = OrderedDict([('Hidden', query_all.filter_by(category='Hidden').all()),
+                         ('Calendars', query_all.filter_by(category='Calendars').all()),
                          ('About Us', query_all.filter_by(category='About Us').all()),
                          ('Academics', query_all.filter_by(category='Academics').all()),
                          ('Students', query_all.filter_by(category='Students').all()),

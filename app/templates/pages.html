@@ -1,19 +1,48 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<h2 class="post-title" style="border-bottom:0px">Manage Pages</h2>
+<h2 class="post-title" style="border-bottom:0px">Manage Navigation Bar</h2>
 <div class="edit-delete">
-    <a href="/newpage">new page</a>
+    <a href="/newpage">new page</a> | 
+    <a href="/newlink">new link</a>
 </div>
 
-<p>All of the categorized pages appear in the navigation bar at the top of the website and can be managed by navigating to them there.</p> <p>The following are hidden pages not accessible from the navigation bar. However, they can still be linked to from other, visible pages.</p>
-{% for page in hidden_pages %}
+<p>The following are all the pages and links that appear in the navigation bar.</p>
+<p>The order of items in each category is determined by an optional ordering index between 0 and 100, 
+where lower indices are placed above higher indices and items without an ordering index always appear at the bottom.</p>
 
+{% macro truncate(str, len) -%}
+    {{(str[:len].rstrip() + "...") if str|length > len else str}}
+{%- endmacro %}
+
+{% for category in pages %}
+
+{% if pages[category]|length > 0 %}
+  <h4>{{category}}:</h4>
+
+{% for page in pages[category] %}
 <div class="news-item">
-	<a class="news-item-link" href="/page/{{page.name}}">{{page.title}}</a>
-    <div class="edit-delete"> <a href="/page/{{page.name}}/edit">edit</a> | <a href="/page/{{page.name}}/delete">delete</a> </div>
+    <span style="width:25px; display:inline-block; text-align:right;">
+    {% if page.index != 101 %} {{page.index}} {% endif %}
+    </span>
+    {% if page.name is not none %}
+    <a class="news-item-link" target="_blank" href="/page/{{page.name}}">{{truncate(page.title, 20)}}</a> &nbsp;/page/{{truncate(page.name, 60)}}
+    <div class="edit-delete">
+    <a href="/page/{{page.name}}/edit">edit</a> | 
+    <a href="/page/{{page.name}}/delete">delete</a>
+    </div>
+    {% else %}
+	<a class="news-item-link" target="_blank" href="{{page.url}}">{{truncate(page.title, 20)}}</a> &nbsp;{{truncate(page.url, 60)}}
+    <div class="edit-delete">
+    <a href="/editlink?id={{page.id_}}">edit</a> | 
+    <a href="/dellink?id={{page.id_}}">delete</a>
+    </div>
+    {% endif %}
 </div>
+{% endfor %}
+{% endif %}
 
 {% endfor %}
+
 
 {% endblock %}
