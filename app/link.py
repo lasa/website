@@ -34,8 +34,12 @@ class NewLinkForm(Form):
     divider_below = BooleanField('Divider below link in dropdown menu')
     index = IntegerField('Ordering index:', validators=[validators.Optional()])  # not actually optional
 
-    link_list = SelectField('Choose from uploads: ', choices=generate_link_list())
+    link_list = SelectField('Choose from uploads: ')
     url = StringField('URL (external link or relative path): ', validators=[validators.InputRequired(), validators.Regexp(URL_REGEX, message="Invalid URL. Must be a valid external link or a relative URL beginning with '/'."), validators.Length(min=0, max=200)])
+
+    def __init__(self, **kwargs):
+        Form.__init__(self, **kwargs)
+        self.link_list.choices = generate_link_list()
 
     def validate(self):
         is_valid = True

@@ -32,14 +32,16 @@ def generate_lists():
 
 
 class NewSlideForm(Form):
-    images, links, news = generate_lists()
-
-    image_list = SelectField('Choose from uploads: ', choices=images)
+    image_list = SelectField('Choose from uploads: ')
     image_url = StringField('URL (external link or relative path): ', validators=[validators.InputRequired(), validators.Regexp(URL_REGEX, message="Invalid URL. Must be a valid external link or a relative URL beginning with '/'."), validators.Length(min=0, max=200)])
 
-    link_list = SelectField('Choose from uploads: ', choices=links)
-    news_list = SelectField('Choose from news: ', choices=news)
+    link_list = SelectField('Choose from uploads: ')
+    news_list = SelectField('Choose from news: ')
     url = StringField('URL (external link or relative path): ', validators=[validators.InputRequired(), validators.Regexp(URL_REGEX, message="Invalid URL. Must be a valid external link or a relative URL beginning with '/'."), validators.Length(min=0, max=200)])
+
+    def __init__(self, **kwargs):
+        Form.__init__(self, **kwargs)
+        self.image_list.choices, self.link_list.choices, self.news_list.choices = generate_lists()
 
     def validate(self):
         is_valid = True
