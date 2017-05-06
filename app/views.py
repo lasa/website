@@ -1,6 +1,6 @@
-from app import app, utils, login_signup, login_manager, post, faculty, page, upload, link
+from app import app, login_signup, login_manager, post, faculty, page, upload, link, slide
 from app.utils import render_with_navbar
-from app.models import User, Post, Page, Faculty, Message
+from app.models import User, Post, Page, Faculty, Message, Slide
 from flask_login import login_required
 from flask import request, redirect, send_from_directory
 from werkzeug.utils import secure_filename
@@ -21,7 +21,10 @@ def before_request():
 @app.route('/index')
 def index():
     posts = Post.query.order_by(Post.timestamp.desc()).limit(10)
-    return render_with_navbar("index.html", posts=posts)
+    slides = Slide.query.order_by(Slide.id_.desc()).all()
+    if not slides:
+        slides.append(Slide(image_url="", url="/"))
+    return render_with_navbar("index.html", posts=posts, slides=slides)
 
 @app.route('/page/<string:page_name>')
 def render_page(page_name):
@@ -32,7 +35,7 @@ def render_page(page_name):
 
 @app.route('/pages')
 @login_required
-def show_hidden_pages():
+def show_pages():
     return render_with_navbar("page/pages.html")
 
 @app.route('/newpage', methods=["GET", "POST"])
@@ -64,6 +67,27 @@ def edit_link():
 @login_required
 def delete_link():
     return link.delete_link()
+
+@app.route('/newslide', methods=["GET", "POST"])
+@login_required
+def new_slide():
+    return slide.new_slide()
+
+@app.route('/editslide', methods=["GET", "POST"])
+@login_required
+def edit_slide():
+    return slide.edit_slide()
+
+@app.route('/delslide')
+@login_required
+def delete_slide():
+    return slide.delete_slide()
+
+@app.route('/slides')
+@login_required
+def show_slides():
+    slides = Slide.query.order_by(Slide.id_.desc())
+    return render_with_navbar("slide/slides.html", slides=slides)
 
 @app.route('/upload', methods=["GET", "POST"])
 @login_required

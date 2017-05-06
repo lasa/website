@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% if "edit" in request.path %}
+<div class="form-label">Edit Slide</div>
+{% else %}
+<div class="form-label">New Slide</div>
+{% endif %}
+
+<br/>
+<br/>
+<div>
+	<form method="post">
+		{{form.csrf_token}}
+
+        <h4>Image: </h4>
+
+		{{form.image_list.label}} {{form.image_list()|safe}} <br/>
+		{{form.image_url.label}} {{form.image_url()|safe}} <br/>
+        <div class="error">{{form.image_url.errors[0]}}</div>
+
+        <h4>Link: </h4>
+
+		{{form.link_list.label}} {{form.link_list()|safe}} <br/>
+        {{form.news_list.label}} {{form.news_list()|safe}} <br/>
+		{{form.url.label}} {{form.url()|safe}} <br/>
+        <div class="error">{{form.url.errors[0]}}</div>
+
+		<input type="submit" value="Submit" class="submit-btn">
+
+	</form>
+</div>
+
+<script>
+$(document).ready(function() {
+    $("#image_list").on("change", function (e) {
+        if (this.value != "none") $("#image_url").val(this.value);
+        });
+
+    $("#link_list, #news_list").on("change", function (e) {
+        if (this.value != "none") $("#url").val(this.value);
+
+        if (this.id == "link_list") $("#news_list").val("none");
+        else $("#link_list").val("none");
+        });
+    });
+
+</script>
+
+{% endblock %}

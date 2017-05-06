@@ -21,6 +21,9 @@ FACULTY_LIMITS = {'name': 50,
 LINK_LIMITS = {'title': 1000,
                'url': 200}
 
+SLIDE_LIMITS = {'image_url': 200,
+                'url': 200}
+
 
 class User(db.Model):
     __tablename__ = "users"
@@ -93,6 +96,14 @@ class Link(db.Model):
 
     def __repr__(self):
         return '<Link %r>' % (self.title)
+
+class Slide(db.Model):
+    id_ = db.Column(db.Integer, primary_key=True)
+    image_url = db.Column(db.String(SLIDE_LIMITS['image_url']))
+    url = db.Column(db.String(SLIDE_LIMITS['url']))
+
+    def __repr__(self):
+        return '<Slide %r>' % (self.id_)
 
 class Faculty(db.Model):
     id_ = db.Column(db.Integer, primary_key=True)

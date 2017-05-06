@@ -7,28 +7,21 @@
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
+                {% for i in range(slides[1:]|length) %}
+                <li data-target="#myCarousel" data-slide-to="{{i}}"></li>
+                {% endfor %}
             </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="https://thevanhornadvocate.com/wp-content/uploads/2016/04/guadalupe.jpg" alt="Chania">
+                    <a target="_blank" href="{{slides[0].url}}"><img src="{{slides[0].image_url}}"/></a>
                 </div>
-
+                {% for slide in slides[1:] %}
                 <div class="item">
-                    <img src="https://thevanhornadvocate.com/wp-content/uploads/2016/04/guadalupe.jpg" alt="Chania">
+                    <a target="_blank" href="{{slide.url}}"><img src="{{slide.image_url}}"/></a>
                 </div>
-
-                <div class="item">
-                    <img src="https://thevanhornadvocate.com/wp-content/uploads/2016/04/guadalupe.jpg" alt="Flower">
-                </div>
-
-                <div class="item">
-                    <img src="https://thevanhornadvocate.com/wp-content/uploads/2016/04/guadalupe.jpg" alt="Flower">
-                </div>
+                {% endfor %}
             </div>
 
             <!-- Left and right controls -->

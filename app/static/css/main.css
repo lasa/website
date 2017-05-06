@@ -341,6 +341,11 @@ ul.news-list>li:hover {
   border-radius:0;
 }
 
+.carousel-inner>.item>a>img {
+  height: 400px;
+  width: 100%;
+}
+
 /* Style the list */
 ul.tab {
     list-style-type: none;
@@ -433,6 +438,11 @@ ul.tab li a:focus, .active {background-color: #ccc;}
   padding-top:10px;
   padding-bottom:10px;
   border-top:1px solid #A8A6A6;
+}
+
+.news-item.slide > div {
+  display:table-cell;
+  vertical-align:bottom;
 }
 
 .news-item-link {
