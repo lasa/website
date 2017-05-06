@@ -4,14 +4,6 @@
 <div class="row">
     <div class="col-sm-8">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                {% for i in range(slides[1:]|length) %}
-                <li data-target="#myCarousel" data-slide-to="{{i}}"></li>
-                {% endfor %}
-            </ol>
-
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
