@@ -7,10 +7,15 @@
 </div>
 
 <p>The following are files that have been uploaded to the server. They can be linked to from anywhere on the website.</p>
+
+{% macro truncate(str, len) -%}
+    {{(str[:len].rstrip() + "...") if str|length > len else str}}
+{%- endmacro %}
+
 {% for upload in uploads %}
 
 <div class="news-item">
-	<a class="news-item-link" href="/uploads/{{upload}}">{{upload}}</a>
+	<a class="news-item-link" href="/uploads/{{upload}}">{{truncate(upload, 30)}}</a> &nbsp;/uploads/{{truncate(upload, 60)}}
     <div class="edit-delete"> <a href="/delupload?name={{upload}}">delete</a> </div>
 </div>
 

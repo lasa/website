@@ -26,13 +26,13 @@ where lower indices are placed above higher indices and items without an orderin
     {% if page.index != 101 %} {{page.index}} {% endif %}
     </span>
     {% if page.name is not none %}
-    <a class="news-item-link" target="_blank" href="/page/{{page.name}}">{{truncate(page.title, 20)}}</a> &nbsp;/page/{{truncate(page.name, 60)}}
+    <a class="news-item-link" target="_blank" href="/page/{{page.name}}">{{truncate(page.title, 30)}}</a> &nbsp;/page/{{truncate(page.name, 60)}}
     <div class="edit-delete">
     <a href="/page/{{page.name}}/edit">edit</a> | 
     <a href="/page/{{page.name}}/delete">delete</a>
     </div>
     {% else %}
-	<a class="news-item-link" target="_blank" href="{{page.url}}">{{truncate(page.title, 20)}}</a> &nbsp;{{truncate(page.url, 60)}}
+	<a class="news-item-link" target="_blank" href="{{page.url}}">{{truncate(page.title, 30)}}</a> &nbsp;{{truncate(page.url, 60)}}
     <div class="edit-delete">
     <a href="/editlink?id={{page.id_}}">edit</a> | 
     <a href="/dellink?id={{page.id_}}">delete</a>
