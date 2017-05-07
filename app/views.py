@@ -23,7 +23,7 @@ def index():
     posts = Post.query.order_by(Post.timestamp.desc()).limit(10)
     slides = Slide.query.order_by(Slide.id_.desc()).all()
     if not slides:
-        slides.append(Slide(image_url="", url="/"))
+        slides.append(Slide(image_url="//:0", url="/"))
     return render_with_navbar("index.html", posts=posts, slides=slides)
 
 @app.route('/page/<string:page_name>')
