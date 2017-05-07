@@ -1,7 +1,6 @@
-import os
 import time
 
-from app import app, db, utils
+from app import db, utils
 from app.models import Link
 from flask import redirect, request
 from flask_wtf import Form
@@ -17,17 +16,6 @@ CHOICES = [('Calendars', 'Calendars'),
 
 URL_REGEX = r'((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&/=]*))|\/[-a-zA-Z0-9@:%_\+.~#?&/=]*'
 
-def generate_link_list():
-    uploads = os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
-    uploads.remove(".gitignore")
-    link_list = [('none', '')]
-    image_extensions = ["png", "jpg", "jpeg", "gif", "bmp"]
-    for upload in uploads:
-        if not ('.' in upload and upload.rsplit('.', 1)[1].lower() in image_extensions):
-            link_list.append(('/uploads/' + upload, upload))
-    return link_list
-
-
 class NewLinkForm(Form):
     title = StringField('Title:', validators=[validators.InputRequired(), validators.Length(min=0, max=1000)])
     category = SelectField('Category:', choices=CHOICES)
@@ -39,7 +27,7 @@ class NewLinkForm(Form):
 
     def __init__(self, **kwargs):
         Form.__init__(self, **kwargs)
-        self.link_list.choices = generate_link_list()
+        self.link_list.choices = utils.get_uploads()[1] # gets non-images only
 
     def validate(self):
         is_valid = True

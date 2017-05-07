@@ -21,18 +21,39 @@ def render_with_navbar(template, **kwargs):
                          ('Admissions', query_all.filter_by(category='Admissions').all())])
     return render_template(template, pages=pages, **kwargs)
 
-# custom widget for rendering a TinyMCE input
-def TinyMCE(field):
+def get_uploads():
+    """gets the images and other files from the uploads directory
+    and returns two lists of tuples in the form (name, path)
+    """
+
+    images = [('none', '')]
+    others = [('none', '')]
+
     uploads = os.listdir(os.path.join(app.root_path, app.config['UPLOAD_FOLDER']))
     uploads.remove(".gitignore")
-    image_list = link_list = "["
+    # sort by time last modified
+    uploads.sort(key=lambda filename: os.stat(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename)).st_mtime)
     image_extensions = ["png", "jpg", "jpeg", "gif", "bmp"]
 
     for upload in uploads:
         if '.' in upload and upload.rsplit('.', 1)[1].lower() in image_extensions:
-            image_list += "{title: '%s', value: '/uploads/%s'}," % (upload, upload)
+            images.append(('/uploads/' + upload, upload))
         else:
-            link_list += "{title: '%s', value: '/uploads/%s'}," % (upload, upload)
+            others.append(('/uploads/' + upload, upload))
+    return images, others
+
+# custom widget for rendering a TinyMCE input
+def TinyMCE(field):
+    images, links = get_uploads()
+    image_list = link_list = "["
+    for image in images[1:]:
+        image_list += "{{title: '{1}', value: '{0}'}},".format(*image)
+    for link in links[1:]:
+        link_list += "{{title: '{1}', value: '{0}'}},".format(*link)
+
+    hidden_pages = Page.query.filter_by(category="Hidden").all()
+    for page in hidden_pages:
+        link_list += "{{title: '{}', value: '/page/{}'}},".format(page.title, page.name)
 
     image_list = "[]" if image_list == "[" else image_list[:-1] + "]"
     link_list = "[]" if link_list == "[" else link_list[:-1] + "]"
