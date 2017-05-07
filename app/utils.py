@@ -35,7 +35,7 @@ def get_uploads():
     uploads.sort(key=lambda filename: os.stat(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename)).st_mtime)
     image_extensions = ["png", "jpg", "jpeg", "gif", "bmp"]
 
-    for upload in uploads:
+    for upload in uploads[::-1]:
         if '.' in upload and upload.rsplit('.', 1)[1].lower() in image_extensions:
             images.append(('/uploads/' + upload, upload))
         else:
@@ -48,12 +48,13 @@ def TinyMCE(field):
     image_list = link_list = "["
     for image in images[1:]:
         image_list += "{{title: '{1}', value: '{0}'}},".format(*image)
-    for link in links[1:]:
-        link_list += "{{title: '{1}', value: '{0}'}},".format(*link)
 
     hidden_pages = Page.query.filter_by(category="Hidden").all()
     for page in hidden_pages:
         link_list += "{{title: '{}', value: '/page/{}'}},".format(page.title, page.name)
+
+    for link in links[1:]:
+        link_list += "{{title: '{1}', value: '{0}'}},".format(*link)
 
     image_list = "[]" if image_list == "[" else image_list[:-1] + "]"
     link_list = "[]" if link_list == "[" else link_list[:-1] + "]"
