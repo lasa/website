@@ -341,7 +341,7 @@ ul.news-list>li:hover {
   border-radius:0;
 }
 
-.carousel-inner>.item>a>img {
+.carousel-inner>.item>a>img, .carousel-inner>.item>img {
   height: 305px;
   width: 100%;
 }

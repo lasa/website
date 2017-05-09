@@ -24,7 +24,7 @@ class NewSlideForm(Form):
 
     link_list = SelectField('Choose from uploads: ')
     news_list = SelectField('Choose from news: ')
-    url = StringField('URL (external link or relative path): ', validators=[validators.InputRequired(), validators.Regexp(URL_REGEX, message="Invalid URL. Must be a valid external link or a relative URL beginning with '/'."), validators.Length(min=0, max=200)])
+    url = StringField('URL (external link or relative path): ', validators=[validators.Optional(), validators.Regexp(URL_REGEX, message="Invalid URL. Must be a valid external link or a relative URL beginning with '/'."), validators.Length(min=0, max=200)])
 
     def __init__(self, **kwargs):
         Form.__init__(self, **kwargs)
@@ -37,7 +37,7 @@ class NewSlideForm(Form):
         if not (self.image_url.data.startswith('/') or self.image_url.data.startswith("http://") or self.image_url.data.startswith("https://")):
             self.image_url.data = "http://" + self.image_url.data
 
-        if not (self.url.data.startswith('/') or self.url.data.startswith("http://") or self.url.data.startswith("https://")):
+        if self.url.data and not (self.url.data.startswith('/') or self.url.data.startswith("http://") or self.url.data.startswith("https://")):
             self.url.data = "http://" + self.url.data
 
         return is_valid

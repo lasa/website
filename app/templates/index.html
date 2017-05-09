@@ -7,11 +7,19 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
+                    {% if slides[0].url %}
                     <a target="_blank" href="{{slides[0].url}}"><img src="{{slides[0].image_url}}"/></a>
+                    {% else %}
+                    <img src="{{slides[0].image_url}}"/>
+                    {% endif %}
                 </div>
                 {% for slide in slides[1:] %}
                 <div class="item">
+                    {% if slide.url %}
                     <a target="_blank" href="{{slide.url}}"><img src="{{slide.image_url}}"/></a>
+                    {% else %}
+                    <img src="{{slide.image_url}}"/>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
