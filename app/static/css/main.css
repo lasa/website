@@ -423,7 +423,7 @@ ul.news-list>li:hover {
 }
 
 .carousel-inner>.item>a>img, .carousel-inner>.item>img {
-  height: 305px;
+  max-height: 305px;
   width: 100%;
 }
 
