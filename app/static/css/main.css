@@ -24,7 +24,7 @@ h5 {
 .top-bar-wrapper {
   position:relative;
   z-index:1;
-  min-width:960px;
+  width:100%;
 }
 
 #top-banner {
@@ -35,12 +35,19 @@ h5 {
   z-index:0;
 }
 
+#logo-wrapper {
+  position:relative;
+  width:95%;
+  max-width:925px;
+  margin: 0 auto;
+}
+
 #logo {
-  width:150px;
+  width:35%;
+  max-width:150px;
   position:absolute;
-  left:50%;
-  margin-left:-450px;
-  top:10px;
+  left:0px;
+  bottom:-25px;
   z-index:1;
 }
 
@@ -60,6 +67,11 @@ h5 {
 
 #home-link {
   z-index:2;
+  background-color:transparent;
+}
+
+#home-link:hover {
+  background-color:transparent;
 }
 
 #jaguar {
@@ -79,7 +91,7 @@ h5 {
 
 .title-text {
   color:white;
-  font-size:2.5em;
+  font-size:40px;
   font-family: "Titillium", "Trebuchet MS", "Liberation Sans", sans-serif;
   font-variant:small-caps;
 }
@@ -91,15 +103,55 @@ h5 {
   color:white;
 }
 
+@media (max-width: 767px) {
+
+  #home-icon {
+    display:none;
+  }
+
+  .dropdown-menu>li>a {
+    color:white;
+  }
+
+  #title-text-wrapper {
+    text-align:right;
+  }
+
+  .title-text {
+    font-size:30px;
+    max-width:60%;
+    float:right;
+    display:block;
+    margin-right:7%;
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+
+  }
+
+  .subtitle-text {
+    display:none;
+  }
+
+  #logged-in {
+    display:none;
+  }
+}
+
 .container-fluid {
   box-shadow:0px 2px 4px rgba(0,0,0,0.4);
 }
-.navbar-nav > li {
-  display:inline-block;
+
+.navbar-toggle {
+  border:1px solid white;
+}
+
+.navbar-toggle .icon-bar {
+  background-color:white;
 }
 
 .nav .navbar-nav {
-  white-space:nowrap;
+  /*white-space:nowrap;*/
   z-index:3;
 }
 
@@ -109,80 +161,94 @@ h5 {
 }
 
 .navbar {
+  position:relative;
   min-height:10px;
-  min-width:960px;
+  width:100%;
   float: top;
-	background-color: #222222;
-	text-align: center;
+  background-color: #222222;
   margin-bottom:0px;
   border-radius:0px;
-  transition: all 0.5s ease;
-
-}
-
-.navbar .navbar-nav {
-  display: inline-block;
-  float: none;
-  vertical-align: top;
-}
-
-.dropdown {
-	cursor:pointer;
-	cursor:hand;
-  -webkit-transition: background-color 0.25s ease-in-out;
-  -moz-transition: background-color 0.25s ease-in-out;
-  -ms-transition: background-color 0.25s ease-in-out;
-  -o-transition: background-color 0.25s ease-in-out;
-  transition: background-color 0.25s ease-in-out;
-}
-
-.dropdown-menu .sub-menu {
-    left: 100%;
-    position: absolute;
-    top: 0;
-    visibility: hidden;
-    margin-top: -1px;
-}
-
-.dropdown-menu li:hover .sub-menu {
-    visibility: visible;
-}
-
-.dropdown-menu>li>a:hover {
-  background-color:#ddd;
-}
-
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-.dropdown .dropdown-toggle{
-  -webkit-transition: background-color 0.25s ease-in-out;
-  -moz-transition: background-color 0.25s ease-in-out;
-  -ms-transition: background-color 0.25s ease-in-out;
-  -o-transition: background-color 0.25s ease-in-out;
-  transition: background-color 0.25s ease-in-out;
-}
-
-.dropdown:hover{
-	background-color: #777;
-  -webkit-transition: background-color 0.25s ease-in-out;
-  -moz-transition: background-color 0.25s ease-in-out;
-  -ms-transition: background-color 0.25s ease-in-out;
-  -o-transition: background-color 0.25s ease-in-out;
-  transition: background-color 0.25s ease-in-out;
-}
-
-.nav>li>a:focus, .nav>li>a:hover {
-  background-color:inherit;
-}
-
-.nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
-    margin-top: 0;
 }
 
 .navbar a {
-	color:white;
+  color:white;
+}
+
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover, .nav>li>a:hover {
+  background-color: #777;
+}
+
+@media (min-width:767px) {
+
+  #home-text {
+    display:none;
+  }
+
+  .navbar {
+    text-align:center;
+  }
+
+  .navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+  }
+  
+  .dropdown {
+  	cursor:pointer;
+  	cursor:hand;
+    -webkit-transition: background-color 0.25s ease-in-out;
+    -moz-transition: background-color 0.25s ease-in-out;
+    -ms-transition: background-color 0.25s ease-in-out;
+    -o-transition: background-color 0.25s ease-in-out;
+    transition: background-color 0.25s ease-in-out;
+  }
+  
+  .dropdown-menu .sub-menu {
+      left: 100%;
+      position: absolute;
+      top: 0;
+      visibility: hidden;
+      margin-top: -1px;
+  }
+  
+  .dropdown-menu li:hover .sub-menu {
+      visibility: visible;
+  }
+  
+  .dropdown-menu>li>a:hover {
+    background-color:#ddd;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+      display: block;
+  }
+  
+  .dropdown .dropdown-toggle{
+    -webkit-transition: background-color 0.25s ease-in-out;
+    -moz-transition: background-color 0.25s ease-in-out;
+    -ms-transition: background-color 0.25s ease-in-out;
+    -o-transition: background-color 0.25s ease-in-out;
+    transition: background-color 0.25s ease-in-out;
+  }
+  
+  .dropdown:hover{
+  	background-color: #777;
+    -webkit-transition: background-color 0.25s ease-in-out;
+    -moz-transition: background-color 0.25s ease-in-out;
+    -ms-transition: background-color 0.25s ease-in-out;
+    -o-transition: background-color 0.25s ease-in-out;
+    transition: background-color 0.25s ease-in-out;
+  }
+  
+  .nav>li>a:focus, .nav>li>a:hover {
+    background-color:inherit;
+  }
+  
+  .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
+      margin-top: 0;
+  }
+  
 }
 
 /* Body */
@@ -208,7 +274,8 @@ h5 {
 .body-column {
   background-color:white;
   min-height:800px;
-  width:925px;
+  width:95%;
+  max-width:925px;
   margin:10px auto;
   padding:1em;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
@@ -219,7 +286,8 @@ h5 {
 }
 
 .external-links {
-  width:925px;
+  width:95%;
+  max-width:925px;
   margin:10px auto;
   margin-top:20px;
 }
@@ -240,7 +308,8 @@ h5 {
 
 .footer {
   background-color:white;
-  width:925px;
+  width:95%;
+  max-width:925px;
   margin:10px auto;
   padding:2em;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
@@ -249,6 +318,18 @@ h5 {
 .footer-text {
   font-size:1em;
   color:#888;
+  max-width:50%;
+}
+
+#left-footer-block {
+  float:left;
+  max-width:50%;
+}
+
+#right-footer-block {
+  float:right;
+  text-align:right;
+  max-width:50%;
 }
 
 .dotted-rule {
