@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <meta name="viewport" content="width=1024">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% if title %}
     <title>{{ title }} - Liberal Arts and Science Academy</title>
     {% else %}
@@ -28,7 +28,10 @@
         </div>
       </div>
       
-      <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
+      <div id="logo-wrapper">
+        <img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"/>
+      </div>
+
       {% if current_user.is_authenticated %}
       <div id="logged-in">
         {{current_user.name}} (<a href="/logout">logout</a>) <br/>
@@ -40,9 +43,17 @@
       </div>
       {% endif %}
       <nav class="navbar">
-        <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="main-navbar">
           <ul class="nav navbar-nav">
-            <li id="home-link"><a class="dropdown-toggle" href="/"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li id="home-link"><a href="/"><span id="home-icon" class="glyphicon glyphicon-home"></span><span id="home-text">Home</span></a></li>
 
         {% macro render_dropdown(page) -%}
         {% if page.name is not none %}
@@ -56,7 +67,7 @@
         {%- endmacro %}
 
 	    <li class="dropdown">
-        <a class="dropdown-toggle"><span class="glyphicon glyphicon-calendar"></span></a>
+        <a class="dropdown-toggle" data-toggle="dropdown">Calendars</a>
         <ul class="dropdown-menu">
         {% for page in pages['Calendars'] %}
           {{render_dropdown(page)}}
@@ -65,7 +76,7 @@
         </li>
 
 	    <li class="dropdown">
-        <a class="dropdown-toggle">About Us</a>
+        <a class="dropdown-toggle" data-toggle="dropdown">About Us</a>
         <ul class="dropdown-menu">
         {% for page in pages['About Us'] %}
           {{render_dropdown(page)}}
@@ -74,7 +85,7 @@
         </li>
 
         <li class="dropdown">
-        <a class="dropdown-toggle">Academics</a>
+        <a class="dropdown-toggle" data-toggle="dropdown">Academics</a>
         <ul class="dropdown-menu">
         {% for page in pages['Academics'] %}
           {{render_dropdown(page)}}
@@ -83,7 +94,7 @@
         </li>
 
         <li class="dropdown">
-        <a class="dropdown-toggle">Students</a>
+        <a class="dropdown-toggle" data-toggle="dropdown">Students</a>
         <ul class="dropdown-menu">
         {% for page in pages['Students'] %}
           {{render_dropdown(page)}}
@@ -92,7 +103,7 @@
         </li>
 
         <li class="dropdown">
-        <a class="dropdown-toggle">Parents</a>
+        <a class="dropdown-toggle" data-toggle="dropdown">Parents</a>
         <ul class="dropdown-menu">
         {% for page in pages['Parents'] %}
           {{render_dropdown(page)}}
@@ -101,7 +112,7 @@
         </li>
 
             <li class="dropdown">
-              <a class="dropdown-toggle">Faculty</a>
+              <a class="dropdown-toggle" data-toggle="dropdown">Faculty</a>
               <ul class="dropdown-menu">
                 <li><a href="/administration">Administration</a></li>
                 <li><a href="/guidance">Guidance and Counseling</a></li>
@@ -114,7 +125,7 @@
             </li>
 
         <li class="dropdown">
-        <a class="dropdown-toggle">Admissions</a>
+        <a class="dropdown-toggle" data-toggle="dropdown">Admissions</a>
         <ul class="dropdown-menu">
         {% for page in pages['Admissions'] %}
           {{render_dropdown(page)}}
@@ -148,14 +159,14 @@
     </div>
     <div class="footer">
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-6" id="left-footer-block">
 
           <div class="footer-tel-label"><span class="footer-text">Main Office:&nbsp;</span></div><br/>
           <span class="footer-text">(512) 414-5272</span><br>
           <div class="footer-tel-label"><span class="footer-text">Main Fax:&nbsp;</span></div><br/>
           <span class="footer-text">(512) 414-6050</span>
         </div>
-        <div class="col-sm-6" style="text-align:right">
+        <div class="col-sm-6" id="right-footer-block">
           <span class="footer-text"><a href="https://www.google.com/maps/place/Liberal+Arts+and+Science+Academy/@30.3130486,-97.6588788,17z" target="_blank">7309 Lazy Creek Drive Suite 225, Austin, TX 78724</a></span><br>
 	  			<hr class="dotted-rule">
           <span class="footer-text">Copyright © 2016 Liberal Arts and Science Academy</span><br />
